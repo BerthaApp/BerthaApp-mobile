@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="113dp"
+        android:layout_marginTop="124dp"
         android:layout_marginEnd="143dp"
         android:layout_marginBottom="103dp"
         android:paddingStart="0dp"
@@ -40,7 +40,8 @@
         android:paddingEnd="0dp"
         android:text="Add New Car"
         android:textColor="@color/colorFont"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -65,15 +66,11 @@
                 android:text="Car Brand"
                 android:textColor="@color/colorFont" />
 
-            <EditText
-                android:id="@+id/editText7"
+            <Spinner
+                android:id="@+id/spinner_make"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingStart="0dp"
-                android:paddingTop="20dp"
-                android:text="Name" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -83,15 +80,11 @@
                 android:text="Car Model"
                 android:textColor="@color/colorFont" />
 
-            <EditText
-                android:id="@+id/editText8"
+            <Spinner
+                android:id="@+id/spinner_model"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingStart="0dp"
-                android:paddingTop="20dp"
-                android:text="Name" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -101,14 +94,11 @@
                 android:text="Car Year"
                 android:textColor="@color/colorFont" />
 
-            <EditText
-                android:id="@+id/editText9"
+            <Spinner
+                android:id="@+id/spinner_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingTop="20dp"
-                android:text="Name" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -119,11 +109,10 @@
                 android:textColor="@color/colorFont" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spinner_engine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="50dp"
-                android:paddingTop="20dp" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -134,11 +123,10 @@
                 android:textColor="@color/colorFont" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/spinner_fuel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="50dp"
-                android:paddingTop="20dp" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -149,11 +137,10 @@
                 android:textColor="@color/colorFont" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spinner_transmission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="50dp"
-                android:paddingTop="20dp" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -164,13 +151,12 @@
                 android:textColor="@color/colorFont" />
 
             <EditText
-                android:id="@+id/editText10"
+                android:id="@+id/editText_tireSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:paddingStart="0dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 android:text="Name" />
 
             <TextView
@@ -182,11 +168,10 @@
                 android:textColor="@color/colorFont" />
 
             <Spinner
-                android:id="@+id/spinner5"
+                android:id="@+id/spinner_driveCond"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="50dp"
-                android:paddingTop="20dp" />
+                android:paddingBottom="50dp" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -197,13 +182,12 @@
                 android:textColor="@color/colorFont" />
 
             <EditText
-                android:id="@+id/editText11"
+                android:id="@+id/editText_plate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:paddingStart="0dp"
-                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 android:text="Name" />
         </LinearLayout>
     </ScrollView>
