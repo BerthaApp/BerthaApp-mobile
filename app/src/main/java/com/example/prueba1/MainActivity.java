@@ -18,22 +18,12 @@ public class MainActivity extends AppCompatActivity {
     private Button login_btn;
     private TextView sign_upBtn;
 
-    private Spinner spinner_fuel, spinner_transmission, spinner_car_make, spinner_car_model, spinner_car_year,
-    spinner_car_engine, spinner_drive_cond;
+
 
 
     //URL API
 
-    private final static String url_make = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes";
 
-    private final static String url_modelBy_make = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make=";
-
-    private final static String[] year = new String[] {"Choose year", "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"
-                                                        ,"2011","2012","2013","2014","2015","2016","2017","2018"};
-
-    private ArrayList<String> trim_model = new ArrayList<>();
-
-    private final static String[] fuel_type = new String[] {"Choose fuel type","Gasoline", "Diesel"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         //spinner link
 
-        spinner_fuel = findViewById(R.id.spinner_fuel);
-        spinner_transmission= findViewById(R.id.spinner_transmission);
-        spinner_car_make = findViewById(R.id.spinner_make);
-        spinner_car_model = findViewById(R.id.spinner_model);
-        spinner_car_year = findViewById(R.id.spinner_year);
-        spinner_car_engine = findViewById(R.id.spinner_engine);
-        spinner_drive_cond = findViewById(R.id.spinner_driveCond);
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override

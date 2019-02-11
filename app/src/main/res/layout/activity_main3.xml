@@ -35,7 +35,7 @@
         android:layout_marginEnd="143dp"
         android:layout_marginBottom="103dp"
         android:paddingStart="0dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
 
         android:paddingEnd="0dp"
         android:text="Add New Car"
@@ -70,7 +70,7 @@
                 android:id="@+id/spinner_make"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -84,7 +84,7 @@
                 android:id="@+id/spinner_model"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -98,7 +98,7 @@
                 android:id="@+id/spinner_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -112,7 +112,7 @@
                 android:id="@+id/spinner_engine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -126,7 +126,7 @@
                 android:id="@+id/spinner_fuel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -140,7 +140,7 @@
                 android:id="@+id/spinner_transmission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -155,9 +155,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="Tire size"
                 android:inputType="textPersonName"
-                android:paddingBottom="20dp"
-                android:text="Name" />
+                android:paddingBottom="15dp"
+                android:textColor="@color/black_overlay" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -171,7 +172,7 @@
                 android:id="@+id/spinner_driveCond"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp" />
+                android:paddingBottom="40dp" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -186,9 +187,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="License plate"
                 android:inputType="textPersonName"
-                android:paddingBottom="20dp"
-                android:text="Name" />
+                android:paddingBottom="15dp"
+                android:textColor="@color/black_overlay" />
         </LinearLayout>
     </ScrollView>
 
