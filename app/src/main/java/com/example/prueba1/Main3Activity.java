@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main3Activity extends AppCompatActivity {
 
@@ -39,8 +40,6 @@ public class Main3Activity extends AppCompatActivity {
 
     private final static String[] year = new String[] {"Choose year", "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"
             ,"2011","2012","2013","2014","2015","2016","2017","2018"};
-
-    private ArrayList<String> trim_model = new ArrayList<>();
 
     private final static String[] fuel_type = new String[] {"Choose fuel type","Gasoline", "Diesel"};
 
@@ -79,6 +78,14 @@ public class Main3Activity extends AppCompatActivity {
         spinner_condDrive.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_drive_cond.setAdapter(spinner_condDrive);
 
+        ArrayAdapter<String> spinner_modelAdapter = new ArrayAdapter<>(this,R.layout.spinner_item,list_models);
+        spinner_modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_car_model.setAdapter(spinner_modelAdapter);
+
+        ArrayAdapter<String> spinner_makeAdapter = new ArrayAdapter<>(this,R.layout.spinner_item,listaMarcas);
+        spinner_makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_car_make.setAdapter(spinner_makeAdapter);
+
         spinner_car_make.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,18 +101,13 @@ public class Main3Activity extends AppCompatActivity {
         });
 
 
-        /*spinner_car_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_car_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("fdsfasdf","ASDfasdf1");
-                String make = spinner_car_make.getSelectedItem().toString();
-
-                Log.e("fdsfasdf","ASDfasdf2");
-                String model = spinner_car_model.getSelectedItem().toString();
-                Log.e("fdsfasdf","ASDfasdf3");
 
                 if(!spinner_car_model.getSelectedItem().toString().equals("Choose model") && !spinner_car_make.getSelectedItem().toString().equals("Choose make")){
-                    getEngine(spinner_car_model.getSelectedItem().toString(), spinner_car_make.getSelectedItem().toString(), spinner_car_year.getSelectedItem().toString());
+                    Log.e("adsfaf","sdfasfd");
+                    getEngine(spinner_car_make.getSelectedItem().toString(), spinner_car_model.getSelectedItem().toString(), spinner_car_year.getSelectedItem().toString());
 
                 }
             }
@@ -114,7 +116,7 @@ public class Main3Activity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
 
 
 
@@ -147,6 +149,8 @@ public class Main3Activity extends AppCompatActivity {
 
         }
 
+        Log.e("Response is22223: ", url_model_trim + make + "&year=" + year + "&model=" + model);
+
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_model_trim + make + "&year=" + year + "&model=" + model,
                 new Response.Listener<String>() {
@@ -155,6 +159,7 @@ public class Main3Activity extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
 
                         String json = response.replaceAll("[(?);]","");
+
 
                         try {
                             JSONObject jsonObject = new JSONObject(json);
@@ -168,7 +173,7 @@ public class Main3Activity extends AppCompatActivity {
                                     String model_trim = oneObject.getString("model_trim");
 
                                     list_engineMod.add(model_trim);
-                                    Log.e("Response is: ", model_trim);
+                                    Log.e("Response is123: ", model_trim);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -206,7 +211,7 @@ public class Main3Activity extends AppCompatActivity {
         finish();
     }
 
-    ArrayList<String> listaMarcas = new ArrayList<>();
+    ArrayList<String> listaMarcas = new ArrayList<String>(Arrays.asList("Choose make"));
 
     public void getAllMake(){
         listaMarcas.clear();
@@ -261,7 +266,7 @@ public class Main3Activity extends AppCompatActivity {
 
     }
 
-    ArrayList<String> list_models = new ArrayList<>();
+    ArrayList<String> list_models = new ArrayList<>(Arrays.asList("Choose model"));
 
     public void getModelByMake(String make){
         list_models.clear();

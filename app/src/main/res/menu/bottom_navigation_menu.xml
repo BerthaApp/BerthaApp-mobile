@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_tripLog"
+        android:icon="@drawable/group23"
+        android:title="">
+
+    </item>
+    <item
+        android:id="@+id/ic_fuelControl"
+        android:icon="@drawable/group24"
+        android:title="">
+
+    </item>
+    <item
+        android:id="@+id/ic_startDrive"
+        android:icon="@drawable/group25"
+        android:title="">
+
+    </item>
+    <item
+        android:id="@+id/ic_profile"
+        android:icon="@drawable/group28"
+        android:title="">
+
+    </item>
+    <item
+        android:id="@+id/ic_challenges"
+        android:icon="@drawable/group175"
+        android:title="">
+
+    </item>
+</menu>
