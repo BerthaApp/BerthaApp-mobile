@@ -1,20 +1,22 @@
-package com.example.prueba1;
+package com.example.prueba1.ActivitiesMenu;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.prueba1.R;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class Main4Activity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("TAG", "onCreate: starting.");
         setContentView(R.layout.activity_main4);
-        Log.e("TAG", "onCreate: starting.1324");
+
+
         setupBottomNavigationView();
     }
 
@@ -24,7 +26,5 @@ public class Main4Activity extends AppCompatActivity {
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         Log.e("TAG", "onCreate: starting.44");
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-
-        BottomNavigationViewHelper.enableNavigation(Main4Activity.this,bottomNavigationViewEx);
     }
 }

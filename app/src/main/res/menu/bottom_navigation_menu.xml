@@ -2,31 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ic_tripLog"
-        android:icon="@drawable/group23"
+        android:icon="@drawable/group232x"
         android:title="">
 
     </item>
     <item
         android:id="@+id/ic_fuelControl"
-        android:icon="@drawable/group24"
+        android:icon="@drawable/group242x"
         android:title="">
 
     </item>
     <item
         android:id="@+id/ic_startDrive"
-        android:icon="@drawable/group25"
+        android:icon="@drawable/ic_action_startdrive"
+        android:title="">
+
+    </item>
+
+    <item
+        android:id="@+id/ic_challenges"
+        android:icon="@drawable/group1752x"
         android:title="">
 
     </item>
     <item
         android:id="@+id/ic_profile"
-        android:icon="@drawable/group28"
-        android:title="">
-
-    </item>
-    <item
-        android:id="@+id/ic_challenges"
-        android:icon="@drawable/group175"
+        android:icon="@drawable/ic_action_profile"
         android:title="">
 
     </item>

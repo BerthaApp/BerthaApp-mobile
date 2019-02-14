@@ -11,15 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main4Activity"></activity>
-        <activity
-            android:name=".SplashScreen"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".Main4Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
         </activity>
         <activity
             android:name=".Main3Activity"
@@ -30,6 +32,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity android:name=".ActivitiesMenu.ProfileActivity"></activity>
+        <activity android:name=".ActivitiesMenu.ChallengesActivity"></activity>
+        <activity android:name=".ActivitiesMenu.TripLogActivity"></activity>
+        <activity android:name=".ActivitiesMenu.FuelControlActivity"></activity>
     </application>
 
 </manifest>

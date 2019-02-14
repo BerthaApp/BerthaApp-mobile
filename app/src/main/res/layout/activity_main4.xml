@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +8,70 @@
     tools:context=".Main4Activity"
     android:background="@color/colorWhite">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
 
-        <android.support.v7.widget.Toolbar
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+            <RelativeLayout
+                android:id="@+id/relLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/relLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relLayout1">
+
+
+            </RelativeLayout>
+
+
+
+            <include layout="@layout/layout_bottom_nav_view" />
+
+
+        </RelativeLayout>
+<!--
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbarBottom"
-            android:background="@color/colorWhite"
-            >
+            android:layout_height="match_parent">
 
 
-        </android.support.v7.widget.Toolbar>
 
 
-    </android.support.design.widget.AppBarLayout>
+            <!- bottom navigation
+            <include layout="@layout/layout_bottom_nav_view"/>
 
+
+                <android.support.design.widget.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom">
+
+                    <android.support.v7.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/toolbarBottom"
+                        android:background="@color/colorWhite"
+                        >
+
+                    </android.support.v7.widget.Toolbar>
+
+
+                </android.support.design.widget.AppBarLayout>
+
+        </RelativeLayout>
+    -->
 </android.support.design.widget.CoordinatorLayout>
