@@ -1,6 +1,7 @@
 package com.example.prueba1.RegisterCar;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
 
 import org.json.JSONArray;
@@ -43,11 +46,14 @@ public class Main3Activity extends AppCompatActivity {
     private final static String[] year = new String[] {"Choose year", "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"
             ,"2011","2012","2013","2014","2015","2016","2017","2018"};
 
-    private final static String[] fuel_type = new String[] {"Choose fuel type","Gasoline", "Diesel"};
+    private final static String[] fuel_type = new String[] {"Gasoline", "Diesel"};
 
-    private final static String[] transmission_type = new String[] {"Choose transmission","Automatic", "Manual"};
+    private final static String[] transmission_type = new String[] {"Automatic", "Manual"};
 
-    private final static String [] drive_cond = new String[] {"Choose condition", "Urban","Rural"};
+    private final static String [] drive_cond = new String[] { "Urban","Rural"};
+
+
+    private Button save_carButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,17 @@ public class Main3Activity extends AppCompatActivity {
         spinner_car_year = findViewById(R.id.spinner_year);
         spinner_car_engine = findViewById(R.id.spinner_engine);
         spinner_drive_cond = findViewById(R.id.spinner_driveCond);
+
+        save_carButton = findViewById(R.id.save_carButton);
+
+        save_carButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         getAllMake();
 

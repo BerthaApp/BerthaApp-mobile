@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/mask_group52x" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageView6"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="49dp"
+        app:srcCompat="@drawable/group40x" />
+
+    <TextView
+        android:id="@+id/TextView_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New Drive"
+        android:textStyle="bold"
+        android:textColor="@color/black_overlay"
+        android:textSize="18sp"
+        android:layout_below="@id/imageView6"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/TextView_DriveMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TextView_Title"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="45dp"
+
+        android:text="Select Driving Mode"
+        android:textColor="@color/colorFont"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView_rideExperience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TextView_DriveMode"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="130dp"
+
+        android:text="Customize Ride Experience or accept deffaults"
+        android:textColor="@color/colorFont"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="150dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linearHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:id="@+id/ask1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Traveling Alone?"
+                android:textSize="16sp"
+                android:textColor="@color/black_overlay"
+                />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_weight="1"
+                android:text="No"
+                android:textOff="No"
+                android:textOn="Yes" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearHorizontal2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/ask2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of additional passengers"
+                android:textSize="16sp"
+                android:textColor="@color/black_overlay"
+                />
+
+            <EditText
+                android:id="@+id/editText7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="3"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:layout_marginStart="30dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearHorizontal3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+                <TextView
+                    android:id="@+id/ask3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hauling Cargo on the Roof?"
+                    android:textSize="16sp"
+                    android:textColor="@color/black_overlay"
+                    />
+
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="1"
+                    android:text="No"
+                    android:textOff="No"
+                    android:textOn="Yes" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearHorizontal4"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+                <TextView
+                    android:id="@+id/ask4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hauling Cargo on the Back?"
+                    android:textSize="16sp"
+                    android:textColor="@color/black_overlay"
+                    />
+
+                <Switch
+                    android:id="@+id/switch3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="1"
+                    android:text="No"
+                    android:textOff="No"
+                    android:textOn="Yes" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <include layout="@layout/layout_bottom_nav_view"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

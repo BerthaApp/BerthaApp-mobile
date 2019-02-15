@@ -25,11 +25,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView5"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="0dp"
             android:text="My Profile"
+            android:textColor="@color/black_overlay"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black_overlay"/>
+            android:textStyle="bold" />
 
 
         <ImageView
@@ -42,10 +42,62 @@
             app:srcCompat="@drawable/group1902x" />
 
 
+        <TextView
+            android:id="@+id/TextView_CarSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/imageView_driveMode"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:text="Car Set Up"
+            android:textColor="@color/black_overlay"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/listView_cars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_newCar"
+            android:layout_below="@+id/TextView_CarSelect"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:dividerHeight="10sp"
+            android:divider="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/button_newCar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/round_background"
+            android:drawableStart="@drawable/ic_action_add"
+            android:paddingStart="20dp"
+            android:text="   Add New Car"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/imageView5"
+            android:layout_marginTop="63dp"
+            android:layout_marginEnd="89dp"
+            android:layout_toStartOf="@+id/textView4"
+            app:srcCompat="@drawable/ic_action_menuham" />
+
         <include layout="@layout/layout_bottom_nav_view"/>
-
-
-
-
     </RelativeLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>

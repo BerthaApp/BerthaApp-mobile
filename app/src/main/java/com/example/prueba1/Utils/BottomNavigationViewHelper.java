@@ -54,6 +54,7 @@ public class BottomNavigationViewHelper {
                     case R.id.ic_profile:
                         Intent intent5 = new Intent(context, ProfileActivity.class);
                         context.startActivity(intent5);
+
                         break;
                 }
                 return false;

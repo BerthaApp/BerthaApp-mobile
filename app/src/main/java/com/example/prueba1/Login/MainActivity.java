@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.prueba1.RegisterUser.Main2Activity;
 import com.example.prueba1.RegisterCar.Main3Activity;
 import com.example.prueba1.R;
+import com.example.prueba1.StartDrive.Main4Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Main3Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
                 startActivity(intent);
                 finish();
             }
