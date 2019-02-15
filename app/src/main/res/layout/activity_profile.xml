@@ -18,7 +18,33 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/mask_group62x" />
 
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="My Profile"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black_overlay"/>
+
+
+        <ImageView
+            android:id="@+id/imageView_driveMode"
+            android:layout_width="wrap_content"
+            android:layout_height="115dp"
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/group1902x" />
+
+
         <include layout="@layout/layout_bottom_nav_view"/>
+
+
 
 
     </RelativeLayout>
