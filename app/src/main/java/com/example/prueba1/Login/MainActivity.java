@@ -1,4 +1,4 @@
-package com.example.prueba1;
+package com.example.prueba1.Login;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.example.prueba1.RegisterUser.Main2Activity;
+import com.example.prueba1.RegisterCar.Main3Activity;
+import com.example.prueba1.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Main3Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Main3Activity.class);
                 startActivity(intent);
                 finish();
             }
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         sign_upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                 startActivity(intent);
                 finish();
             }

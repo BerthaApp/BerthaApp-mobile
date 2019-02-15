@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main4Activity">
+        <activity android:name=".StartDrive.Main4Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,19 +24,19 @@
 
         </activity>
         <activity
-            android:name=".Main3Activity"
+            android:name=".RegisterCar.Main3Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
-            android:name=".Main2Activity"
+            android:name=".RegisterUser.Main2Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Login.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <activity android:name=".ActivitiesMenu.ProfileActivity"></activity>
-        <activity android:name=".ActivitiesMenu.ChallengesActivity"></activity>
-        <activity android:name=".ActivitiesMenu.TripLogActivity"></activity>
-        <activity android:name=".ActivitiesMenu.FuelControlActivity"></activity>
+        <activity android:name=".Profile.ProfileActivity"></activity>
+        <activity android:name=".Challenges.ChallengesActivity"></activity>
+        <activity android:name=".TripLog.TripLogActivity"></activity>
+        <activity android:name=".FuelControl.FuelControlActivity"></activity>
     </application>
 
 </manifest>

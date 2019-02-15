@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.prueba1.Login.MainActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME = 3000;

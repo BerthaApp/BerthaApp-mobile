@@ -1,4 +1,4 @@
-package com.example.prueba1;
+package com.example.prueba1.RegisterCar;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -206,7 +208,7 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }
