@@ -29,13 +29,12 @@ public class FuelControlActivity extends AppCompatActivity {
 
     private void setupBottomNavigationView(){
 
-        Log.e("TAG", "onCreate: starting.22");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
-        Log.e("TAG", "onCreate: starting.44");
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext,bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+        
     }
 }

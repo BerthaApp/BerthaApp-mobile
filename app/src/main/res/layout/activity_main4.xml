@@ -212,14 +212,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="71dp"
             android:background="@drawable/round_background"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="Start Drive"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+             />
 
 
         <include layout="@layout/layout_bottom_nav_view"/>
