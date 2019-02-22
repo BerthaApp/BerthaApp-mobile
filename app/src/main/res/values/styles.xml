@@ -16,6 +16,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/colorGreen</item>
+    </style>
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.DayNight" >
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="colorControlNormal">#33691e</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 
 </resources>

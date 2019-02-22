@@ -51,8 +51,8 @@
             android:id="@+id/relativePager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
-            android:layout_marginBottom="300dp">
+            android:layout_marginTop="140dp"
+            android:layout_marginBottom="330dp">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
@@ -78,7 +78,7 @@
             android:layout_below="@id/TextView_DriveMode"
             android:layout_alignParentStart="true"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="135dp"
+            android:layout_marginTop="125dp"
 
             android:text="Customize Ride Experience or accept deffaults"
             android:textColor="@color/colorFont"
@@ -120,9 +120,7 @@
                     android:layout_marginStart="100dp"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:textColorLink="@color/colorGreen"
-                    android:textOff="No"
-                    android:textOn="Yes"
+                    android:theme="@style/SwitchTheme"
                     tools:checked="false" />
 
 
@@ -144,16 +142,16 @@
                     android:textColor="@color/black_overlay"
                     android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/editText7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="3"
-                    android:inputType="number"
-                    android:textAlignment="center" />
+                <NumberPicker
+                    android:id="@+id/numberPicker"
+                    android:layout_width="30dp"
+                    android:layout_height="110dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="150dp"
+
+                    android:paddingTop="80dp"
+                    android:theme="@style/AppTheme.Picker" />
 
 
             </LinearLayout>
@@ -183,7 +181,8 @@
                     android:layout_weight="1"
                     android:textColorLink="@color/colorGreen"
                     android:textOff="No"
-                    android:textOn="Yes" />
+                    android:textOn="Yes"
+                    android:theme="@style/SwitchTheme"/>
 
 
             </LinearLayout>
@@ -212,8 +211,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     android:textColorLink="@color/colorGreen"
-                    android:textOff="No"
-                    android:textOn="Yes" />
+                    android:theme="@style/SwitchTheme"/>
 
 
             </LinearLayout>
@@ -229,8 +227,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="71dp"
             android:background="@drawable/round_background"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:text="Start Drive"
             android:textAlignment="center"
             android:textAllCaps="false"

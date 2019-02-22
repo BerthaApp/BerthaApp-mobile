@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
 
 import com.example.prueba1.Pager_DriveMode.Adapter;
 import com.example.prueba1.Pager_DriveMode.Model;
@@ -21,9 +22,14 @@ public class Main4Activity extends AppCompatActivity {
 
     private static final int ACTIVITY_NUM = 2;
 
-    ViewPager viewPager;
-    Adapter adapter;
-    List<Model> models;
+    private ViewPager viewPager;
+    private Adapter adapter;
+    private List<Model> models;
+
+
+    private NumberPicker numberPicker;
+
+
 
 
 
@@ -44,6 +50,11 @@ public class Main4Activity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
         viewPager.setPadding(350,0,200,0);
+
+        numberPicker = findViewById(R.id.numberPicker);
+
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(7);
 
 
     }
