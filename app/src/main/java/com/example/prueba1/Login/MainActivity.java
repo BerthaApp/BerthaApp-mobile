@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.prueba1.RegisterUser.Main2Activity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button login_btn;
     private TextView sign_upBtn;
+    private EditText username, password;
 
 
 
@@ -34,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         login_btn = findViewById(R.id.login_btn);
         sign_upBtn = findViewById(R.id.sign_upBtn);
+
+        username = findViewById(R.id.email_edit);
+        password = findViewById(R.id.password_edit);
+
+
 
 
         //spinner link

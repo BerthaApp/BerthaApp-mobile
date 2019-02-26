@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
+import com.example.prueba1.StartDrive.Main4Activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -155,11 +156,8 @@ public class Main3Activity extends AppCompatActivity {
     public void getEngine(String make, String model, String year){
 
         String model_weighKg, engine_cc, model_length_mm,model_width_mm,model_height_mm,model_mpg_hwy,model_mpg_city,model_mpg_mixed,
-        body,
-        door_number,
-        drive,
-        engine_position,
-        engine_type;
+        body, door_number, drive, engine_position, engine_type;
+
         list_engineMod.clear();
 
         if(make.contains(" ") || model.contains(" ")){
@@ -225,7 +223,7 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
         startActivity(intent);
         finish();
     }

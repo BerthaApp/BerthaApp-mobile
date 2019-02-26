@@ -1,6 +1,7 @@
 package com.example.prueba1;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,21 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.database.ConnectionSQL;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME = 3000;
+    private static int SPLASH_TIME = 2200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
+        ConnectionSQL connectionSQL = new ConnectionSQL(this,"bd_bertha1",null,1);
+        //SQLiteDatabase sqLiteDatabase = connectionSQL.getWritableDatabase();
+
 
         Window window = getWindow();
 

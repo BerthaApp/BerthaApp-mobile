@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.example.prueba1.R;
 import com.example.prueba1.RegisterCar.Main3Activity;
+import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -72,5 +73,13 @@ public class ProfileActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, Main4Activity.class);
+        startActivity(intent);
+        finish();
     }
 }

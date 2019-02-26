@@ -1,5 +1,6 @@
 package com.example.prueba1.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ public class BottomNavigationViewHelper {
                     case R.id.ic_tripLog:
                         Intent intent = new Intent(context, TripLogActivity.class);
                         context.startActivity(intent);
+
                         break;
                     case R.id.ic_fuelControl:
                         Intent intent2 = new Intent(context, FuelControlActivity.class);
@@ -46,6 +48,7 @@ public class BottomNavigationViewHelper {
                     case R.id.ic_startDrive:
                         Intent intent3 = new Intent(context, Main4Activity.class);
                         context.startActivity(intent3);
+
                         break;
                     case R.id.ic_challenges:
                         Intent intent4 = new Intent(context, ChallengesActivity.class);
@@ -56,7 +59,8 @@ public class BottomNavigationViewHelper {
                         context.startActivity(intent5);
 
                         break;
-                }
+                }((Activity)(context)).finish();
+
                 return false;
             }
         });
