@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class Main3Activity extends AppCompatActivity {
 
     private Spinner spinner_fuel, spinner_transmission, spinner_car_make, spinner_car_model, spinner_car_year,
             spinner_car_engine, spinner_drive_cond;
+
+    private EditText license_plate, tire_size;
 
     private final static String url_make = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes";
 
@@ -68,6 +71,9 @@ public class Main3Activity extends AppCompatActivity {
         spinner_car_year = findViewById(R.id.spinner_year);
         spinner_car_engine = findViewById(R.id.spinner_engine);
         spinner_drive_cond = findViewById(R.id.spinner_driveCond);
+
+        license_plate = findViewById(R.id.editText_plate);
+        tire_size = findViewById(R.id.editText_tireSize);
 
         save_carButton = findViewById(R.id.save_carButton);
 
