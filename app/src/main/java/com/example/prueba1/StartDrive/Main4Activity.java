@@ -63,7 +63,6 @@ public class Main4Activity extends AppCompatActivity {
 
     private void setupBottomNavigationView(){
 
-        Log.e("TAG", "onCreate: starting.22");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext,bottomNavigationViewEx);
@@ -71,8 +70,6 @@ public class Main4Activity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
 
-        //Intent intent1 = new Intent(Main4Activity.this, Main4Activity.class);
-        //startActivity(intent1);
     }
 
     @Override

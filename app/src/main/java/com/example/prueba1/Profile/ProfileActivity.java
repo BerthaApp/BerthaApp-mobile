@@ -97,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (view.getParent() != null) {
                     ((ViewGroup) view.getParent()).removeView(view);
                 }
-                builder.setTitle("Title");
+                builder.setTitle("Select the driving mode");
 
 
                 builder.setView(view);
