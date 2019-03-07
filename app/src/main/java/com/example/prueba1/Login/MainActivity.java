@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.email_edit);
         password = findViewById(R.id.password_edit);
 
-        try{
+        /*try{
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.example.prueba1", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (NoSuchAlgorithmException e) {
 
-        }
+        }*/
 
 
         //spinner link
