@@ -26,7 +26,9 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -34,6 +36,8 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         login_btn_fb = findViewById(R.id.login_button);
-        login_btn_fb.setReadPermissions(Arrays.asList("email"));
+        login_btn_fb.setReadPermissions(("friend_list"));
 
 
 
@@ -133,8 +137,22 @@ public class MainActivity extends AppCompatActivity {
         login_btn_fb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(loginResult.getAccessToken(), "/me/friends", null, HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            @Override
+                            public void onCompleted(GraphResponse response) {
+                                try{
+                                    JSONArray rawName = response.getJSONObject().getJSONArray("data");
+                                    Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                                }catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).executeAsync();
+                /*Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 AccessToken accessToken =loginResult.getAccessToken();
+
                 GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
@@ -144,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("fields","email, id");
                 graphRequest.setParameters(bundle);
-                graphRequest.executeAsync();
+                graphRequest.executeAsync();*/
             }
 
             @Override
@@ -162,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void toast_caca(JSONObject object){
+    public void toast(JSONObject object){
         Toast.makeText(this, object.toString(), Toast.LENGTH_SHORT).show();
     }
 

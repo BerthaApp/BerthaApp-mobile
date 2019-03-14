@@ -65,7 +65,13 @@ public class ChallengesActivity extends AppCompatActivity {
             }
         });
 
-
+        float_add_group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChallengesActivity.this,Select_friends.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupBottomNavigationView(){
