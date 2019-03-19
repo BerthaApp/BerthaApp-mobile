@@ -12,15 +12,23 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.prueba1.RegisterUser.Main2Activity;
 import com.example.prueba1.RegisterCar.Main3Activity;
 import com.example.prueba1.R;
 import com.example.prueba1.StartDrive.Main4Activity;
+import com.example.prueba1.Utils.PasswordUtils;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button login_btn;
     private Button sign_upBtn;
-    private EditText username, password;
+    private EditText usernameEdit, passwordEdit;
 
     private CallbackManager callbackManager;
 
@@ -65,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         login_btn = findViewById(R.id.login_btn);
         sign_upBtn = findViewById(R.id.sign_upBtn);
 
-        username = findViewById(R.id.email_edit);
-        password = findViewById(R.id.password_edit);
+        usernameEdit = findViewById(R.id.email_edit);
+        passwordEdit = findViewById(R.id.password_edit);
 
         /*try{
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -91,8 +99,27 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email,password;
+                email = usernameEdit.getText().toString();
+                password = passwordEdit.getText().toString();
+                if(checkFields(email,password)){
+                    if(getUserRequested(email, password)){
+                        Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(MainActivity.this, "Usuario no encontrado!", Toast.LENGTH_SHORT).show();
+                        usernameEdit.setText("");
+                        passwordEdit.setText("");
+                    }
+                }else{
+                    Toast.makeText(MainActivity.this, "Completa ambos campos!", Toast.LENGTH_SHORT).show();
+                    usernameEdit.setText("");
+                    passwordEdit.setText("");
+
+                }
                 Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
                 startActivity(intent);
+                //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                 finish();
             }
         });
@@ -102,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
+
 
 
 
@@ -177,6 +204,57 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    public boolean checkFields(String user, String pass ){
+        if(user.equals("") || pass.equals("")){
+            return false;
+        }
+
+        return true;
+    }
+
+
+    private String url_get_user = "https://bertha-temp.herokuapp.com/user/*********";
+
+    boolean isUser = false;
+    public boolean getUserRequested(String username, final String password){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_get_user + username,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("");
+
+                            if(jsonArray.equals(password)){
+                                isUser = true;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "NOP", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        return isUser;
 
     }
 
