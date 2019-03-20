@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.RegisterUser.Main2Activity;
@@ -103,24 +104,17 @@ public class MainActivity extends AppCompatActivity {
                 email = usernameEdit.getText().toString();
                 password = passwordEdit.getText().toString();
                 if(checkFields(email,password)){
-                    if(getUserRequested(email, password)){
-                        Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(MainActivity.this, "Usuario no encontrado!", Toast.LENGTH_SHORT).show();
-                        usernameEdit.setText("");
-                        passwordEdit.setText("");
-                    }
+                    getUserRequested(email, password);
                 }else{
                     Toast.makeText(MainActivity.this, "Completa ambos campos!", Toast.LENGTH_SHORT).show();
                     usernameEdit.setText("");
                     passwordEdit.setText("");
 
                 }
-                Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+                //startActivity(intent);
                 //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
-                finish();
+                //finish();
             }
         });
 
@@ -216,25 +210,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String url_get_user = "https://bertha-temp.herokuapp.com/user/*********";
+    private String url_get_user = "https://evening-oasis-22037.herokuapp.com/user/";
 
-    boolean isUser = false;
-    public boolean getUserRequested(String username, final String password){
+
+
+
+    public void getUserRequested(String username, final String password){
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_get_user + username,
-                new Response.Listener<String>() {
+        JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url_get_user + username,null,
+                new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-
-
+                    public void onResponse(JSONArray response) {
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("");
 
-                            if(jsonArray.equals(password)){
-                                isUser = true;
+                            String pass = response.getJSONObject(0).getString("password");
+                            String salt = response.getJSONObject(0).getString("salt");
+                            String generateSecure = PasswordUtils.generateSecurePassword(password,salt);
+
+
+                            //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
+                            boolean passwordMatch = generateSecure.equals(pass);
+                            Log.e("user",String.valueOf(passwordMatch));
+                            if(passwordMatch){
+                                toast(true);
+                            }else{
+                                toast(false);
                             }
 
                         } catch (JSONException e) {
@@ -246,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "NOP", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -254,12 +257,22 @@ public class MainActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-        return isUser;
+
 
     }
 
-    public void toast(JSONObject object){
-        Toast.makeText(this, object.toString(), Toast.LENGTH_SHORT).show();
+
+
+    public void toast(boolean isUser){
+        if(isUser){
+            Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(MainActivity.this, "Usuario no encontrado!", Toast.LENGTH_SHORT).show();
+            usernameEdit.setText("");
+            passwordEdit.setText("");
+        }
     }
 
     @Override

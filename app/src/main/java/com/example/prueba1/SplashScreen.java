@@ -77,8 +77,14 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_TIME);
 
-
-
+        String salt = "tyYWVxov5nYgH49imMVAN8WJ9JgJS4";
+        String pass = "12345";
+        String generateSecure = PasswordUtils.generateSecurePassword(pass,salt);
+        Log.e("generated", generateSecure);
+        //VcxCFWS2b2BdSUT2VZszC5Rei6oPk7qNd13CRq+Gq+I=
+        //VcxCFWS2b2BdSUT2VZszC5Rei6oPk7qNd13CRq+Gq+I=
+//        boolean passwordMatch = PasswordUtils.verifyUserPassword("123456", "OA/SxPT+7Qwb9551cNCwLCgtrrHsG14tQoyPXLmbGLA=", "tKnn6fntME7wMXkyN7M1XrLRCqeR70");
+  //      Log.e("splashuser",String.valueOf(passwordMatch));
     }
 
 

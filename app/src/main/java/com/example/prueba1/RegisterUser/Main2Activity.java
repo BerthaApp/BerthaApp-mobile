@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.R;
 import com.example.prueba1.Utils.PasswordUtils;
@@ -27,7 +33,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -92,118 +100,57 @@ public class Main2Activity extends AppCompatActivity {
 
             String salt = PasswordUtils.getSalt(30);
             String pass = PasswordUtils.generateSecurePassword(password,salt);
-            String[] params = {name[0],name[1], email, phone_number, pass, salt};
-            new SendPostRequest().execute(params);
 
+            String[] params = {name[0],name[1], email, phone_number, pass, salt};
+            //new SendPostRequest().execute(params);
+            postUser(params);
         }
 
         return false;
     }
 
-    public class SendPostRequest extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
 
-        }
 
-        protected String doInBackground(String... arg0) {
+    public void postUser(final String[] arg0){
 
-            try {
+        String url = "https://evening-oasis-22037.herokuapp.com/user_create/";
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-                URL url = new URL("https://evening-oasis-22037.herokuapp.com/user_create/"); // here is your URL path
-
-                JSONObject postDataParams = new JSONObject();
-                postDataParams.put("name", arg0[0]);
-                postDataParams.put("last_name", arg0[1]);
-                postDataParams.put("email", arg0[2]);
-                postDataParams.put("phone_num", arg0[3]);
-                postDataParams.put("password", arg0[4]);
-                postDataParams.put("salt", arg0[5]);
-                postDataParams.put("drive_mode_def", "eco");
-                Log.e("params",postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode=conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in=new BufferedReader(new
-                            InputStreamReader(
-                            conn.getInputStream()));
-
-                    StringBuffer sb = new StringBuffer("");
-                    String line="";
-
-                    while((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
                     }
-
-                    in.close();
-                    return sb.toString();
-
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
                 }
-                else {
-                    return new String("false : "+responseCode);
-                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", arg0[0]);
+                params.put("last_name", arg0[1]);
+                params.put("email", arg0[2]);
+                params.put("phone_num", arg0[3]);
+                params.put("password", arg0[4]);
+                params.put("salt", arg0[5]);
+                params.put("drive_mode_def", "eco");
+
+                return params;
             }
-            catch(Exception e){
-                return new String("Exception: " + e.getMessage());
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
-        }
+        };
+        queue.add(postRequest);
     }
 
-    public String getPostDataString(JSONObject params) throws Exception {
-
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        Iterator<String> itr = params.keys();
-
-        while(itr.hasNext()){
-
-            String key= itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
-    }
-
-    public String enccrypt_pass(String pass){
-        return null;
-    }
 }
