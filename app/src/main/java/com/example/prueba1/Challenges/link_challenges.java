@@ -2,7 +2,9 @@ package com.example.prueba1.Challenges;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -15,6 +17,8 @@ public class link_challenges extends AppCompatActivity {
     private Spinner spinner_challenges;
 
     private ListView listView_gruops;
+
+    private Button link_challengeBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,7 @@ public class link_challenges extends AppCompatActivity {
 
         spinner_challenges = findViewById(R.id.spinner_challengeList);
         listView_gruops = findViewById(R.id.listView_groups);
+        link_challengeBtn = findViewById(R.id.button_linkChallenge);
 
         ArrayAdapter<String> adapter_challenges = new ArrayAdapter<>(this,R.layout.spinner_item, Singleton.getInstance(link_challenges.this).return_challenges_name());
         adapter_challenges.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -34,5 +39,11 @@ public class link_challenges extends AppCompatActivity {
         listView_gruops.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 
+        link_challengeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 }
