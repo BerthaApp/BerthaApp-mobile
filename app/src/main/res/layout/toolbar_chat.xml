@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_gray_cool">
+
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:padding="10dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/group40x" />
+
+    <TextView
+        android:id="@+id/name_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+
+    <ImageButton
+        android:id="@+id/add_people_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="right|center_vertical"
+        android:background="@android:color/transparent"
+        android:paddingEnd="20dp"
+        android:src="@drawable/ic_action_addperson" />
+
+</android.support.v7.widget.Toolbar>

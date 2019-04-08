@@ -7,5 +7,10 @@
 
     <string name="facebook_app_id">655234408304761</string>
     <string name="fb_login_protocol_scheme">fb655234408304761</string>
+    <string name="add_email">&#160; &#xf067; Agregar correo &#160;</string>
+
+
+    <string name="create_group">Crear grupo</string>
+    <string name="link_challenges">Enlazar retos</string>
 
 </resources>

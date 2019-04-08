@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button button_addCar;
 
     private ImageView drive_mode;
-    private static String[] listCars = new String[] {"VW Golf","Land Cruiser", "Volkswagen","Land Cruiser", "Volkswagen","Land Cruiser", "Volkswagen","Land Cruiser", "Volkswagen"};
+    private static String[] listCars = new String[] {"VW Golf","Land Cruiser", "Volkswagen"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         button_addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getApplicationContext(), Main3Activity.class);
                 startActivity(intent);
                 finish();
@@ -159,4 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+
 }

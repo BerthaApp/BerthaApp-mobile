@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Challenges.link_challenges">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/mask_group62x" />
+
+        <Spinner
+            android:id="@+id/spinner_challengeList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView6"
+            android:layout_marginTop="100dp" />
+
+        <ListView
+            android:id="@+id/listView_groups"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button_linkChallenge"
+            android:layout_below="@+id/spinner_challengeList"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="30dp"
+            android:divider="@color/colorFont"
+            android:dividerHeight="10sp" />
+
+        <Button
+            android:id="@+id/button_linkChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginBottom="17dp"
+            android:text="Button" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

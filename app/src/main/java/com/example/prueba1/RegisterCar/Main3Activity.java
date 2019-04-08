@@ -23,8 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
+import com.example.prueba1.RegisterUser.Main2Activity;
 import com.example.prueba1.StartDrive.Main4Activity;
 
 import org.json.JSONArray;
@@ -33,13 +35,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main3Activity extends AppCompatActivity {
 
     private Spinner spinner_fuel, spinner_transmission, spinner_car_make, spinner_car_model, spinner_car_year,
             spinner_car_engine, spinner_drive_cond;
 
-    private EditText license_plate, tire_size;
+    private EditText licence_plate, tire_size;
 
     private final static String url_make = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes";
 
@@ -72,7 +76,7 @@ public class Main3Activity extends AppCompatActivity {
         spinner_car_engine = findViewById(R.id.spinner_engine);
         spinner_drive_cond = findViewById(R.id.spinner_driveCond);
 
-        license_plate = findViewById(R.id.editText_plate);
+        licence_plate = findViewById(R.id.editText_plate);
         tire_size = findViewById(R.id.editText_tireSize);
 
         save_carButton = findViewById(R.id.save_carButton);
@@ -80,9 +84,12 @@ public class Main3Activity extends AppCompatActivity {
         save_carButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(intent);
-                finish();
+                if(check_fields()){
+                    Log.e("---","----------------");
+                }
+                //Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+               // startActivity(intent);
+                //finish();
             }
         });
 
@@ -159,12 +166,14 @@ public class Main3Activity extends AppCompatActivity {
     }
 
     ArrayList<String> list_engineMod = new ArrayList<>();
+    ArrayList<String> list_trim_specs = new ArrayList<>();
     public void getEngine(String make, String model, String year){
 
-        String model_weighKg, engine_cc, model_length_mm,model_width_mm,model_height_mm,model_mpg_hwy,model_mpg_city,model_mpg_mixed,
-        body, door_number, drive, engine_position, engine_type;
+        //final String model_weighKg, engine_cc, model_length_mm,model_width_mm,model_height_mm,model_mpg_hwy,model_mpg_city,model_mpg_mixed,
+       // body, door_number, drive, engine_position, engine_type;
 
         list_engineMod.clear();
+        list_trim_specs.clear();
 
         if(make.contains(" ") || model.contains(" ")){
             make = make.replaceAll("\\s","-");
@@ -172,9 +181,9 @@ public class Main3Activity extends AppCompatActivity {
 
         }
 
-        Log.e("Response is22223: ", url_model_trim + make + "&year=" + year + "&model=" + model);
+        Log.e("1- Response is: ", url_model_trim + make + "&year=" + year + "&model=" + model);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_model_trim + make + "&year=" + year + "&model=" + model,
                 new Response.Listener<String>() {
                     @Override
@@ -195,8 +204,41 @@ public class Main3Activity extends AppCompatActivity {
                                     // Pulling items from the array
                                     String model_trim = oneObject.getString("model_trim");
 
+                                    String model_weighKg = oneObject.getString("model_weight_kg");
+                                    String engine_cc= oneObject.getString("model_engine_cc");
+                                    String model_length_mm= oneObject.getString("model_length_mm");
+                                    String model_width_mm= oneObject.getString("model_width_mm");
+                                    String model_height_mm= oneObject.getString("model_height_mm");
+                                    String model_lkm_hwy= oneObject.getString("model_lkm_hwy");
+                                    String model_lkm_city= oneObject.getString("model_lkm_city");
+                                    String model_mpg_mixed= oneObject.getString("model_lkm_mixed");
+                                    String model_body= oneObject.getString("model_body");
+                                    String model_doors= oneObject.getString("model_doors");
+                                    String model_drive= oneObject.getString("model_drive");
+                                    String model_engine_position= oneObject.getString("model_engine_position");
+                                    String model_engine_type= oneObject.getString("model_engine_type");
+
+
                                     list_engineMod.add(model_trim);
-                                    Log.e("Response is123: ", model_trim);
+
+                                    list_trim_specs.clear();
+
+                                    list_trim_specs.add(model_weighKg);
+                                    list_trim_specs.add(engine_cc);
+                                    list_trim_specs.add(model_length_mm);
+                                    list_trim_specs.add(model_width_mm);
+                                    list_trim_specs.add(model_height_mm);
+                                    list_trim_specs.add(model_lkm_hwy);
+                                    list_trim_specs.add(model_lkm_city);
+                                    list_trim_specs.add(model_mpg_mixed);
+                                    list_trim_specs.add(model_body);
+                                    list_trim_specs.add(model_doors);
+                                    list_trim_specs.add(model_drive);
+                                    list_trim_specs.add(model_engine_position);
+                                    list_trim_specs.add(model_engine_type);
+
+
+                                    Log.e("2- Response is: ", model_trim);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -221,7 +263,7 @@ public class Main3Activity extends AppCompatActivity {
         });
 
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        Singleton.getInstance(Main3Activity.this).addToRequestQueue(stringRequest);
 
 
     }
@@ -239,7 +281,7 @@ public class Main3Activity extends AppCompatActivity {
     public void getAllMake(){
         listaMarcas.clear();
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_make,
                 new Response.Listener<String>() {
                     @Override
@@ -260,7 +302,7 @@ public class Main3Activity extends AppCompatActivity {
                                     String oneObjectsItem = oneObject.getString("make_display");
 
                                     listaMarcas.add(oneObjectsItem);
-                                    Log.e("Response is: ", oneObjectsItem);
+                                    //Log.e("Response is: ", oneObjectsItem);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -285,7 +327,7 @@ public class Main3Activity extends AppCompatActivity {
         });
 
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        Singleton.getInstance(Main3Activity.this).addToRequestQueue(stringRequest);
 
     }
 
@@ -299,7 +341,7 @@ public class Main3Activity extends AppCompatActivity {
 
         }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_modelBy_make + make,
                 new Response.Listener<String>() {
                     @Override
@@ -345,7 +387,113 @@ public class Main3Activity extends AppCompatActivity {
         });
 
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        Singleton.getInstance(Main3Activity.this).addToRequestQueue(stringRequest);
 
+    }
+
+
+    private boolean check_fields(){
+
+
+        String[] params = new String[18];
+
+        String car_make = spinner_car_make.getSelectedItem().toString();
+        String car_model = spinner_car_model.getSelectedItem().toString();
+        String car_year = spinner_car_year.getSelectedItem().toString();
+        String car_engine = spinner_car_engine.getSelectedItem().toString();
+        String car_drive_cond = spinner_drive_cond.getSelectedItem().toString();
+        String car_transmission = spinner_transmission.getSelectedItem().toString();
+        String car_fuel = spinner_fuel.getSelectedItem().toString();
+
+        String car_licence = licence_plate.getText().toString();
+        String car_tireSize = tire_size.getText().toString();
+
+        if(car_make.equals("") || car_model.equals("") || car_year.equals("")){
+            Toast.makeText(this, "Por favor completa marca, modelo y año", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        params[0] = car_make;
+        params[1] = car_model;
+        params[2] = car_year;
+        params[3] = car_licence;
+        params[4] = car_fuel;
+        params[5] = car_make;
+        params[6] = car_make;
+        params[7] = car_make;
+
+        Log.e("CAR MAKE",car_make);
+        Log.e("CAR car_model",car_model);
+        Log.e("CAR car_year",car_year);
+        Log.e("CAR car_engine",car_engine);
+        Log.e("CAR car_drive_cond",car_drive_cond);
+        Log.e("CAR car_transmission",car_transmission);
+        Log.e("CAR car_fuel",car_fuel);
+        Log.e("CAR car_licence",car_licence);
+        Log.e("CAR car_tireSize",car_tireSize);
+        Log.e("CAR car_licence",car_licence);
+
+        for(String i : list_trim_specs){
+            Log.e("Specs",i);
+        }
+
+
+        return false;
+    }
+
+
+
+    public void postCar(final String[] arg0){
+
+        String url = "https://evening-oasis-22037.herokuapp.com/cars/car_create/";
+
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("make", arg0[0]);
+                params.put("model", arg0[1]);
+                params.put("year", arg0[2]);
+                params.put("licence_plate", arg0[3]);
+                params.put("fuel_type", arg0[4]);
+                params.put("weigh_kg", arg0[5]);
+                params.put("model_trim", "eco");
+                params.put("engine_cc", arg0[0]);
+                params.put("length_mm", arg0[1]);
+                params.put("width_mm", arg0[2]);
+                params.put("height_mm", arg0[3]);
+                params.put("mpg_hwy", arg0[4]);
+                params.put("mpg_city", arg0[5]);
+                params.put("mpg_mixed", "eco");
+                params.put("body_style", arg0[0]);
+                params.put("door_number", arg0[1]);
+                params.put("drive", arg0[2]);
+                params.put("engine_position", arg0[3]);
+                params.put("engine_type", arg0[4]);
+
+                return params;
+            }
+        };
+        Singleton.getInstance(Main3Activity.this).addToRequestQueue(postRequest);
     }
 }

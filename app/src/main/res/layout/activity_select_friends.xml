@@ -22,25 +22,63 @@
             app:srcCompat="@drawable/mask_group62x" />
 
 
+        <EditText
+            android:id="@+id/editGroup_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView6"
+            android:ems="10"
+            android:hint="Nombre de grupo"
+            android:inputType="textPersonName" />
+
         <ListView
             android:id="@+id/listView_friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/imageView6"
-            android:layout_marginTop="0dp" />
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="150dp" />
+
+        <LinearLayout
+            android:id="@+id/lista"
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/agregarCorreo_button"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <Button
+            android:id="@+id/agregarCorreo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="75dp"
+            android:background="@drawable/button_shape_light"
+            android:gravity="center_vertical"
+            android:onClick="agregarCorreo"
+            android:text="@string/add_email"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="410dp" />
 
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_button_create_group"
+        android:id="@+id/fab_button_createGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin_right"
         android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/color_gray_cool"
         android:elevation="6dp"
         android:src="@drawable/ic_action_rightarrow"
-        app:pressedTranslationZ="12dp"
-        android:backgroundTint="@color/color_gray_cool"
-        />
+        app:pressedTranslationZ="12dp" />
 </android.support.design.widget.CoordinatorLayout>

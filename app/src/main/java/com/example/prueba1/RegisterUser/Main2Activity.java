@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.R;
 import com.example.prueba1.Utils.PasswordUtils;
 
@@ -114,8 +115,8 @@ public class Main2Activity extends AppCompatActivity {
 
     public void postUser(final String[] arg0){
 
-        String url = "https://evening-oasis-22037.herokuapp.com/user_create/";
-        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://evening-oasis-22037.herokuapp.com/users/user_create/";
+
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -150,7 +151,7 @@ public class Main2Activity extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(postRequest);
+        Singleton.getInstance(Main2Activity.this).addToRequestQueue(postRequest);
     }
 
 }

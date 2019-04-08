@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.RegisterUser.Main2Activity;
 import com.example.prueba1.RegisterCar.Main3Activity;
 import com.example.prueba1.R;
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         usernameEdit = findViewById(R.id.email_edit);
         passwordEdit = findViewById(R.id.password_edit);
-
+        usernameEdit.setText("maria@gmail.com");
+        passwordEdit.setText("12345");
         /*try{
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.example.prueba1", PackageManager.GET_SIGNATURES);
@@ -210,15 +212,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String url_get_user = "https://evening-oasis-22037.herokuapp.com/user/";
+    private String url_get_user = "https://evening-oasis-22037.herokuapp.com/users/user/";
 
 
 
 
     public void getUserRequested(String username, final String password){
 
-
-        RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url_get_user + username,null,
                 new Response.Listener<JSONArray>() {
 
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        Singleton.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
 
 
 

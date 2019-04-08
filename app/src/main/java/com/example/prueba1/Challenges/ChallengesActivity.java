@@ -12,7 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.R;
 import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
@@ -24,11 +28,17 @@ public class ChallengesActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_NUM = 3;
 
-    private FloatingActionButton float_plus,float_add_group;
+    private FloatingActionButton float_plus,float_add_group,float_linkChallenge;
 
     private Animation fab_open, fab_close, fab_clockwise, fab_anticlockwise;
 
     private boolean isOpen = false;
+
+    private Singleton singleton = Singleton.getInstance(this);
+
+    private ListView listView_groups;
+
+    private TextView create_gruopTv, link_challengeTv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +48,15 @@ public class ChallengesActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
 
+        listView_groups = findViewById(R.id.groups_listview);
+
+        create_gruopTv = findViewById(R.id.create_gruopTv);
+        link_challengeTv = findViewById(R.id.link_challengeTv);
+
 
         float_plus = findViewById(R.id.fab_button_challenge);
         float_add_group = findViewById(R.id.fab_button_create_group);
+        float_linkChallenge = findViewById(R.id.fab_button_link_challenges);
 
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
@@ -52,14 +68,22 @@ public class ChallengesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isOpen){
                     float_add_group.startAnimation(fab_close);
+                    float_linkChallenge.startAnimation(fab_close);
                     float_plus.startAnimation(fab_anticlockwise);
                     float_add_group.setClickable(false);
+                    float_linkChallenge.setClickable(false);
+                    create_gruopTv.startAnimation(fab_close);
+                    link_challengeTv.startAnimation(fab_close);
                     isOpen = false;
                 }
                 else{
                     float_add_group.startAnimation(fab_open);
+                    float_linkChallenge.startAnimation(fab_open);
                     float_plus.startAnimation(fab_clockwise);
                     float_add_group.setClickable(true);
+                    float_linkChallenge.setClickable(true);
+                    create_gruopTv.startAnimation(fab_open);
+                    link_challengeTv.startAnimation(fab_open);
                     isOpen = true;
                 }
             }
@@ -69,6 +93,35 @@ public class ChallengesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChallengesActivity.this,Select_friends.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        float_linkChallenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChallengesActivity.this,link_challenges.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        Log.e("LENGTH LIST GROUPS",String.valueOf(singleton.getList_groups().size()));
+
+        singleton.setList_groups(new Groups(0,"Nombre","Descripcion"));
+
+        Groups_adapter adapter = new Groups_adapter(this, R.layout.group_item,singleton.getList_groups());
+        listView_groups.setAdapter(adapter);
+
+
+        listView_groups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Groups group = (Groups) listView_groups.getItemAtPosition(position);
+                Intent intent = new Intent(getApplicationContext(),Group_chat.class);
+                intent.putExtra("name_group",group.getName());
                 startActivity(intent);
             }
         });
@@ -92,5 +145,10 @@ public class ChallengesActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Main4Activity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void update_LV(){
+        Groups_adapter adapter = new Groups_adapter(this, R.layout.group_item,singleton.getList_groups());
+        listView_groups.setAdapter(adapter);
     }
 }
