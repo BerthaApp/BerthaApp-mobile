@@ -34,7 +34,6 @@
         <activity android:name=".RegisterUser.Main2Activity" />
         <activity android:name=".Login.MainActivity" />
         <activity android:name=".Profile.ProfileActivity" />
-        <activity android:name=".Challenges.ChallengesActivity" />
         <activity android:name=".TripLog.TripLogActivity" />
         <activity android:name=".FuelControl.FuelControlActivity" />
 

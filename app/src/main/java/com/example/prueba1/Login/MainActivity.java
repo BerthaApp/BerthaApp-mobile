@@ -1,6 +1,7 @@
 package com.example.prueba1.Login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -228,16 +229,16 @@ public class MainActivity extends AppCompatActivity {
 
                             String pass = response.getJSONObject(0).getString("password");
                             String salt = response.getJSONObject(0).getString("salt");
+                            String id = response.getJSONObject(0).getString("id_user");
+                            String id_car = response.getJSONObject(0).getString("id_car");
                             String generateSecure = PasswordUtils.generateSecurePassword(password,salt);
-
 
                             //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                             boolean passwordMatch = generateSecure.equals(pass);
-                            Log.e("user",String.valueOf(passwordMatch));
                             if(passwordMatch){
-                                toast(true);
+                                toast(true,id,id_car);
                             }else{
-                                toast(false);
+                                toast(false,id,id_car);
                             }
 
                         } catch (JSONException e) {
@@ -257,14 +258,20 @@ public class MainActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         Singleton.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
 
-
-
     }
 
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
 
-    public void toast(boolean isUser){
+    public void toast(boolean isUser, String id,String id_car){
         if(isUser){
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor =sharedPreferences.edit();
+            editor.putString(id_user,id);
+            editor.putString(id_car,id_car);
+
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
             startActivity(intent);
             finish();

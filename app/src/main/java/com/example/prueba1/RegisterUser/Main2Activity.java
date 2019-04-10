@@ -147,6 +147,7 @@ public class Main2Activity extends AppCompatActivity {
                 params.put("password", arg0[4]);
                 params.put("salt", arg0[5]);
                 params.put("drive_mode_def", "eco");
+                params.put("car_def_id", "-1");
 
                 return params;
             }
