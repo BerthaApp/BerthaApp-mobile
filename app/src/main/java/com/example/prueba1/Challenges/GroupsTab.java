@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.R;
+import com.example.prueba1.Utils.BottomNavigationViewHelper;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -129,4 +133,6 @@ public class GroupsTab extends Fragment{
         });
         return rootView;
     }
+
+
 }

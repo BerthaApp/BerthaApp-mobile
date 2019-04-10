@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.prueba1.Challenges.ChallengesActivity;
 import com.example.prueba1.Challenges.ChallengesTemp;
 import com.example.prueba1.FuelControl.FuelControlActivity;
 import com.example.prueba1.Profile.ProfileActivity;

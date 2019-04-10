@@ -114,14 +114,7 @@ public class ChallengesActivity extends AppCompatActivity {
             }
         });
 
-        float_all_challenges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChallengesActivity.this,all_challenges.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
 
         Log.e("LENGTH LIST GROUPS",String.valueOf(singleton.getList_groups().size()));
 

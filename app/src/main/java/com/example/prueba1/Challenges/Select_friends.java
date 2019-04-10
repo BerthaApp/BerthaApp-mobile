@@ -225,7 +225,7 @@ public class Select_friends extends AppCompatActivity {
                         // response
                         Log.d("Response", "Yes i got here");
                         singleton.setList_groups(new Groups(0,arg0[2],arg0[3]));
-                        Intent intent = new Intent(getApplicationContext(),ChallengesActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),ChallengesTemp.class);
                         startActivity(intent);
                         finish();
                     }
@@ -258,7 +258,7 @@ public class Select_friends extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(Select_friends.this,ChallengesActivity.class);
+        Intent intent = new Intent(Select_friends.this,ChallengesTemp.class);
         startActivity(intent);
         finish();
     }

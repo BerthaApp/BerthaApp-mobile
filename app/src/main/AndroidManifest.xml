@@ -12,7 +12,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Challenges.all_challenges"></activity>
         <activity
             android:name=".Challenges.ChallengesTemp"
             android:label="@string/title_activity_challenges_temp"

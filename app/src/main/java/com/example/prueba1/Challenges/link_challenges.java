@@ -69,7 +69,7 @@ public class link_challenges extends AppCompatActivity {
                 Log.e("Tag",name);
             }
         }
-        Intent intent = new Intent(link_challenges.this,ChallengesActivity.class);
+        Intent intent = new Intent(link_challenges.this,ChallengesTemp.class);
         startActivity(intent);
         finish();
 
@@ -79,7 +79,7 @@ public class link_challenges extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(link_challenges.this,ChallengesActivity.class);
+        Intent intent = new Intent(link_challenges.this,ChallengesTemp.class);
         startActivity(intent);
         finish();
     }

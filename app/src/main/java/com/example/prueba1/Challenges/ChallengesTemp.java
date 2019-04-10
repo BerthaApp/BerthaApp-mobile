@@ -1,6 +1,7 @@
 package com.example.prueba1.Challenges;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.prueba1.R;
+import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -138,6 +140,8 @@ public class ChallengesTemp extends AppCompatActivity {
             }
         }
 
+
+
         @Override
         public int getCount() {
             // Show 3 total pages.
@@ -158,5 +162,13 @@ public class ChallengesTemp extends AppCompatActivity {
             return null;
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, Main4Activity.class);
+        startActivity(intent);
+        finish();
     }
 }
