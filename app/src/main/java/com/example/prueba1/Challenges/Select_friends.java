@@ -254,5 +254,14 @@ public class Select_friends extends AppCompatActivity {
         Singleton.getInstance(Select_friends.this).addToRequestQueue(postRequest);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(Select_friends.this,ChallengesActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
 }

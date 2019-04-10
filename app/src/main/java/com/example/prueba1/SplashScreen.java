@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.HttpResponse;
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.Utils.PasswordUtils;
 import com.example.prueba1.database.ConnectionSQL;
 
@@ -45,8 +46,10 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        Singleton.getInstance(this).default_data();
 
-        ConnectionSQL connectionSQL = new ConnectionSQL(this,"bd_bertha1",null,1);
+
+
         //SQLiteDatabase sqLiteDatabase = connectionSQL.getWritableDatabase();
 
 

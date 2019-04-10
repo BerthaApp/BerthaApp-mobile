@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Groups_adapter extends ArrayAdapter {
 
-    private ArrayList<Groups> list_groups   ;
+    private ArrayList<Groups> list_groups;
 
     private Context mContext;
     int mResource;

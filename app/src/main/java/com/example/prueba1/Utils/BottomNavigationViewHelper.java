@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.prueba1.Challenges.ChallengesActivity;
+import com.example.prueba1.Challenges.ChallengesTemp;
 import com.example.prueba1.FuelControl.FuelControlActivity;
 import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.TripLog.TripLogActivity;
@@ -51,7 +52,7 @@ public class BottomNavigationViewHelper {
 
                         break;
                     case R.id.ic_challenges:
-                        Intent intent4 = new Intent(context, ChallengesActivity.class);
+                        Intent intent4 = new Intent(context, ChallengesTemp.class);
                         context.startActivity(intent4);
                         break;
                     case R.id.ic_profile:

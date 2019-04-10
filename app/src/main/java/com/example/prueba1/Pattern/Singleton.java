@@ -48,9 +48,26 @@ public class Singleton {
         return list_groups;
     }
 
+    public ArrayList<Challenges> getList_challenges(){
+        return list_challenges;
+    }
+
     public void setList_groups(Groups groups){
        list_groups.add(groups);
     }
+
+    public void setList_challenges(Challenges challenges){
+        list_challenges.add(challenges);
+    }
+
+    public void clearList_groups(){
+        list_groups.clear();
+    }
+
+    public void clearList_challenges(){
+        list_challenges.clear();
+    }
+
 
     public ArrayList<String> return_groups_name(){
         ArrayList<String> list_groupsNames = new ArrayList<>();
@@ -70,5 +87,15 @@ public class Singleton {
         }
 
         return list_challengesNames;
+    }
+
+    public void default_data(){
+        list_groups.add(new Groups(0,"Nombre","Descripcion"));
+        list_challenges.add(new Challenges(0,"Challenge1","30/05/19","Grupo"));
+        list_challenges.add(new Challenges(1,"Challenge2","30/05/19","General"));
+        list_challenges.add(new Challenges(2,"Challenge3","30/05/19","Grupo"));
+        list_challenges.add(new Challenges(3,"Challenge4","30/05/19","General"));
+        list_challenges.add(new Challenges(4,"Challenge5","30/05/19","Grupo"));
+        list_challenges.add(new Challenges(5,"Challenge6","30/05/19","General"));
     }
 }

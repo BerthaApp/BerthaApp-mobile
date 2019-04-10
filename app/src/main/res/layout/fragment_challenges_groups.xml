@@ -1,47 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Challenges.ChallengesActivity"
+    tools:context=".Challenges.GroupsTab"
     android:background="@color/color_green_very_light">
-
-
-    <LinearLayout
-        android:id="@+id/all_challenges_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom|end"
-
-        android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="290dp"
-        android:elevation="6dp"
-        >
-
-        <TextView
-            android:id="@+id/all_challengesTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:text="@string/all_challenges"
-            android:textSize="18sp"
-            android:visibility="invisible" />
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_button_allChallenges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_action_allchallenges"
-            app:pressedTranslationZ="12dp"
-            android:backgroundTint="@color/color_gray_cool"
-            android:visibility="invisible"/>
-
-    </LinearLayout>
 
 
     <LinearLayout
@@ -52,7 +17,7 @@
         android:layout_gravity="bottom|end"
 
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="190dp"
         android:elevation="6dp"
         >
 
@@ -66,16 +31,16 @@
             android:visibility="invisible" />
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_button_create_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_button_create_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
 
-        android:src="@drawable/ic_action_group"
-        app:pressedTranslationZ="12dp"
-        android:backgroundTint="@color/color_gray_cool"
-        android:visibility="invisible"/>
+            android:src="@drawable/ic_action_group"
+            app:pressedTranslationZ="12dp"
+            android:backgroundTint="@color/color_gray_cool"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
@@ -87,7 +52,7 @@
         android:layout_gravity="bottom|end"
 
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="250dp"
         android:elevation="6dp"
         >
 
@@ -120,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="130dp"
         android:elevation="6dp"
         android:src="@drawable/ic_action_plus"
         app:pressedTranslationZ="12dp" />
@@ -129,13 +94,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/mask_group62x" />
 
 
         <ListView
@@ -147,5 +105,7 @@
         <include layout="@layout/layout_bottom_nav_view"/>
 
     </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

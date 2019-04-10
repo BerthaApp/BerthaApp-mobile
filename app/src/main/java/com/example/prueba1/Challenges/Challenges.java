@@ -4,12 +4,14 @@ public class Challenges {
 
     private int id;
     private String name;
-    private String description;
+    private String expiration_date;
+    private String group_general;
 
-    public Challenges(int id, String name, String description) {
+    public Challenges(int id, String name, String expiration_date, String group_general) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.expiration_date = expiration_date;
+        this.group_general = group_general;
     }
 
     public int getId() {
@@ -28,11 +30,19 @@ public class Challenges {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getExpiration_date() {
+        return expiration_date;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setExpiration_date(String expiration_date) {
+        this.expiration_date = expiration_date;
+    }
+
+    public String getGroup_general() {
+        return group_general;
+    }
+
+    public void setGroup_general(String group_general) {
+        this.group_general = group_general;
     }
 }

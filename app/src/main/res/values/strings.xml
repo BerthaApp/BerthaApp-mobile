@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">prueba1</string>
+    <string name="app_name">Bertha App</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="dummy_button">Dummy Button</string>
@@ -12,5 +12,13 @@
 
     <string name="create_group">Crear grupo</string>
     <string name="link_challenges">Enlazar retos</string>
+    <string name="all_challenges">Todos los retos</string>
+
+    <string name="title_activity_challenges_temp">ChallengesTemp</string>
+    <string name="tab_text_1">Grupos</string>
+    <string name="tab_text_2">Mis retos</string>
+    <string name="tab_text_3">Retos globales</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

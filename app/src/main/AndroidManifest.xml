@@ -12,7 +12,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Challenges.link_challenges"></activity>
+        <activity android:name=".Challenges.all_challenges"></activity>
+        <activity
+            android:name=".Challenges.ChallengesTemp"
+            android:label="@string/title_activity_challenges_temp"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
+        <activity android:name=".Challenges.link_challenges" />
         <activity android:name=".Challenges.Group_chat" />
         <activity android:name=".Challenges.Select_friends" />
         <activity android:name=".StartDrive.Main4Activity" />
@@ -23,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".RegisterCar.Main3Activity" />
         <activity android:name=".RegisterUser.Main2Activity" />
         <activity android:name=".Login.MainActivity" />
