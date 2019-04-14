@@ -230,15 +230,15 @@ public class MainActivity extends AppCompatActivity {
                             String pass = response.getJSONObject(0).getString("password");
                             String salt = response.getJSONObject(0).getString("salt");
                             String id = response.getJSONObject(0).getString("id_user");
-                            String id_car = response.getJSONObject(0).getString("id_car");
+                            String id_carbd = response.getJSONObject(0).getString("id_car");
                             String generateSecure = PasswordUtils.generateSecurePassword(password,salt);
 
                             //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                             boolean passwordMatch = generateSecure.equals(pass);
                             if(passwordMatch){
-                                toast(true,id,id_car);
+                                toast(true,id,id_carbd);
                             }else{
-                                toast(false,id,id_car);
+                                toast(false,id,id_carbd);
                             }
 
                         } catch (JSONException e) {
@@ -265,12 +265,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String id_user = "id_user";
     public static final String id_car = "id_car";
 
-    public void toast(boolean isUser, String id,String id_car){
+    public void toast(boolean isUser, String id,String id_carbd){
         if(isUser){
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor =sharedPreferences.edit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(id_user,id);
-            editor.putString(id_car,id_car);
+            editor.putString(id_car,id_carbd);
 
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
             startActivity(intent);
