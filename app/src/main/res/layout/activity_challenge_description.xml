@@ -27,14 +27,14 @@
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/challenge_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Here goes the title"
+            android:text="Challenge Title"
             android:textSize="18sp"
             android:textColor="@color/colorGreen"/>
 
@@ -42,11 +42,11 @@
             android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Descripción"
             android:textSize="18sp" />
 
-        <TextView
+        <me.biubiubiu.justifytext.library.JustifyTextView
             android:id="@+id/description_challenge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +87,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="10"
                         android:gravity="end"
-                        android:text="Tokens" />
+                        android:layout_marginTop="20dp"
+                        android:text="5" />
 
                     <ImageView
                         android:id="@+id/imageView11"
@@ -126,7 +127,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="10"
                         android:gravity="end"
-                        android:text="Vigencia" />
+                        android:layout_marginTop="20dp"
+                        android:text="30/05/19" />
 
                     <ImageView
                         android:id="@+id/imageView13"
@@ -161,9 +163,8 @@
                     android:id="@+id/textView_departure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Ruta" />
+                    android:text="Heredia" />
 
                 <ImageView
                     android:id="@+id/routeIcon"
@@ -178,8 +179,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Ruta" />
+                    android:gravity="center|top"
+                    android:text="San Jose" />
             </LinearLayout>
 
             <LinearLayout
@@ -203,12 +204,13 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/textView_scoremin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Score Min"
+                        android:layout_marginTop="20dp"
                         android:layout_weight="10"
-                        android:gravity="end"/>
+                        android:gravity="end"
+                        android:text="90" />
 
                     <ImageView
                         android:id="@+id/imageView_points"

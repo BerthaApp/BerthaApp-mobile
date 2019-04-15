@@ -236,9 +236,9 @@ public class MainActivity extends AppCompatActivity {
                             //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                             boolean passwordMatch = generateSecure.equals(pass);
                             if(passwordMatch){
-                                toast(true,id,id_carbd);
+                                check_user(true,id,id_carbd);
                             }else{
-                                toast(false,id,id_carbd);
+                                check_user(false,id,id_carbd);
                             }
 
                         } catch (JSONException e) {
@@ -264,15 +264,19 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String id_user = "id_user";
     public static final String id_car = "id_car";
+    public static final String is_Logged = "isLogged";
 
-    public void toast(boolean isUser, String id,String id_carbd){
+    public void check_user(boolean isUser, String id,String id_carbd){
         if(isUser){
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(id_user,id);
             editor.putString(id_car,id_carbd);
+            editor.putBoolean(is_Logged,true);
 
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+            intent.putExtra("idUser",id);
+            intent.putExtra("idCar",id_carbd);
             startActivity(intent);
             finish();
         }else {

@@ -58,6 +58,11 @@ public class Main4Activity extends AppCompatActivity {
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(7);
 
+        String idUser = getIntent().getStringExtra("idUser");
+
+
+        downloadUserData();
+
 
     }
 
