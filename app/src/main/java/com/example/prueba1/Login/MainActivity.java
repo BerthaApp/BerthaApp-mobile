@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Pattern.Singleton;
@@ -220,25 +221,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void getUserRequested(String username, final String password){
 
-        JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url_get_user + username,null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url_get_user + username,null,
+                new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
 
-                            String pass = response.getJSONObject(0).getString("password");
-                            String salt = response.getJSONObject(0).getString("salt");
-                            String id = response.getJSONObject(0).getString("id_user");
-                            String id_carbd = response.getJSONObject(0).getString("id_car");
+
+                            String pass = response.getString("password");
+
+                            String salt = response.getString("salt");
+
+                            int id = response.getInt("id");
+
+                            String id_car = response.getString("car_def_id");
+
+
                             String generateSecure = PasswordUtils.generateSecurePassword(password,salt);
 
                             //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                             boolean passwordMatch = generateSecure.equals(pass);
                             if(passwordMatch){
-                                check_user(true,id,id_carbd);
+                                check_user(true,id,id_car);
                             }else{
-                                check_user(false,id,id_carbd);
+                                check_user(false,id,id_car);
                             }
 
                         } catch (JSONException e) {
@@ -266,14 +273,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String id_car = "id_car";
     public static final String is_Logged = "isLogged";
 
-    public void check_user(boolean isUser, String id,String id_carbd){
+    public void check_user(boolean isUser, int id,String id_carbd){
         if(isUser){
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(id_user,id);
+            editor.putString(id_user,String.valueOf(id));
             editor.putString(id_car,id_carbd);
             editor.putBoolean(is_Logged,true);
-
+            editor.apply();
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
             intent.putExtra("idUser",id);
             intent.putExtra("idCar",id_carbd);

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +23,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.R;
 import com.example.prueba1.RegisterCar.Main3Activity;
+import com.example.prueba1.SplashScreen;
 import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -40,8 +43,15 @@ public class ProfileActivity extends AppCompatActivity {
     //Button
     private Button button_addCar;
 
-    private ImageView drive_mode;
+    private ImageView drive_mode, hamburguer_menu;
     private static String[] listCars = new String[] {"VW Golf","Land Cruiser", "Volkswagen"};
+
+
+    //SHARED PREFERENCES
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
+    public static final String is_Logged = "isLogged";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         setupBottomNavigationView();
 
         drive_mode = findViewById(R.id.imageView_driveMode);
-
+        hamburguer_menu = findViewById(R.id.hamburguerMenu);
 
         listView_carList = findViewById(R.id.listView_cars);
 
@@ -64,6 +74,22 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getApplicationContext(), Main3Activity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        hamburguer_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(id_user,"");
+                editor.putString(id_car,"");
+                editor.putBoolean(is_Logged,false);
+                editor.apply();
+
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

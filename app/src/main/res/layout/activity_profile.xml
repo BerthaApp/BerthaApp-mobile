@@ -88,13 +88,13 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/hamburguerMenu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignTop="@+id/imageView5"
-            android:layout_marginTop="63dp"
-            android:layout_marginEnd="89dp"
-            android:layout_toStartOf="@+id/textView4"
+            android:layout_marginStart="91dp"
+            android:layout_marginTop="74dp"
+            android:layout_toEndOf="@+id/textView4"
             app:srcCompat="@drawable/ic_action_menuham" />
 
         <include layout="@layout/layout_bottom_nav_view"/>

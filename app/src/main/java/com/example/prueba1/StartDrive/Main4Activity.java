@@ -9,13 +9,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.Pager_DriveMode.Adapter;
 import com.example.prueba1.Pager_DriveMode.Model;
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.R;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
+import com.example.prueba1.Utils.PasswordUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +70,9 @@ public class Main4Activity extends AppCompatActivity {
         numberPicker.setMaxValue(7);
 
         String idUser = getIntent().getStringExtra("idUser");
+        String idCar = getIntent().getStringExtra("idCar");
 
-
-        downloadUserData();
+        downloadUserData(idUser);
 
 
     }
@@ -83,5 +94,50 @@ public class Main4Activity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private String url_get_data = "https://evening-oasis-22037.herokuapp.com/users/userGroup&Challenges/";
+
+    public void downloadUserData(String idUser){
+
+        JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url_get_data + idUser,null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            Log.e("here1","here1");
+                            JSONArray jsonArray = response.getJSONArray(0);
+                            JSONArray jsonArray4 = jsonArray.getJSONArray(0);
+                            JSONObject jsonObject = jsonArray4.getJSONObject(0);
+                            String string = jsonObject.getString("name");
+                            Log.e("here2",string);
+                            JSONArray jsonArray2 = response.getJSONArray(0).getJSONArray(1);
+                            Log.e("here3","here3");
+                            JSONArray jsonArray3 = response.getJSONArray(0).getJSONArray(2);
+
+                            Log.e("jsonArray",jsonArray.toString());
+                            Log.e("jsonArray2",jsonArray2.toString());
+                            Log.e("jsonArray3",jsonArray3.toString());
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("Response",response.toString());
+                        //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+// Add the request to the RequestQueue.
+        Singleton.getInstance(Main4Activity.this).addToRequestQueue(stringRequest);
+
     }
 }
