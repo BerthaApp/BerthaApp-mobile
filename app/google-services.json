@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "572742829873",
+    "firebase_url": "https://maps-bertha-fe260.firebaseio.com",
+    "project_id": "maps-bertha-fe260",
+    "storage_bucket": "maps-bertha-fe260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572742829873:android:ed1ba318fe036355",
+        "android_client_info": {
+          "package_name": "com.example.prueba1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572742829873-2i53da1132sc94q4689r8je2e11aeuvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgC9z07kwdxaE1vrrmp_Fnr1Hu0sZSLHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572742829873-2i53da1132sc94q4689r8je2e11aeuvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

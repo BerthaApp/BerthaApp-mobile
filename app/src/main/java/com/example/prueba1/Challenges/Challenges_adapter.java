@@ -1,6 +1,7 @@
 package com.example.prueba1.Challenges;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +37,11 @@ public class Challenges_adapter extends ArrayAdapter {
 
         TextView challenge_name = convertView.findViewById(R.id.itemChallenge_nameChallenge);
         TextView challenge_date = convertView.findViewById(R.id.itemChallenge_dateChallenge);
-        TextView challenge_mode = convertView.findViewById(R.id.itemChallenge_modeChallenge);
+        TextView challenge_mode = convertView.findViewById(R.id.itemChallenge_scoreChallenge);
 
         challenge_name.setText(challenges.getName());
-        challenge_date.setText(challenges.getExpiration_date());
-        challenge_mode.setText(challenges.getGroup_general());
+        challenge_date.setText(challenges.getEnd_date());
+        challenge_mode.setText(challenges.getScore_min());
 
         return convertView;
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Challenges.ChallengeDescription">
+    tools:context=".Challenges.ChallengeDescription"
+    android:background="@color/color_green_very_light">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,10 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:textSize="16sp"
             android:justificationMode="inter_word"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"/>
+            android:padding="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,9 +86,9 @@
                         android:id="@+id/textViewNumberTokens"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:layout_weight="10"
                         android:gravity="end"
-                        android:layout_marginTop="20dp"
                         android:text="5" />
 
                     <ImageView
@@ -125,9 +126,9 @@
                         android:id="@+id/textViewExpirationDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:layout_weight="10"
                         android:gravity="end"
-                        android:layout_marginTop="20dp"
                         android:text="30/05/19" />
 
                     <ImageView
@@ -223,5 +224,31 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button_addChallenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="30dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_plus"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button_dropChallenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="30dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_dropchallenge"
+        app:pressedTranslationZ="12dp"
+        android:backgroundTint="@color/color_red"
+        android:visibility="invisible"/>
+
 
 </android.support.design.widget.CoordinatorLayout>

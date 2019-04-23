@@ -224,7 +224,7 @@ public class Select_friends extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", "Yes i got here");
-                        singleton.setList_groups(new Groups(0,arg0[2],arg0[3]));
+                        singleton.addList_groups(new Groups(0,arg0[2],arg0[3]));
                         Intent intent = new Intent(getApplicationContext(),ChallengesTemp.class);
                         startActivity(intent);
                         finish();

@@ -35,5 +35,12 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:4.40.0'
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'me.biubiubiu.justifytext:library:1.1'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
+
+    //Google Play Services for Maps
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
 }
+apply plugin: 'com.google.gms.google-services'

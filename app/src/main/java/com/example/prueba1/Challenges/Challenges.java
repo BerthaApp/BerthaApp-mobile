@@ -1,17 +1,31 @@
 package com.example.prueba1.Challenges;
 
+import java.util.Date;
+
 public class Challenges {
 
     private int id;
     private String name;
-    private String expiration_date;
-    private String group_general;
+    private String description;
+    private int tokens;
+    private String created_at;
+    private String end_date;
+    private String score_min;
+    private String route_from;
+    private String route_to;
+    private boolean myChallenge;
 
-    public Challenges(int id, String name, String expiration_date, String group_general) {
+    public Challenges(int id, String name, String description, int tokens, String created_at, String end_date, String score_min, String route_from, String route_to, boolean myChallenge) {
         this.id = id;
         this.name = name;
-        this.expiration_date = expiration_date;
-        this.group_general = group_general;
+        this.description = description;
+        this.tokens = tokens;
+        this.created_at = created_at;
+        this.end_date = end_date;
+        this.score_min = score_min;
+        this.route_from = route_from;
+        this.route_to = route_to;
+        this.myChallenge = myChallenge;
     }
 
     public int getId() {
@@ -30,19 +44,67 @@ public class Challenges {
         this.name = name;
     }
 
-    public String getExpiration_date() {
-        return expiration_date;
+    public String getDescription() {
+        return description;
     }
 
-    public void setExpiration_date(String expiration_date) {
-        this.expiration_date = expiration_date;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getGroup_general() {
-        return group_general;
+    public int getTokens() {
+        return tokens;
     }
 
-    public void setGroup_general(String group_general) {
-        this.group_general = group_general;
+    public void setTokens(int tokens) {
+        this.tokens = tokens;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getScore_min() {
+        return score_min;
+    }
+
+    public void setScore_min(String score_min) {
+        this.score_min = score_min;
+    }
+
+    public String getRoute_from() {
+        return route_from;
+    }
+
+    public void setRoute_from(String route_from) {
+        this.route_from = route_from;
+    }
+
+    public String getRoute_to() {
+        return route_to;
+    }
+
+    public void setRoute_to(String route_to) {
+        this.route_to = route_to;
+    }
+
+    public boolean isMyChallenge() {
+        return myChallenge;
+    }
+
+    public void setMyChallenge(boolean myChallenge) {
+        this.myChallenge = myChallenge;
     }
 }
