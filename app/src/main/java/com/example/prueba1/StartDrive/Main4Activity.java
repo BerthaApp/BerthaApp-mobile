@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
 import com.example.prueba1.Login.MainActivity;
+import com.example.prueba1.Maps.Main_maps;
 import com.example.prueba1.Pager_DriveMode.Adapter;
 import com.example.prueba1.Pager_DriveMode.Model;
 import com.example.prueba1.Pattern.Singleton;
@@ -51,6 +54,7 @@ public class Main4Activity extends AppCompatActivity {
     private Adapter adapter;
     private List<Model> models;
 
+    private Button btn_startDrive;
 
     private NumberPicker numberPicker;
 
@@ -84,6 +88,8 @@ public class Main4Activity extends AppCompatActivity {
 
         numberPicker = findViewById(R.id.numberPicker);
 
+        btn_startDrive = findViewById(R.id.button_startDrive);
+
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(7);
 
@@ -95,6 +101,15 @@ public class Main4Activity extends AppCompatActivity {
         Singleton.getInstance(getApplicationContext()).clearList_groups();
         Singleton.getInstance(getApplicationContext()).clearList_challenges();
         downloadUserData(idUser);
+
+        btn_startDrive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Main_maps.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
