@@ -51,7 +51,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        //Singleton.getInstance(this).default_data();
+        Singleton.getInstance(this).default_data();
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Boolean isLogged = sharedPreferences.getBoolean(is_Logged, false);

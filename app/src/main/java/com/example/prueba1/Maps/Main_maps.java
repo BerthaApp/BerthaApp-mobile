@@ -1,10 +1,12 @@
 package com.example.prueba1.Maps;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
@@ -21,6 +23,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +37,7 @@ import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -48,25 +55,52 @@ public class Main_maps extends AppCompatActivity {
 
     private FirebaseFirestore mDb;
 
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_maps);
 
-        if(isServicesOK()){
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (isServicesOK()) {
             init();
         }
     }
 
+    private void getLastKnownLocation() {
+        Log.d(TAG, "getLastKnownLocation: called.");
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful()) {
+                    Location location = task.getResult();
+
+                    GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    Log.d(TAG, "onComplete: latitude: " + geoPoint.getLatitude());
+                    Log.d(TAG, "onComplete: latitude: " + geoPoint.getLongitude());
+                }
+            }
+        });
+
+    }
 
     private void init(){
         Button btnMap = findViewById(R.id.btn_map);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main_maps.this,MapActivity.class);
-                startActivity(intent);
+
+
+                getFragmentMaps();
+                getLastKnownLocation();
+
             }
         });
     }
@@ -133,7 +167,10 @@ public class Main_maps extends AppCompatActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
-            getChatrooms();
+
+            getFragmentMaps();
+            getLastKnownLocation();
+
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
@@ -185,9 +222,10 @@ public class Main_maps extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ENABLE_GPS: {
                 if(mLocationPermissionGranted){
-                    map fragment = new map();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.content_mainMaps,fragment).commit();
+
+                    getFragmentMaps();
+                    getLastKnownLocation();
+
                 }
                 else{
                     getLocationPermission();
@@ -201,7 +239,9 @@ public class Main_maps extends AppCompatActivity {
         super.onResume();
         if(checkMapServices()){
             if(mLocationPermissionGranted){
-                getChatrooms();
+
+                getFragmentMaps();
+                getLastKnownLocation();
             }
             else{
                 getLocationPermission();
@@ -218,7 +258,11 @@ public class Main_maps extends AppCompatActivity {
         return false;
     }
 
-    private void getChatrooms(){
+    private void getFragmentMaps(){
+
+        map fragment = new map();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_mainMaps,fragment).commit();
 /*
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)

@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
+import com.example.prueba1.Maps.Road_mark;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Singleton {
     private static Context mContext;
     private static ArrayList<Groups> list_groups = new ArrayList<>();
     private static ArrayList<Challenges> list_challenges = new ArrayList<>();
+    private static ArrayList<Road_mark> list_roadMarkers= new ArrayList<>();
 
 
 
@@ -72,6 +74,9 @@ public class Singleton {
         list_challenges.clear();
     }
 
+    public static ArrayList<Road_mark> getList_roadMarkers() {
+        return list_roadMarkers;
+    }
 
     public ArrayList<String> return_groups_name(){
         ArrayList<String> list_groupsNames = new ArrayList<>();
@@ -128,18 +133,11 @@ public class Singleton {
         return null;
     }
 
-    /*
-
-
-
 
     public void default_data(){
-        list_groups.add(new Groups(0,"Nombre","Descripcion"));
-        list_challenges.add(new Challenges(0,"Challenge1","30/05/19","Grupo"));
-        list_challenges.add(new Challenges(1,"Challenge2","30/05/19","General"));
-        list_challenges.add(new Challenges(2,"Challenge3","30/05/19","Grupo"));
-        list_challenges.add(new Challenges(3,"Challenge4","30/05/19","General"));
-        list_challenges.add(new Challenges(4,"Challenge5","30/05/19","Grupo"));
-        list_challenges.add(new Challenges(5,"Challenge6","30/05/19","General"));
-    }*/
+        list_roadMarkers.add(new Road_mark(0,"First Mark",9.944366, -84.149213,10));
+        list_roadMarkers.add(new Road_mark(0,"Second Mark",9.939440, -84.140825,10));
+        list_roadMarkers.add(new Road_mark(0,"Third Mark",9.936281, -84.132213,10));
+        list_roadMarkers.add(new Road_mark(0,"Fourth Mark",9.935464, -84.121021,10));
+    }
 }
