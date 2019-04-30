@@ -9,6 +9,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
 import com.example.prueba1.Maps.Road_mark;
+import com.example.prueba1.Profile.My_Cars;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Singleton {
     private static ArrayList<Groups> list_groups = new ArrayList<>();
     private static ArrayList<Challenges> list_challenges = new ArrayList<>();
     private static ArrayList<Road_mark> list_roadMarkers= new ArrayList<>();
+    private static ArrayList<My_Cars> list_myCars= new ArrayList<>();
 
 
 
@@ -58,6 +60,18 @@ public class Singleton {
         return list_challenges;
     }
 
+    public ArrayList<String> getList_myCarsString(){
+        ArrayList<String> listString_myCars = new ArrayList<>();
+        for(My_Cars i: list_myCars){
+            listString_myCars.add(i.getMake()+" - "+i.getModel());
+        }
+        return listString_myCars;
+    }
+
+    public static ArrayList<My_Cars> getList_myCars() {
+        return list_myCars;
+    }
+
     public void addList_groups(Groups groups){
        list_groups.add(groups);
     }
@@ -66,12 +80,21 @@ public class Singleton {
         list_challenges.add(challenges);
     }
 
+    public void addList_cars(My_Cars car){
+        list_myCars.add(car);
+    }
+
+
     public void clearList_groups(){
         list_groups.clear();
     }
 
     public void clearList_challenges(){
         list_challenges.clear();
+    }
+
+    public void clearList_cars(){
+        list_myCars.clear();
     }
 
     public static ArrayList<Road_mark> getList_roadMarkers() {
@@ -131,6 +154,17 @@ public class Singleton {
             }
         }
         return null;
+    }
+
+    public int getPositionIdCar(int idCar){
+        int i = 0;
+        for(My_Cars my_cars : list_myCars){
+            if(my_cars.getId() == idCar){
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
 

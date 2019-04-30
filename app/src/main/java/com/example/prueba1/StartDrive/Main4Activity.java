@@ -1,9 +1,12 @@
 package com.example.prueba1.StartDrive;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +21,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.prueba1.Challenges.ChallengeDescription;
 import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
 import com.example.prueba1.Login.MainActivity;
@@ -25,6 +30,7 @@ import com.example.prueba1.Maps.Main_maps;
 import com.example.prueba1.Pager_DriveMode.Adapter;
 import com.example.prueba1.Pager_DriveMode.Model;
 import com.example.prueba1.Pattern.Singleton;
+import com.example.prueba1.Profile.My_Cars;
 import com.example.prueba1.R;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.example.prueba1.Utils.PasswordUtils;
@@ -47,6 +53,8 @@ import java.util.Locale;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Main4Activity extends AppCompatActivity {
+
+    public static final String TAG = "Start new drive";
 
     private static final int ACTIVITY_NUM = 2;
 
@@ -100,7 +108,13 @@ public class Main4Activity extends AppCompatActivity {
         //String idCar = getIntent().getStringExtra("idCar");
         Singleton.getInstance(getApplicationContext()).clearList_groups();
         Singleton.getInstance(getApplicationContext()).clearList_challenges();
+        Singleton.getInstance(getApplicationContext()).clearList_cars();
+
+        //DESCARGA LA INFORMACION DEL USUARIO DE CHALLENGES Y GRUPOS
         downloadUserData(idUser);
+
+        //DESCARGA LA INFORMACION DEL USUARIO DE AUTOS
+        downloadCarUserData(idUser);
 
         btn_startDrive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,11 +141,34 @@ public class Main4Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        //super.onBackPressed();
+        //Intent intent = new Intent(this, MainActivity.class);
+        //startActivity(intent);
+
+        new AlertDialog.Builder(Main4Activity.this)
+                .setTitle("Salirse de App")
+                .setMessage("Desea salirse de la aplicacion?")
+                .setIcon(R.drawable.group40x)
+                .setPositiveButton("Sí",
+                        new DialogInterface.OnClickListener() {
+                            @TargetApi(11)
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(Main4Activity.this, "Hasta pronto!", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                                finish();
+                            }
+                        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @TargetApi(11)
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(Main4Activity.this, "Ok", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                }).show();
+
     }
+
+
 
     private String url_get_data = "https://evening-oasis-22037.herokuapp.com/users/userGroup&Challenges/";
 
@@ -199,7 +236,7 @@ public class Main4Activity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            Log.e("lista id", Arrays.toString(id_MyChallenges.toArray()));
+
                             Singleton.getInstance(getApplicationContext()).link_myChallenges(id_MyChallenges);
 
 
@@ -223,7 +260,6 @@ public class Main4Activity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.e("Response",response.toString());
                         //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
 
                     }
@@ -239,5 +275,42 @@ public class Main4Activity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         Singleton.getInstance(Main4Activity.this).addToRequestQueue(stringRequest);
 
+    }
+
+
+    private String url_get_carData = "https://evening-oasis-22037.herokuapp.com/cars/carsxuser/";
+
+    public void downloadCarUserData(String idUser){
+        JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url_get_carData + idUser, null,
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e(TAG,response.toString());
+                        try{
+                            int len = response.length();
+                            for(int i = 0 ;i<len; i++){
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                int id = jsonObject.getInt("id");
+                                String make = jsonObject.getString("make");
+                                String model = jsonObject.getString("model");
+                                String engine = jsonObject.getString("model_trim");
+
+                                Singleton.getInstance(getApplicationContext()).addList_cars(new My_Cars(id,make,model,engine));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        Singleton.getInstance(Main4Activity.this).addToRequestQueue(getRequest);
     }
 }

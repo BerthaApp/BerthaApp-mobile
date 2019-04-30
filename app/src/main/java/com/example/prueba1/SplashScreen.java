@@ -43,8 +43,6 @@ public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME = 2200;
     public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String id_user = "id_user";
-    public static final String id_car = "id_car";
     public static final String is_Logged = "isLogged";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

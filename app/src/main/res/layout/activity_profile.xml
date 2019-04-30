@@ -56,6 +56,17 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textView_noCars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_newCar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="116dp"
+            android:layout_marginBottom="163dp"
+            android:text="@string/No_cars_registered"
+            android:visibility="invisible" />
+
         <ListView
             android:id="@+id/listView_cars"
             android:layout_width="match_parent"

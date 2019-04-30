@@ -1,6 +1,7 @@
 package com.example.prueba1.RegisterCar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.Pattern.Singleton;
+import com.example.prueba1.Profile.My_Cars;
 import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
 import com.example.prueba1.RegisterUser.Main2Activity;
@@ -67,6 +69,9 @@ public class Main3Activity extends AppCompatActivity {
 
 
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    private String id_userLogged;
 
     private Button save_carButton;
 
@@ -74,6 +79,9 @@ public class Main3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
 
         spinner_fuel = findViewById(R.id.spinner_fuel);
         spinner_transmission= findViewById(R.id.spinner_transmission);
@@ -92,7 +100,7 @@ public class Main3Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(check_fields()){
-                    Toast.makeText(getApplicationContext(), "Carro registrado", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Carro registrado", Toast.LENGTH_SHORT).show();
 
                 }else{
                     Toast.makeText(getApplicationContext(), "Por favor completa al menos marca, modelo, año y motor", Toast.LENGTH_SHORT).show();
@@ -150,13 +158,11 @@ public class Main3Activity extends AppCompatActivity {
         spinner_car_engine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("Choose engine")){}else{
+                if(parent.getItemAtPosition(position).equals("Choose engine")){}
+                else{
                     String id_selected = list_modelId.get(position);
-                    Log.d(TAG, "onItemSelected: "+id_selected);
                     getTrimsSpecs(id_selected);
                 }
-
-
 
             }
 
@@ -215,8 +221,6 @@ public class Main3Activity extends AppCompatActivity {
 
         }
 
-        Log.e("1- Response is: ", url_model_trim + make + "&year=" + year + "&model=" + model);
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url_model_trim + make + "&year=" + year + "&model=" + model,
                 new Response.Listener<String>() {
@@ -243,7 +247,6 @@ public class Main3Activity extends AppCompatActivity {
                                     list_engineMod.add(model_trim);
 
 
-                                    Log.e("2- Response is: ", model_trim);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -312,7 +315,6 @@ public class Main3Activity extends AppCompatActivity {
                                     String oneObjectsItem = oneObject.getString("make_display");
 
                                     listaMarcas.add(oneObjectsItem);
-                                    //Log.e("Response is: ", oneObjectsItem);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -372,7 +374,6 @@ public class Main3Activity extends AppCompatActivity {
                                     String oneObjectsItem = oneObject.getString("model_name");
 
                                     list_models.add(oneObjectsItem);
-                                    Log.e("Response is: ", oneObjectsItem);
                                 } catch (JSONException e) {
                                     // Oops
                                 }
@@ -418,7 +419,6 @@ public class Main3Activity extends AppCompatActivity {
 
                         try {
                             JSONArray jsonArray = new JSONArray(json);
-                            Log.d(TAG, "onResponse: "+jsonArray);
 
                             for (int i=0; i < jsonArray.length(); i++)
                             {
@@ -487,8 +487,7 @@ public class Main3Activity extends AppCompatActivity {
 
     private boolean check_fields(){
 
-
-        String[] params = new String[21];
+        String[] params = new String[23];
 
         String car_make = spinner_car_make.getSelectedItem().toString();
         String car_model = spinner_car_model.getSelectedItem().toString();
@@ -505,27 +504,25 @@ public class Main3Activity extends AppCompatActivity {
             return false;
         }
 
+        params[0] = id_userLogged;
+        params[1] = car_make;
+        params[2] = car_model;
+        params[3] = car_year;
+        params[4] = car_engine;
+        params[5] = car_licence;
+        params[6] = car_transmission;
+        params[7] = car_fuel;
+        params[8] = car_drive_cond;
+        params[9] = car_tireSize;
 
-        params[0] = car_make;
-        params[1] = car_model;
-        params[2] = car_year;
-        params[3] = car_engine;
-        params[4] = car_fuel;
-        params[5] = car_transmission;
-        params[6] = car_tireSize;
-        params[7] = car_drive_cond;
-        params[8] = car_licence;
 
-
-        int paramsCount = 8;
+        int paramsCount = 10;
         for(String i : list_trim_specs){
             params[paramsCount] = i;
+            paramsCount++;
         }
 
-        int countRev = 0;
-        for(String j : params){
-            Log.e("Param ",String.valueOf(countRev) + ": "+j);
-        }
+
 
 
       /*  Log.e("Param 2",car_model);
@@ -551,7 +548,7 @@ public class Main3Activity extends AppCompatActivity {
         Log.e("Param 22",car_make);
 */
 
-        //postCar(params);
+        postCar(params);
 
         return true;
     }
@@ -569,7 +566,20 @@ public class Main3Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            int id = jsonObject.getInt("@last_id_car");
+
+                            Singleton.getInstance(getApplicationContext()).addList_cars(new My_Cars(id,arg0[1],arg0[2],arg0[4]));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     }
                 },
                 new Response.ErrorListener()
@@ -585,25 +595,25 @@ public class Main3Activity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("make", arg0[0]);
-                params.put("model", arg0[1]);
-                params.put("year", arg0[2]);
-                params.put("licence_plate", arg0[3]);
-                params.put("fuel_type", arg0[4]);
-                params.put("weigh_kg", arg0[5]);
-                params.put("model_trim", arg0[6]);
-                params.put("engine_cc", arg0[7]);
-                params.put("length_mm", arg0[8]);
-                params.put("width_mm", arg0[9]);
-                params.put("height_mm", arg0[10]);
-                params.put("mpg_hwy", arg0[11]);
-                params.put("mpg_city", arg0[12]);
-                params.put("mpg_mixed", arg0[13]);
-                params.put("body_style", arg0[14]);
-                params.put("door_number", arg0[15]);
-                params.put("drive", arg0[16]);
-                params.put("engine_position", arg0[17]);
-                params.put("engine_type", arg0[18]);
+                params.put("_id_user", arg0[0]);
+                params.put("make", arg0[1]);
+                params.put("model", arg0[2]);
+                params.put("year", arg0[3]);
+                params.put("model_trim", arg0[4]);
+                params.put("license_plate", arg0[5]);
+                params.put("car_transmission", arg0[6]);
+                params.put("fuel_type", arg0[7]);
+                params.put("car_drive_conditions", arg0[8]);
+                params.put("car_tireSize", arg0[9]);
+                params.put("weigh_kg", arg0[10]);
+                params.put("engine_cc", arg0[11]);
+                params.put("length_mm", arg0[12]);
+                params.put("width_mm", arg0[13]);
+                params.put("height_mm", arg0[14]);
+                params.put("lkm_hwy", arg0[15]);
+                params.put("lkm_city", arg0[16]);
+                params.put("lkm_mixed", arg0[17]);
+                params.put("body_style", arg0[18]);
                 params.put("door_number", arg0[19]);
                 params.put("drive", arg0[20]);
                 params.put("engine_position", arg0[21]);
