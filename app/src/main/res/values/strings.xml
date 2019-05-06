@@ -27,5 +27,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="No_cars_registered">No hay vehiculos registrados!</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.prueba1.Maps;
+    package com.example.prueba1.Maps;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.nfc.Tag;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -23,8 +26,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -40,12 +52,21 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import static com.example.prueba1.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 import static com.example.prueba1.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
 
 
-public class Main_maps extends AppCompatActivity {
+public class Main_maps extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
+    private LatLng here = new LatLng(9.928937, -84.133361);
 
     private static final String TAG = "Main_Maps_Activity";
 
@@ -57,38 +78,113 @@ public class Main_maps extends AppCompatActivity {
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    private Button btn_grantPermission;
+
+    MapFragment mapFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_maps);
 
+        btn_grantPermission = findViewById(R.id.btn_grantPermission);
+
+
+        if(ContextCompat.checkSelfPermission(Main_maps.this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            startActivity(new Intent(Main_maps.this,MapActivity.class));
+            finish();
+            return;
+        }
+
+        btn_grantPermission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dexter.withActivity(Main_maps.this)
+                        .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                startActivity(new Intent(Main_maps.this,MapActivity.class));
+
+                                finish();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+                                if(response.isPermanentlyDenied()){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(Main_maps.this);
+                                    builder.setTitle("Permiso denegado")
+                                            .setMessage("Permiso a la localizacion no es permitida, debes ir a configuracion y arreglarlo")
+                                            .setNegativeButton("Cancelar",null)
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent intent = new Intent();
+                                                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                    intent.setData(Uri.fromParts("package",getPackageName(),null));
+                                                }
+                                            }).show();
+                                }else{
+                                    Toast.makeText(Main_maps.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        })
+                        .check();
+            }
+        });
+/*
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (isServicesOK()) {
             init();
         }
-    }
 
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        //mapFragment.getMapAsync(Main_maps.this);
+
+        setupAutoCompleteFragment();*/
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here, 8.5f));
+        mMap.addMarker(new MarkerOptions()
+                .position(here)
+                .title("prueba")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    }
+/*
     private void getLastKnownLocation() {
         Log.d(TAG, "getLastKnownLocation: called.");
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
-        mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<android.location.Location>() {
             @Override
-            public void onComplete(@NonNull Task<Location> task) {
+            public void onComplete(@NonNull Task<android.location.Location> task) {
                 if (task.isSuccessful()) {
                     Location location = task.getResult();
 
                     GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                     Log.d(TAG, "onComplete: latitude: " + geoPoint.getLatitude());
-                    Log.d(TAG, "onComplete: latitude: " + geoPoint.getLongitude());
+                    Log.d(TAG, "onComplete: longitude: " + geoPoint.getLongitude());
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void init(){
@@ -103,6 +199,14 @@ public class Main_maps extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setupAutoCompleteFragment() {
+
+        SupportMapFragment autocompleteFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+
     }
 
 
@@ -129,7 +233,7 @@ public class Main_maps extends AppCompatActivity {
         }
 
         return false;
-    }*/
+    }
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -158,11 +262,7 @@ public class Main_maps extends AppCompatActivity {
     }
 
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
+
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -260,7 +360,10 @@ public class Main_maps extends AppCompatActivity {
 
     private void getFragmentMaps(){
 
-        map fragment = new map();
+        startActivity(new Intent(Main_maps.this,MapActivity.class));
+
+        finish();
+       /* map fragment = new map();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_mainMaps,fragment).commit();
 /*
@@ -296,11 +399,11 @@ public class Main_maps extends AppCompatActivity {
                 }
 
             }
-        });*/
+        });
     }
 
 
-
+*/
 
 
 }
