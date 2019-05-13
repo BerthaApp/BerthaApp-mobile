@@ -8,12 +8,17 @@
     tools:context=".FuelControl.FuelControlActivity"
     android:background="@color/colorWhite">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        <LinearLayout
+            android:id="@+id/vertical1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="70dp">
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
@@ -23,8 +28,126 @@
             app:srcCompat="@drawable/mask_group62x" />
 
 
-        <include layout="@layout/layout_bottom_nav_view"/>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="Estadisticas de combustible"
+                android:textColor="@color/black_overlay"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <GridView
+                android:id="@+id/gridviewHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:columnWidth="100dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp">
+
+
+            </GridView>
+
+            <TextView
+                android:id="@+id/total_fuel_cost"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/test1"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:text="Total Fuel Cost: $150.125.16"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:minWidth="10dp">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:id="@+id/pieChart">
+
+
+                </com.github.mikephil.charting.charts.PieChart>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:id="@+id/barChart">
+
+
+                </com.github.mikephil.charting.charts.BarChart>
+
+
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/gridview_prices"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:columnWidth="100dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp">
+
+
+            </GridView>
+
+            <TextView
+                android:text="Fuel Up Total Cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"/>
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:id="@+id/combinedChart">
+
+
+            </com.github.mikephil.charting.charts.CombinedChart>
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_bottom_nav_view"/>
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button_addFuelLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="100dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_plus"
+        app:pressedTranslationZ="12dp" />
+
 
 </android.support.design.widget.CoordinatorLayout>
