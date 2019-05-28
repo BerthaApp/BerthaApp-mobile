@@ -2,8 +2,6 @@ package com.example.prueba1.RegisterCar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,17 +17,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.prueba1.Login.MainActivity;
 import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.Profile.My_Cars;
 import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
-import com.example.prueba1.RegisterUser.Main2Activity;
 import com.example.prueba1.StartDrive.Main4Activity;
 
 import org.json.JSONArray;
@@ -100,14 +94,12 @@ public class Main3Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(check_fields()){
-                    //Toast.makeText(getApplicationContext(), "Carro registrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Vehiculo registrado", Toast.LENGTH_SHORT).show();
 
                 }else{
                     Toast.makeText(getApplicationContext(), "Por favor completa al menos marca, modelo, año y motor", Toast.LENGTH_SHORT).show();
                 }
-                //Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-               // startActivity(intent);
-                //finish();
+
             }
         });
 
@@ -209,8 +201,7 @@ public class Main3Activity extends AppCompatActivity {
     ArrayList<String> list_modelId = new ArrayList<>();
     public void getEngine(String make, String model, String year){
 
-        //final String model_weighKg, engine_cc, model_length_mm,model_width_mm,model_height_mm,model_mpg_hwy,model_mpg_city,model_mpg_mixed,
-       // body, door_number, drive, engine_position, engine_type;
+
 
         list_engineMod.clear();
         list_modelId.clear();
@@ -522,31 +513,6 @@ public class Main3Activity extends AppCompatActivity {
             paramsCount++;
         }
 
-
-
-
-      /*  Log.e("Param 2",car_model);
-        Log.e("Param 3",car_year);
-        Log.e("Param 4",car_engine);
-        Log.e("Param 5",car_drive_cond);
-        Log.e("Param 6",car_transmission);
-        Log.e("Param 7",car_fuel);
-        Log.e("Param 8",car_licence);
-        Log.e("Param 9",car_tireSize);
-        Log.e("Param 10",car_make);
-        Log.e("Param 11",car_make);
-        Log.e("Param 12",car_model);
-        Log.e("Param 13",car_year);
-        Log.e("Param 14",car_engine);
-        Log.e("Param 15",car_drive_cond);
-        Log.e("Param 16",car_transmission);
-        Log.e("Param 17",car_fuel);
-        Log.e("Param 18",car_licence);
-        Log.e("Param 19",car_tireSize);
-        Log.e("Param 20",car_make);
-        Log.e("Param 21",car_make);
-        Log.e("Param 22",car_make);
-*/
 
         postCar(params);
 

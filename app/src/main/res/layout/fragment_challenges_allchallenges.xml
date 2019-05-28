@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp">
 
 
         <TextView
@@ -54,8 +55,8 @@
             android:id="@+id/listview_allChallenges"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@+id/imageView6"
             android:layout_marginTop="50dp"
+            android:layout_alignTop="@+id/imageView6"
             android:dividerHeight="15sp"
             android:padding="10dp" />
 

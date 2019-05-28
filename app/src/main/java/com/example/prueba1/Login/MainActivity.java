@@ -282,8 +282,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(is_Logged,true);
             editor.apply();
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
-            intent.putExtra("idUser",id);
-            intent.putExtra("idCar",id_carbd);
             startActivity(intent);
             finish();
         }else {

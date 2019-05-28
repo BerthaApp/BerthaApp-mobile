@@ -136,7 +136,7 @@ public class ChallengeDescription extends AppCompatActivity {
         id_userLocal = sharedPreferences.getString(id_user,"");
     }
 
-    private static final String url_dropChallenge = "https://evening-oasis-22037.herokuapp.com/users/drop_challenge/";
+    private static final String url_dropChallenge = "https://evening-oasis-22037.herokuapp.com/challenges/drop_challenge/";
     public void dropChallenge(){
         Log.e(TAG ,"Drop Challenge");
         challenge.setMyChallenge(false);
@@ -175,7 +175,7 @@ public class ChallengeDescription extends AppCompatActivity {
         finish();
     }
 
-    private static final String url_link = "https://evening-oasis-22037.herokuapp.com/users/link_challenge/";
+    private static final String url_link = "https://evening-oasis-22037.herokuapp.com/challenges/link_challenge/";
     public void addChallenge(){
 
         Log.e(TAG ,"Add Challenge");

@@ -13,5 +13,12 @@
     <color name="color_orange">#F7CD03</color>
     <color name="color_green_very_light">#C2D9CC</color>
     <color name="color_red">#D11A2A</color>
+    <color name="color_gray">#6C6C6C</color>
+    <color name="color_test">#635D66</color>
+    <color name="color_green_score">#35A200</color>
+
+
+
+
 
 </resources>

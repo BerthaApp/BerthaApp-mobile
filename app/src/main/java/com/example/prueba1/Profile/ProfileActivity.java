@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,16 +102,36 @@ public class ProfileActivity extends AppCompatActivity {
         hamburguer_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(id_user,"");
-                editor.putString(id_car,"");
-                editor.putBoolean(is_Logged,false);
-                editor.apply();
 
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                final PopupMenu popupMenu = new PopupMenu(ProfileActivity.this,hamburguer_menu);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_profile,popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        String optionSelected = item.getTitle().toString();
+                        if(optionSelected.equals("Preferencias")){
+                            Toast.makeText(mContext, "Esta funcionalidad aun no esta desarrollada", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(optionSelected.equals("Cerrar sesion")){
+                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(id_user,"");
+                            editor.putString(id_car,"");
+                            editor.putBoolean(is_Logged,false);
+                            editor.apply();
+
+                            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+
             }
         });
 

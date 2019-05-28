@@ -107,10 +107,7 @@ public class Main4Activity extends AppCompatActivity {
         numberPicker.setMaxValue(7);
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        //Boolean isLogged = sharedPreferences.getBoolean(is_Logged, false);
         String idUser = sharedPreferences.getString(id_user,"");
-        //String idUser = getIntent().getStringExtra("idUser");
-        //String idCar = getIntent().getStringExtra("idCar");
         Singleton.getInstance(getApplicationContext()).clearList_groups();
         Singleton.getInstance(getApplicationContext()).clearList_challenges();
         Singleton.getInstance(getApplicationContext()).clearList_cars();
@@ -146,13 +143,10 @@ public class Main4Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        //Intent intent = new Intent(this, MainActivity.class);
-        //startActivity(intent);
 
         new AlertDialog.Builder(Main4Activity.this)
-                .setTitle("Salirse de App")
-                .setMessage("Desea salirse de la aplicacion?")
+                .setTitle("Salir de App")
+                .setMessage("Desea salir de la aplicacion?")
                 .setIcon(R.drawable.group40x)
                 .setPositiveButton("Sí",
                         new DialogInterface.OnClickListener() {

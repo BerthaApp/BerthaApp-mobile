@@ -8,17 +8,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.ListView;
 
+import com.example.prueba1.Pattern.Singleton;
 import com.example.prueba1.R;
 import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import at.grabner.circleprogress.CircleProgressView;
+
 public class TripLogActivity  extends AppCompatActivity {
+
+    private static final String TAG = "TripLogActivity";
 
     private Context mContext = TripLogActivity.this;
 
     private static final int ACTIVITY_NUM = 0;
+
+    private GridView gridView_tripLog;
+
+
+    private final String[] tripLog_values = {"149","14.8","$41.2","5:34"};
+
+    private CircleProgressView circleProgressView;
+
+    private ListView listView_trips;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,11 +43,30 @@ public class TripLogActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_triplog);
 
         setupBottomNavigationView();
+
+
+        gridView_tripLog = findViewById(R.id.gridview_tripLog);
+        circleProgressView = findViewById(R.id.circleView);
+
+        listView_trips = findViewById(R.id.listView_trips);
+
+
+        circleProgressView.setTextColor(getResources().getColor(R.color.colorGreen));
+        circleProgressView.setTextSize(50);
+
+
+
+        Adapter_tripLog adapter_tripLog = new Adapter_tripLog(this,tripLog_values);
+        gridView_tripLog.setAdapter(adapter_tripLog);
+
+        Adapter_trips adapter_trips = new Adapter_trips(this,R.layout.adapter_trips, Singleton.getList_myTrips());
+        listView_trips.setAdapter(adapter_trips);
+
     }
 
     private void setupBottomNavigationView(){
 
-        Log.e("TAG", "onCreate: starting.22");
+        Log.e(TAG, "setupBottomNavigationView: starting.22");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext,bottomNavigationViewEx);

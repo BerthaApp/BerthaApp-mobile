@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,19 +10,119 @@
     android:background="@color/colorWhite">
 
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/mask_group62x" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <TextView
+            android:id="@+id/title_tripLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="70dp"
+            android:text="Trip Log"
+            android:textColor="@color/black_overlay"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp">
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/circleView"
+                android:layout_width="80dp"
+                android:layout_height="170dp"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/color_green_score"
+                CircleProgressView:cpv_barWidth="15dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_maxValue="100"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimColor="@color/color_green_very_light"
+                CircleProgressView:cpv_seekMode="true"
+                CircleProgressView:cpv_showUnit="true"
+                CircleProgressView:cpv_spinColor="@color/color_green_very_light"
+                CircleProgressView:cpv_textColor="@color/black_overlay"
+                CircleProgressView:cpv_unitColor="@color/color_red"
+                CircleProgressView:cpv_unitPosition="right_top"
+                CircleProgressView:cpv_value="88"
+                CircleProgressView:cpv_text="88"
+                CircleProgressView:cpv_fillColor="@color/white"
+                CircleProgressView:cpv_autoTextColor="false"/>
+
+
+            <GridView
+                android:id="@+id/gridview_tripLog"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:columnWidth="100dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/total_trips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="30 Total Trips"
+                android:textColor="@color/colorGreen"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/time_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Time / Date"
+                android:textColor="@color/colorGreen"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="95dp"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView_trips"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="70dp">
+
+
+
+        </ListView>
+
+
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/mask_group62x" />
-
 
         <include layout="@layout/layout_bottom_nav_view"/>
 

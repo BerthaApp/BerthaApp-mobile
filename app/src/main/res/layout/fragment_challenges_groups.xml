@@ -17,7 +17,7 @@
         android:layout_gravity="bottom|end"
 
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="190dp"
+        android:layout_marginBottom="165dp"
         android:elevation="6dp"
         >
 
@@ -52,7 +52,7 @@
         android:layout_gravity="bottom|end"
 
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="225dp"
         android:elevation="6dp"
         >
 
@@ -85,14 +85,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin_right"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="95dp"
         android:elevation="6dp"
         android:src="@drawable/ic_action_plus"
         app:pressedTranslationZ="12dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp">
 
 
 

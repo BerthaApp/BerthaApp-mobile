@@ -10,6 +10,7 @@ import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
 import com.example.prueba1.Maps.Road_mark;
 import com.example.prueba1.Profile.My_Cars;
+import com.example.prueba1.TripLog.Trip;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Singleton {
     private static ArrayList<Challenges> list_challenges = new ArrayList<>();
     private static ArrayList<Road_mark> list_roadMarkers= new ArrayList<>();
     private static ArrayList<My_Cars> list_myCars= new ArrayList<>();
+    private static ArrayList<Trip> list_myTrips= new ArrayList<>();
 
 
 
@@ -60,20 +62,20 @@ public class Singleton {
         return list_challenges;
     }
 
-    public ArrayList<String> getList_myCarsString(){
-        ArrayList<String> listString_myCars = new ArrayList<>();
-        for(My_Cars i: list_myCars){
-            listString_myCars.add(i.getMake()+" - "+i.getModel());
-        }
-        return listString_myCars;
-    }
-
     public static ArrayList<My_Cars> getList_myCars() {
         return list_myCars;
     }
 
+    public static ArrayList<Trip> getList_myTrips() {
+        return list_myTrips;
+    }
+
     public void addList_groups(Groups groups){
        list_groups.add(groups);
+    }
+
+    public void addList_trips(Trip trip){
+        list_myTrips.add(trip);
     }
 
     public void addList_challenges(Challenges challenges){
@@ -97,6 +99,10 @@ public class Singleton {
         list_myCars.clear();
     }
 
+    public void clearList_trips(){
+        list_myTrips.clear();
+    }
+
     public static ArrayList<Road_mark> getList_roadMarkers() {
         return list_roadMarkers;
     }
@@ -109,6 +115,14 @@ public class Singleton {
         }
 
         return list_groupsNames;
+    }
+
+    public ArrayList<String> getList_myCarsString(){
+        ArrayList<String> listString_myCars = new ArrayList<>();
+        for(My_Cars i: list_myCars){
+            listString_myCars.add(i.getMake()+" - "+i.getModel());
+        }
+        return listString_myCars;
     }
 
     public ArrayList<String> return_challenges_name(){
@@ -173,5 +187,13 @@ public class Singleton {
         list_roadMarkers.add(new Road_mark(0,"Second Mark",9.939440, -84.140825,10));
         list_roadMarkers.add(new Road_mark(0,"Third Mark",9.936281, -84.132213,10));
         list_roadMarkers.add(new Road_mark(0,"Fourth Mark",9.935464, -84.121021,10));
+
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+        list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
+
     }
 }

@@ -65,26 +65,7 @@ public class Select_friends extends AppCompatActivity {
             }
         });
 
-        /* make the API call */
 
-        /*AccessToken.getCurrentAccessToken().getPermissions();
-
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/me/friends",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        try {
-                            JSONArray rawName = response.getJSONObject().getJSONArray("data");
-                            Toast.makeText(Select_friends.this, response.toString(), Toast.LENGTH_SHORT).show();
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        ).executeAsync();*/
     }
 
     private String m_Text = "";
@@ -214,7 +195,7 @@ public class Select_friends extends AppCompatActivity {
 
     public void postGroup(final String[] arg0){
 
-        String url = "https://evening-oasis-22037.herokuapp.com/users/create_group/";
+        String url = "https://evening-oasis-22037.herokuapp.com/groups/create_group/";
 
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
