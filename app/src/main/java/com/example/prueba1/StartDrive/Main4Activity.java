@@ -168,11 +168,9 @@ public class Main4Activity extends AppCompatActivity {
     }
 
 
-
-    private String url_get_data = "https://evening-oasis-22037.herokuapp.com/users/userGroup&Challenges/";
-
     public void downloadUserData(String idUser){
 
+        String url_get_data = "https://evening-oasis-22037.herokuapp.com/users/userGroup&Challenges/";
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url_get_data + idUser,null,
                 new Response.Listener<JSONArray>() {
 
@@ -277,9 +275,8 @@ public class Main4Activity extends AppCompatActivity {
     }
 
 
-    private String url_get_carData = "https://evening-oasis-22037.herokuapp.com/cars/carsxuser/";
-
     public void downloadCarUserData(String idUser){
+        String url_get_carData = "https://evening-oasis-22037.herokuapp.com/cars/carsxuser/";
         JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url_get_carData + idUser, null,
                 new Response.Listener<JSONArray>()
                 {

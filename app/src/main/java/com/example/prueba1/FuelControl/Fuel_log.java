@@ -3,6 +3,8 @@ package com.example.prueba1.FuelControl;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
@@ -16,16 +18,38 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.prueba1.Pattern.Singleton;
+import com.example.prueba1.Profile.My_Cars;
+import com.example.prueba1.Profile.ProfileActivity;
 import com.example.prueba1.R;
+import com.example.prueba1.RegisterCar.Main3Activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Date;
+import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -35,9 +59,21 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
 
     private Spinner spinner_fuel, spinner_time,spinner_date;
 
-    private EditText odometer_now, odometer_last, odometer_travelValue, liter_cost, liter_qtty, liter_totalPrice,date_fuelLog,time_fuelLog;
+    private EditText odometer_now, odometer_last, odometer_travelValue, liter_cost, liter_qtty, liter_totalPrice,date_fuelLog,time_fuelLog,place_fuelUp;
 
+    private Button save_fuelLog;
 
+    //User and car from shared preferences
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
+
+    private String id_userLogged;
+    private String id_carDef;
+
+    //ListView logs
+
+    private ArrayList<Log_object> list_fuelLogs = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -48,6 +84,9 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
         //Spinners
 
         spinner_fuel = findViewById(R.id.spinner_fuel_log);
@@ -65,6 +104,11 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
         date_fuelLog = findViewById(R.id.dateFuelLog);
         time_fuelLog = findViewById(R.id.timeFuelLog);
 
+        place_fuelUp = findViewById(R.id.editText_place);
+
+        //Button
+        save_fuelLog = findViewById(R.id.save_fuelUp);
+
         time_fuelLog.setKeyListener(null);
         date_fuelLog.setKeyListener(null);
 
@@ -74,10 +118,17 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
         spinner_fuelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_fuel.setAdapter(spinner_fuelAdapter);
 
-        odometer_last.setText("75000");
+
         getNowTimeandDate();
 
 
+        list_fuelLogs = Singleton.getInstance(this).getList_fuelLogs();
+
+        if(list_fuelLogs.isEmpty()){
+            odometer_last.setText("0");
+        }else{
+            odometer_last.setText(String.valueOf(list_fuelLogs.get(list_fuelLogs.size()-1).getOdometer_current()));
+        }
 
         date_fuelLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,23 +145,6 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
                 timePicker.show(getSupportFragmentManager(), "time picker");
             }
         });
-
-        liter_qtty.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                liter_qtty.setFocusable(true);
-                return false;
-            }
-        });
-
-        liter_totalPrice.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                liter_totalPrice.setFocusable(true);
-                return false;
-            }
-        });
-
 
         //Listener to text change
         liter_cost.addTextChangedListener(literTextWatcher);
@@ -149,6 +183,20 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
+        save_fuelLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getData()){
+                    Toast.makeText(Fuel_log.this, "Registrado exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Fuel_log.this,FuelControlActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(Fuel_log.this, "Hubo un error o no completaste los campos necesarios", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private boolean log_control = false;
@@ -171,47 +219,6 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
             }else {
                 liter_totalPrice.setText("");
             }
-
-           /* if(!liter_cost.getText().toString().equals("") && !liter_qtty.getText().toString().equals("")){
-                int liters = Integer.valueOf(liter_qtty.getText().toString());
-                int cost_perLiter = Integer.valueOf(liter_cost.getText().toString());
-
-                liter_totalPrice.setText(String.valueOf(liters * cost_perLiter));
-            }
-            else{
-                liter_totalPrice.setText("");
-            }
-*/
-
-            /*
-            if(!liter_totalPrice.getText().toString().equals("") && liter_qtty.getText().toString().equals(""))
-                log_control = true;
-
-            if(liter_totalPrice.getText().toString().equals("") && !liter_qtty.getText().toString().equals(""))
-                log_control = false;
-
-            if(log_control){
-
-                if(!liter_totalPrice.getText().toString().equals("") && !liter_cost.getText().toString().equals("")){
-                    int total_cost = Integer.valueOf(liter_totalPrice.getText().toString());
-                    int cost_perLiter = Integer.valueOf(liter_cost.getText().toString());
-
-                    liter_qtty.setText(String.valueOf(total_cost / cost_perLiter));
-                }else{
-                    liter_totalPrice.setText("");
-                }
-
-            }else{
-                if(!liter_cost.getText().toString().equals("") && !liter_qtty.getText().toString().equals("")){
-                    int cost = Integer.valueOf(liter_cost.getText().toString());
-                    int quantity = Integer.valueOf(liter_qtty.getText().toString());
-
-                    liter_totalPrice.setText(String.valueOf(cost*quantity));
-                }else{
-
-                }
-            }*/
-
 
         }
 
@@ -241,48 +248,6 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
                 }else {
                     liter_totalPrice.setText("");
                 }
-
-                //Toast.makeText(Fuel_log.this, "Total price ypup", Toast.LENGTH_SHORT).show();
-
-/*
-            if(liter_qtty.getText().toString().equals("") && !liter_cost.getText().toString().equals("") && !liter_totalPrice.getText().toString().equals("")){
-                int total_cost = Integer.valueOf(liter_totalPrice.getText().toString());
-                int cost_perLiter = Integer.valueOf(liter_cost.getText().toString());
-
-                liter_qtty.setText(String.valueOf(total_cost / cost_perLiter));
-            }
-
-
-
-            if(!liter_totalPrice.getText().toString().equals("") && liter_qtty.getText().toString().equals(""))
-                log_control = true;
-
-            if(liter_totalPrice.getText().toString().equals("") && !liter_qtty.getText().toString().equals(""))
-                log_control = false;
-
-            if(log_control){
-
-                if(!liter_totalPrice.getText().toString().equals("") && !liter_cost.getText().toString().equals("")){
-                    int total_cost = Integer.valueOf(liter_totalPrice.getText().toString());
-                    int cost_perLiter = Integer.valueOf(liter_cost.getText().toString());
-
-                    liter_qtty.setText(String.valueOf(total_cost / cost_perLiter));
-                }else{
-                    liter_totalPrice.setText("");
-                }
-
-            }else{
-                if(!liter_cost.getText().toString().equals("") && !liter_qtty.getText().toString().equals("")){
-                    int cost = Integer.valueOf(liter_cost.getText().toString());
-                    int quantity = Integer.valueOf(liter_qtty.getText().toString());
-
-                    liter_totalPrice.setText(String.valueOf(cost*quantity));
-                }else{
-
-                }
-            }*/
-
-
         }
 
         @Override
@@ -302,14 +267,14 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
         date_fuelLog.setText(currentDate);
     }
 
-    final static int ZERO = 0;
+    final static String ZERO = "0";
     final static String TWO_POINTS = ":";
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
         String horaFormateada =  (hourOfDay > 12)? String.valueOf(hourOfDay - 12) : String.valueOf(hourOfDay);
         //Formateo el minuto obtenido: antepone el 0 si son menores de 10
-        String minutoFormateado = (minute < 10)? String.valueOf(ZERO + minute):String.valueOf(minute);
+        String minutoFormateado = (minute < 10)? (ZERO + minute):String.valueOf(minute);
         //Obtengo el valor a.m. o p.m., dependiendo de la selección del usuario
         String AM_PM;
         if(hourOfDay < 12) {
@@ -326,17 +291,14 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR);
         int minutes = calendar.get(Calendar.MINUTE);
+        int am_pm = calendar.get(Calendar.AM_PM);
 
         String horaFormateada =  (hour > 12)? String.valueOf(hour - 12) : String.valueOf(hour);
         //Formateo el minuto obtenido: antepone el 0 si son menores de 10
-        String minutoFormateado = (minutes < 10)? String.valueOf(ZERO + minutes):String.valueOf(minutes);
+        String minutoFormateado = (minutes < 10)? (ZERO + minutes):String.valueOf(minutes);
         //Obtengo el valor a.m. o p.m., dependiendo de la selección del usuario
-        String AM_PM;
-        if(hour < 12) {
-            AM_PM = "a.m.";
-        } else {
-            AM_PM = "p.m.";
-        }
+        String AM_PM = (am_pm == 0)? "a.m." : "p.m.";
+
         //Muestro la hora con el formato deseado
         time_fuelLog.setText(horaFormateada + TWO_POINTS + minutoFormateado + " " + AM_PM);
 
@@ -345,11 +307,125 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
 
     }
 
+    private boolean getData(){
 
-    private void getData(){}
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dateDef = new Date(System.currentTimeMillis());
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
+        String[] params = new String[13];
+
+        String time = time_fuelLog.getText().toString();
+        String date = date_fuelLog.getText().toString();
+        String current_odometer = odometer_now.getText().toString();
+        String km_travel = odometer_travelValue.getText().toString();
+        String liter_costStr= liter_cost.getText().toString();
+        String liters = liter_qtty.getText().toString();
+        String total_cost = liter_totalPrice.getText().toString();
+        String fuel_type = spinner_fuel.getSelectedItem().toString();
+        String place_fuel = place_fuelUp.getText().toString();
 
 
 
+        SimpleDateFormat format =new SimpleDateFormat("MMM dd, yyyy");
+        try {
+            dateDef = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(current_odometer.equals("") || liter_costStr.equals("") || liters.equals("") || id_carDef.equals(""))
+            return false;
+
+        String formatedDate = formatter.format(dateDef);
+
+        params[0] = id_userLogged;
+        params[1] = id_carDef;
+        params[2] = formatedDate;
+        params[3] = convert_TimeToSql(time);
+        params[4] = current_odometer;
+        params[5] = km_travel;
+        params[6] = liters;
+        params[7] = total_cost;
+        params[8] = liter_costStr;
+        params[9] = fuel_type;
+        params[10] = place_fuel;
+        params[11] = "50";
+        params[12] = String.valueOf(false);
+
+        postFuelUp(params);
+
+        return true;
+
+    }
+
+
+    public String convert_TimeToSql(String strDate){
+        String[] arrayHoursAndTime = strDate.split(" ");
+        String[] array = arrayHoursAndTime[0].split(":");
+        int hour = Integer.valueOf(array[0]);
+        if(strDate.contains("p.m.") && (Integer.valueOf(array[0]) != 12)){
+            hour = 12 + Integer.valueOf(array[0]);
+        }
+
+        return (hour) + TWO_POINTS + array[1]+TWO_POINTS+"00";
+
+    }
+
+
+    public void postFuelUp(final String[] arg0){
+
+        String url = "https://evening-oasis-22037.herokuapp.com/fuelLog/fuel_log/";
+
+
+        StringRequest postRequestFuel = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Error.Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Log.e(TAG, "getParams: " );
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idUser", arg0[0]);
+                params.put("idCar", arg0[1]);
+                params.put("date", arg0[2]);
+                params.put("time", arg0[3]);
+                params.put("odometer_current", arg0[4]);
+                params.put("km_traveled", arg0[5]);
+                params.put("liters_qtty", arg0[6]);
+                params.put("total_price", arg0[7]);
+                params.put("price_perLiter", arg0[8]);
+                params.put("fuel_type", arg0[9]);
+                params.put("place_fuelUp", arg0[10]);
+                params.put("city_drivingPrctg", arg0[11]);
+                params.put("partial_fuelUp", arg0[12]);
+
+                return params;
+            }
+        };
+        Singleton.getInstance(Fuel_log.this).addToRequestQueue(postRequestFuel);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
 
 

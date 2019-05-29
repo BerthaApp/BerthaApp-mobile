@@ -2,22 +2,31 @@ package com.example.prueba1.FuelControl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.prueba1.Pattern.Singleton;
+import com.example.prueba1.Profile.My_Cars;
 import com.example.prueba1.R;
 import com.example.prueba1.StartDrive.Main4Activity;
 import com.example.prueba1.Utils.BottomNavigationViewHelper;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -37,11 +46,19 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class FuelControlActivity extends AppCompatActivity {
+
+    private static final String TAG = "FuelControlActivity";
 
     private Context mContext = FuelControlActivity.this;
 
@@ -60,8 +77,14 @@ public class FuelControlActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton_addLog;
 
     private BarChart barChart;
-    private PieChart pieChart;
     private CombinedChart combinedChart;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
+
+    private String id_userLogged;
+    private String id_carDef;
 
     protected String[] mMonths = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "June"
@@ -79,11 +102,19 @@ public class FuelControlActivity extends AppCompatActivity {
 
         floatingActionButton_addLog = findViewById(R.id.fab_button_addFuelLog);
 
+        //Get user id and car id
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
+
+        getFuelLogs();
+
         //BarChart
         //PieChart
         //CombinedChart
         barChart = findViewById(R.id.barChart);
-        pieChart = findViewById(R.id.pieChart);
+
         combinedChart = findViewById(R.id.combinedChart);
 
         Items_adapter items_adapter = new Items_adapter(this,values_firstGridint,values_firstGridstr);
@@ -99,38 +130,6 @@ public class FuelControlActivity extends AppCompatActivity {
                 startActivity(new Intent(FuelControlActivity.this,Fuel_log.class));
             }
         });
-
-        /// PIE CHART
-
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10,5,5);
-
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(61f);
-
-        ArrayList<PieEntry> pieEntriesY = new ArrayList<>();
-
-        pieEntriesY.add(new PieEntry(34f,"PartyA"));
-        pieEntriesY.add(new PieEntry(23f,"USA"));
-        pieEntriesY.add(new PieEntry(14f,"UK"));
-        pieEntriesY.add(new PieEntry(35,"India"));
-        pieEntriesY.add(new PieEntry(40,"Russia"));
-        pieEntriesY.add(new PieEntry(23,"Japan"));
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntriesY,"Countries");
-        pieDataSet.setSliceSpace(3f);
-        pieDataSet.setSelectionShift(5f);
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.YELLOW);
-
-        pieChart.setData(pieData);
 
 
         /// BAR CHART
@@ -288,5 +287,49 @@ public class FuelControlActivity extends AppCompatActivity {
 
 
         return d;
+    }
+
+    //Download data from BD
+    public void getFuelLogs(){
+        String url_get_fuelLogs = "https://evening-oasis-22037.herokuapp.com/fuelLog/getLogsxUser/" + id_userLogged+
+                                                                                                        "/"+id_carDef;
+        JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url_get_fuelLogs, null,
+                new Response.Listener<JSONArray>()
+                {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e(TAG,response.toString());
+                        try{
+                            int len = response.length();
+                            for(int i = 0 ;i<len; i++){
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                int id = jsonObject.getInt("id");
+                                String date = jsonObject.getString("date");
+                                String time = jsonObject.getString("time");
+                                int odometer_current = jsonObject.getInt("odometer_current_value");
+                                int liters_qtty = jsonObject.getInt("liters_quantity");
+                                double total_price = jsonObject.getDouble("total_price");
+                                double price_perLiter = jsonObject.getDouble("price_per_liter");
+                                String fuel_type = jsonObject.getString("fuel_type");
+
+                                Singleton.getInstance(getApplicationContext()).addList_fuelLogs(new Log_object(id,date,time,odometer_current,liters_qtty,total_price,price_perLiter,fuel_type));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        Singleton.getInstance(FuelControlActivity.this).addToRequestQueue(getRequest);
     }
 }

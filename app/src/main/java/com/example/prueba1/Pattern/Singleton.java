@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba1.Challenges.Challenges;
 import com.example.prueba1.Challenges.Groups;
+import com.example.prueba1.FuelControl.Log_object;
 import com.example.prueba1.Maps.Road_mark;
 import com.example.prueba1.Profile.My_Cars;
 import com.example.prueba1.TripLog.Trip;
@@ -18,6 +19,8 @@ import java.util.Arrays;
 
 public class Singleton {
 
+    private static final String TAG = "Singleton";
+
     private static Singleton mInstance;
     private RequestQueue requestQueue;
     private static Context mContext;
@@ -26,6 +29,7 @@ public class Singleton {
     private static ArrayList<Road_mark> list_roadMarkers= new ArrayList<>();
     private static ArrayList<My_Cars> list_myCars= new ArrayList<>();
     private static ArrayList<Trip> list_myTrips= new ArrayList<>();
+    private static ArrayList<Log_object> list_fuelLogs= new ArrayList<>();
 
 
 
@@ -36,6 +40,7 @@ public class Singleton {
     }
 
     public RequestQueue getRequestQueue(){
+
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(mContext.getApplicationContext());
         }
@@ -43,6 +48,7 @@ public class Singleton {
     }
 
     public static synchronized Singleton getInstance(Context context){
+        Log.e(TAG, "getInstance: " );
         if(mInstance == null){
             mInstance = new Singleton(context);
         }
@@ -70,6 +76,10 @@ public class Singleton {
         return list_myTrips;
     }
 
+    public static ArrayList<Log_object> getList_fuelLogs() {
+        return list_fuelLogs;
+    }
+
     public void addList_groups(Groups groups){
        list_groups.add(groups);
     }
@@ -84,6 +94,10 @@ public class Singleton {
 
     public void addList_cars(My_Cars car){
         list_myCars.add(car);
+    }
+
+    public void addList_fuelLogs(Log_object log){
+        list_fuelLogs.add(log);
     }
 
 
@@ -101,6 +115,10 @@ public class Singleton {
 
     public void clearList_trips(){
         list_myTrips.clear();
+    }
+
+    public void clearList_fuelLogs(){
+        list_fuelLogs.clear();
     }
 
     public static ArrayList<Road_mark> getList_roadMarkers() {
