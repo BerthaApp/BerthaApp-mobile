@@ -48,7 +48,7 @@ public class Singleton {
     }
 
     public static synchronized Singleton getInstance(Context context){
-        Log.e(TAG, "getInstance: " );
+
         if(mInstance == null){
             mInstance = new Singleton(context);
         }
@@ -158,7 +158,6 @@ public class Singleton {
             for(Integer i : list_myChallenges){
                 for(Challenges challenges : list_challenges){
                     if(challenges.getId() == i){
-                        Log.e("lista id", "here + "+challenges.getName());
                         challenges.setMyChallenge(true);
                     }
                 }

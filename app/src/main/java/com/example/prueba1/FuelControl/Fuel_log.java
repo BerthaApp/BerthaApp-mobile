@@ -162,9 +162,9 @@ public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 if(!odometer_now.getText().toString().equals("")){
 
-                    long last_odometer = Integer.valueOf(odometer_last.getText().toString());
-                    long now_odometer = Integer.valueOf(odometer_now.getText().toString());
-                    long substract = now_odometer - last_odometer;
+                    float last_odometer = Float.valueOf(odometer_last.getText().toString());
+                    float now_odometer = Float.valueOf(odometer_now.getText().toString());
+                    float substract = now_odometer - last_odometer;
                 /*if(now_odometer < last_odometer){
                     Toast.makeText(Fuel_log.this, "El valor no puede ser menor", Toast.LENGTH_SHORT).show();
                 }*/

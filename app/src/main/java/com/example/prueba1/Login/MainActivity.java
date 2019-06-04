@@ -237,23 +237,22 @@ public class MainActivity extends AppCompatActivity {
 
                             String id_car = response.getString("car_def_id");
 
+                            String drive_mode_def = response.getString("drive_mode_def");
+
 
                             String generateSecure = PasswordUtils.generateSecurePassword(password,salt);
 
                             //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
                             boolean passwordMatch = generateSecure.equals(pass);
                             if(passwordMatch){
-                                check_user(true,id,id_car);
+                                check_user(true,id,id_car,drive_mode_def);
                             }else{
-                                check_user(false,id,id_car);
+                                check_user(false,id,id_car,drive_mode_def);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -272,14 +271,16 @@ public class MainActivity extends AppCompatActivity {
     public static final String id_user = "id_user";
     public static final String id_car = "id_car";
     public static final String is_Logged = "isLogged";
+    public static final String def_driveMode = "def_driveMode";
 
-    public void check_user(boolean isUser, int id,String id_carbd){
+    public void check_user(boolean isUser, int id,String id_carbd,String drive_mode_def){
         if(isUser){
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(id_user,String.valueOf(id));
             editor.putString(id_car,id_carbd);
             editor.putBoolean(is_Logged,true);
+            editor.putString(def_driveMode,drive_mode_def);
             editor.apply();
             Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
             startActivity(intent);

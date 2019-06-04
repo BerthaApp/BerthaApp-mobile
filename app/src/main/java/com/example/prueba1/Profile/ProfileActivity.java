@@ -68,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String id_user = "id_user";
     public static final String id_car = "id_car";
     public static final String is_Logged = "isLogged";
+    public static final String def_driveMode = "def_driveMode";
+
 
     private String id_actualUser = "";
 
@@ -76,10 +78,15 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        String def_drive = sharedPreferences.getString(def_driveMode,"");
+
 
         setupBottomNavigationView();
 
         drive_mode = findViewById(R.id.imageView_driveMode);
+
         hamburguer_menu = findViewById(R.id.hamburguerMenu);
 
         listView_carList = findViewById(R.id.listView_cars);
@@ -87,6 +94,24 @@ public class ProfileActivity extends AppCompatActivity {
         button_addCar = findViewById(R.id.button_newCar);
 
         textView_noCars = findViewById(R.id.textView_noCars);
+
+        if(def_drive != null) {
+
+            switch (def_drive) {
+                case "eco":
+                    drive_mode.setImageResource(R.drawable.group1902x);
+                    break;
+                case "normal":
+                    drive_mode.setImageResource(R.drawable.group1912x);
+                    break;
+                case "aggresive":
+                    drive_mode.setImageResource(R.drawable.group1922x);
+                    break;
+                default:
+                    drive_mode.setImageResource(R.drawable.group1902x);
+                    break;
+            }
+        }
 
 
         button_addCar.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +144,7 @@ public class ProfileActivity extends AppCompatActivity {
                             editor.putString(id_user,"");
                             editor.putString(id_car,"");
                             editor.putBoolean(is_Logged,false);
+                            editor.putString(def_driveMode,"");
                             editor.apply();
 
                             Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
@@ -145,7 +171,7 @@ public class ProfileActivity extends AppCompatActivity {
         list_carAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listView_carList.setAdapter(list_carAdapter);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
         String id_carSelected = sharedPreferences.getString(id_car, "");
         id_actualUser = sharedPreferences.getString(id_user,"");
 
@@ -201,8 +227,12 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_eco.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(def_driveMode,"eco");
+                        editor.apply();
                         drive_mode.setImageResource(R.drawable.group1902x);
+                        set_newDriveMode("eco",id_actualUser);
                         alert.dismiss();
                     }
                 });
@@ -210,8 +240,12 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_normal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(def_driveMode,"normal");
+                        editor.apply();
                         drive_mode.setImageResource(R.drawable.group1912x);
+                        set_newDriveMode("normal",id_actualUser);
                         alert.dismiss();
                     }
                 });
@@ -219,17 +253,15 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_aggresive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(def_driveMode,"aggresive");
+                        editor.apply();
                         drive_mode.setImageResource(R.drawable.group1922x);
+                        set_newDriveMode("aggresive",id_actualUser);
                         alert.dismiss();
                     }
                 });
-
-       /*Dialog settingsDialog = new Dialog(getApplicationContext());
-        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.set_driv_mode
-                , null));
-        settingsDialog.show();*/
             }
         });
 
@@ -289,9 +321,43 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
         Singleton.getInstance(ProfileActivity.this).addToRequestQueue(postRequest);
-
     }
 
+
+    private static final String url_setNewDriveMode = "https://evening-oasis-22037.herokuapp.com/users/set_newDriveMode/";
+    public void set_newDriveMode(final String drive_mode,final String user_id){
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url_setNewDriveMode,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response new drive mode", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_user", user_id);
+                params.put("drive_mode", drive_mode);
+
+                return params;
+            }
+        };
+        Singleton.getInstance(ProfileActivity.this).addToRequestQueue(postRequest);
+    }
 
 
 }

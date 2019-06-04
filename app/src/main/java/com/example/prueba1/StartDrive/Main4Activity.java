@@ -61,6 +61,7 @@ public class Main4Activity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private Adapter adapter;
+
     private List<Model> models;
 
     private Button btn_startDrive;
@@ -74,6 +75,7 @@ public class Main4Activity extends AppCompatActivity {
     public static final String id_user = "id_user";
     public static final String id_car = "id_car";
     public static final String is_Logged = "isLogged";
+    public static final String def_driveMode = "def_driveMode";
 
     private Context mContext = Main4Activity.this;
     @Override
@@ -81,11 +83,10 @@ public class Main4Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
 
-        /*String uri = "http://maps.google.com/maps?saddr=" + "9.945021" + "," + "-84.165231" + "&daddr=" + "9.939821" + "," + "-84.142185";
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        startActivity(intent);*/
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String idUser = sharedPreferences.getString(id_user,"");
+        String def_drive = sharedPreferences.getString(def_driveMode,"");
 
-        Log.e("here","here");
         setupBottomNavigationView();
 
         models = new ArrayList<>();
@@ -99,6 +100,24 @@ public class Main4Activity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.setPadding(350,0,200,0);
 
+        if(def_drive != null) {
+
+            switch (def_drive) {
+                case "eco":
+                    viewPager.setCurrentItem(0);
+                    break;
+                case "normal":
+                    viewPager.setCurrentItem(1);
+                    break;
+                case "aggresive":
+                    viewPager.setCurrentItem(2);
+                    break;
+                default:
+                    viewPager.setCurrentItem(0);
+                    break;
+            }
+        }
+
         numberPicker = findViewById(R.id.numberPicker);
 
         btn_startDrive = findViewById(R.id.button_startDrive);
@@ -106,8 +125,7 @@ public class Main4Activity extends AppCompatActivity {
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(7);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String idUser = sharedPreferences.getString(id_user,"");
+
         Singleton.getInstance(getApplicationContext()).clearList_groups();
         Singleton.getInstance(getApplicationContext()).clearList_challenges();
         Singleton.getInstance(getApplicationContext()).clearList_cars();
@@ -182,7 +200,7 @@ public class Main4Activity extends AppCompatActivity {
                             JSONArray jsonArrayAllChallenges = response.getJSONArray(0);
                             JSONArray jsonArray4AllChallenges = jsonArrayAllChallenges.getJSONArray(0);
                             int len = jsonArray4AllChallenges.length();
-                            Log.e("largo",String.valueOf(len));
+
                             for(int i = 0; i<len; i++){
 
                                 try {
@@ -282,7 +300,7 @@ public class Main4Activity extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.e(TAG,response.toString());
+
                         try{
                             int len = response.length();
                             for(int i = 0 ;i<len; i++){

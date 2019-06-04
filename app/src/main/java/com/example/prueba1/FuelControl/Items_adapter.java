@@ -9,15 +9,17 @@ import android.widget.TextView;
 
 import com.example.prueba1.R;
 
+import java.text.DecimalFormat;
+
 public class Items_adapter extends BaseAdapter {
 
     private Context context;
-    private final String [] statistcs_number;
+    private final float [] statistcs_number;
     private final String[] statistcs_text;
     View view;
     LayoutInflater layoutInflater;
 
-    public Items_adapter(Context context, String[] statistcs_number, String[] statistcs_text) {
+    public Items_adapter(Context context, float[] statistcs_number, String[] statistcs_text) {
         this.context = context;
         this.statistcs_number = statistcs_number;
         this.statistcs_text = statistcs_text;
@@ -38,9 +40,12 @@ public class Items_adapter extends BaseAdapter {
         return 0;
     }
 
+    private static DecimalFormat df = new DecimalFormat("0.00");
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 
         if(convertView == null) {
             view = new View(context);
@@ -48,7 +53,7 @@ public class Items_adapter extends BaseAdapter {
             TextView textViewNum = view.findViewById(R.id.big_text);
             TextView textViewStr = view.findViewById(R.id.small_text);
 
-            textViewNum.setText(statistcs_number[position]);
+            textViewNum.setText(df.format(statistcs_number[position]));
             textViewStr.setText(statistcs_text[position]);
         }
 

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -66,15 +67,17 @@ public class FuelControlActivity extends AppCompatActivity {
 
     private final String[] values_firstGridstr = {"AV L/100 km", "LAST L/100 km","BEST L/100 km","Total km Tracked","Fuel logs","Total Liters"};
 
-    private final String[] values_firstGridint = {"6.7","7.5","6.4","1887","5","171"};
+    private final float[] values_firstGridint = {0,0,0,0,0,0};
 
     private final String[] values_secondGridstr = {"Avg. Price/Liter", "Avg. Fuel-Up Cost","Avg. Price/km"};
 
-    private final String[] values_secondGridint = {"$677","$23.16","$45.42"};
+    private final float[] values_secondGridint = {0,0,0};
 
     private GridView gridView_stats,gridView_prices;
 
     private FloatingActionButton floatingActionButton_addLog;
+
+    private TextView txtView_total_spend;
 
     private BarChart barChart;
     private CombinedChart combinedChart;
@@ -100,6 +103,8 @@ public class FuelControlActivity extends AppCompatActivity {
         gridView_stats = findViewById(R.id.gridviewHorizontal);
         gridView_prices = findViewById(R.id.gridview_prices);
 
+
+        txtView_total_spend = findViewById(R.id.total_fuel_cost);
         floatingActionButton_addLog = findViewById(R.id.fab_button_addFuelLog);
 
         //Get user id and car id
@@ -117,11 +122,9 @@ public class FuelControlActivity extends AppCompatActivity {
 
         combinedChart = findViewById(R.id.combinedChart);
 
-        Items_adapter items_adapter = new Items_adapter(this,values_firstGridint,values_firstGridstr);
-        gridView_stats.setAdapter(items_adapter);
 
-        Items_adapter items_adapterPrices = new Items_adapter(this,values_secondGridint,values_secondGridstr);
-        gridView_prices.setAdapter(items_adapterPrices);
+
+
 
 
         floatingActionButton_addLog.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +215,7 @@ public class FuelControlActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
 
+
     }
 
     @Override
@@ -291,6 +295,8 @@ public class FuelControlActivity extends AppCompatActivity {
 
     //Download data from BD
     public void getFuelLogs(){
+
+        Singleton.getInstance(this).clearList_fuelLogs();
         String url_get_fuelLogs = "https://evening-oasis-22037.herokuapp.com/fuelLog/getLogsxUser/" + id_userLogged+
                                                                                                         "/"+id_carDef;
         JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, url_get_fuelLogs, null,
@@ -306,15 +312,17 @@ public class FuelControlActivity extends AppCompatActivity {
                                 int id = jsonObject.getInt("id");
                                 String date = jsonObject.getString("date");
                                 String time = jsonObject.getString("time");
-                                int odometer_current = jsonObject.getInt("odometer_current_value");
-                                int liters_qtty = jsonObject.getInt("liters_quantity");
-                                double total_price = jsonObject.getDouble("total_price");
-                                double price_perLiter = jsonObject.getDouble("price_per_liter");
+                                float odometer_current = jsonObject.getInt("odometer_current_value");
+                                float liters_qtty = jsonObject.getInt("liters_quantity");
+                                float total_price = jsonObject.getInt("total_price");
+                                float price_perLiter = jsonObject.getInt("price_per_liter");
                                 String fuel_type = jsonObject.getString("fuel_type");
+                                float km_traveled = jsonObject.getInt("km_traveled");
 
-                                Singleton.getInstance(getApplicationContext()).addList_fuelLogs(new Log_object(id,date,time,odometer_current,liters_qtty,total_price,price_perLiter,fuel_type));
+                                Singleton.getInstance(getApplicationContext()).addList_fuelLogs(new Log_object(id,date,time,odometer_current,liters_qtty,total_price,price_perLiter,fuel_type,km_traveled));
 
                             }
+                            statistics();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -331,5 +339,99 @@ public class FuelControlActivity extends AppCompatActivity {
         });
 
         Singleton.getInstance(FuelControlActivity.this).addToRequestQueue(getRequest);
+    }
+
+
+    public void statistics(){
+        float km_traveled = 0;
+
+        ArrayList<Log_object> list_logs = Singleton.getInstance(this).getList_fuelLogs();
+
+        switch (list_logs.size()){
+            case 0:
+                Items_adapter items_adapter = new Items_adapter(this,values_firstGridint,values_firstGridstr);
+                gridView_stats.setAdapter(items_adapter);
+
+                Items_adapter items_adapterPrices = new Items_adapter(this,values_secondGridint,values_secondGridstr);
+                gridView_prices.setAdapter(items_adapterPrices);
+
+                Toast.makeText(mContext, "No ha registrado ningun llenado de tanque (Informacion por defecto)", Toast.LENGTH_LONG).show();
+                return;
+            case 1:
+                km_traveled = list_logs.get(0).getOdometer_current();
+                break;
+            default:
+                km_traveled = list_logs.get(list_logs.size()-1).getOdometer_current() - list_logs.get(0).getOdometer_current();
+                break;
+        }
+
+
+        int total_logs = list_logs.size();
+        float total_spend = 0;
+        int total_liters = 0;
+        float total_price_liter = 0;
+        float avg_l_per_100km = 0;
+        float last_l_per_100km = 0;
+        float best_l_per_100km = 10000000;
+
+        Log_object log_object = list_logs.get(list_logs.size()-1);
+
+        last_l_per_100km = log_object.getLiters_qtty() / (log_object.getKm_traveled() / 100);
+
+
+        for(Log_object i : list_logs){
+            float best_l_per100km_temp = i.getLiters_qtty() / (i.getKm_traveled() / 100);
+            total_spend += i.getTotal_price();
+            total_liters += i.getLiters_qtty();
+            total_price_liter += i.getPrice_perLiter();
+            if(best_l_per100km_temp < best_l_per_100km)
+                best_l_per_100km = best_l_per100km_temp;
+        }
+
+        float avg_fuelUp_cost =  (total_spend/total_logs);
+
+        float avg_price_liter =  (total_price_liter/total_logs);
+
+        float avg_price_km = total_spend / km_traveled;
+
+        avg_l_per_100km = (total_liters / km_traveled) * 100;
+
+        Log.e(TAG, "statistics: totalSpend: "+total_spend);
+        Log.e(TAG, "statistics: total_liters: "+total_liters);
+        Log.e(TAG, "statistics: avg_price_liter: "+avg_price_liter);
+        Log.e(TAG, "statistics: totalLogs: "+total_logs);
+        Log.e(TAG, "statistics: totalSpend: "+total_spend);
+        Log.e(TAG, "statistics: avg_fuelUp_cost: "+avg_fuelUp_cost);
+        Log.e(TAG, "statistics: avg_price_km: "+avg_price_km);
+        Log.e(TAG, "statistics: avg_l_per_100km: "+avg_l_per_100km);
+        Log.e(TAG, "statistics: last_l_per_100km: "+last_l_per_100km);
+        Log.e(TAG, "statistics: km_traveled: "+km_traveled);
+
+        values_firstGridint[0] = avg_l_per_100km;
+        values_firstGridint[1] = last_l_per_100km;
+        values_firstGridint[2] = best_l_per_100km;
+
+        values_firstGridint[3] = km_traveled;
+        values_firstGridint[4] = total_logs;
+        values_firstGridint[5] = total_liters;
+
+        Items_adapter items_adapter = new Items_adapter(this,values_firstGridint,values_firstGridstr);
+        gridView_stats.setAdapter(items_adapter);
+
+
+        values_secondGridint[0] = avg_price_liter;
+        values_secondGridint[1] = avg_fuelUp_cost;
+        values_secondGridint[2] = avg_price_km;
+
+        Items_adapter items_adapterPrices = new Items_adapter(this,values_secondGridint,values_secondGridstr);
+        gridView_prices.setAdapter(items_adapterPrices);
+
+        txtView_total_spend.setText("Total fuel cost: ₡ "+total_spend);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //statistics();
     }
 }

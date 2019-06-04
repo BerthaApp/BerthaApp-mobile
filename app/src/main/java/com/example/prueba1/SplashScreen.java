@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Boolean isLogged = sharedPreferences.getBoolean(is_Logged, false);
-        Log.e("looged", String.valueOf(isLogged));
+
         if (isLogged) {
             Intent intent = new Intent(SplashScreen.this, Main4Activity.class);
             startActivity(intent);
