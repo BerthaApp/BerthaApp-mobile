@@ -5,10 +5,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <string name="facebook_app_id">655234408304761</string>
-    <string name="fb_login_protocol_scheme">fb655234408304761</string>
     <string name="add_email">&#160; &#xf067; Agregar correo &#160;</string>
 
+    <string name="facebook_app_id">465407184208661</string>
+    <string name="fb_login_protocol_scheme">fb465407184208661</string>
 
     <string name="create_group">Crear grupo</string>
     <string name="link_challenges">Enlazar retos</string>
@@ -28,5 +28,8 @@
 
     <string name="No_cars_registered">No hay vehiculos registrados!</string>
     <string name="title_activity_map">MapActivity</string>
+
+
+
 
 </resources>
