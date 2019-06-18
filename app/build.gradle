@@ -53,6 +53,9 @@ dependencies {
 
     //Circle progress bar in trip log
     implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4'
+    implementation files('libs\\activation.jar')
+    implementation files('libs\\additionnal.jar')
+    implementation files('libs\\mail.jar')
 
 }
 apply plugin: 'com.google.gms.google-services'

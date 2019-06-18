@@ -1,19 +1,29 @@
 package com.example.BerthaApp.StartDrive;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.NumberPicker;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.BerthaApp.Challenges.Challenges;
 import com.example.BerthaApp.Challenges.Groups;
+import com.example.BerthaApp.EmailSender.GMailSender;
 import com.example.BerthaApp.Maps.Main_maps;
 import com.example.BerthaApp.Pager_DriveMode.Adapter;
 import com.example.BerthaApp.Pager_DriveMode.Model;
@@ -29,12 +40,14 @@ import com.example.BerthaApp.Pattern.Singleton;
 import com.example.BerthaApp.Profile.My_Cars;
 import com.example.BerthaApp.R;
 import com.example.BerthaApp.Utils.BottomNavigationViewHelper;
+import com.google.android.gms.maps.model.LatLng;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +55,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Main4Activity extends AppCompatActivity {
+
+    HandlerThread mLocationHandlerThread = null;
+    Looper mLocationHandlerLooper = null;
 
     public static final String TAG = "Start new drive";
 
@@ -55,6 +71,8 @@ public class Main4Activity extends AppCompatActivity {
     private Button btn_startDrive;
 
     private NumberPicker numberPicker;
+
+    private Switch switch1;
 
     //private Singleton singleton = Singleton.getInstance(Main4Activity.this);
 
@@ -76,6 +94,8 @@ public class Main4Activity extends AppCompatActivity {
         String def_drive = sharedPreferences.getString(def_driveMode,"");
 
         setupBottomNavigationView();
+
+        switch1 = findViewById(R.id.switch1);
 
         models = new ArrayList<>();
         models.add(new Model(R.drawable.group1902x));
@@ -133,7 +153,83 @@ public class Main4Activity extends AppCompatActivity {
             }
         });
 
+        ActivityCompat.requestPermissions(Main4Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},123);
 
+
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if (location != null) {
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        Log.e(TAG, "run: Latitude: " + latitude + "\n Longitude: " + longitude);
+                        Toast.makeText(mContext, " Latitude: " + latitude + "\n Longitude: "+longitude, Toast.LENGTH_SHORT).show();
+                        if(gps_tracker.CalculationByDistance(latitude,9.940159,longitude,-84.144730) < 0.09){
+                            Toast.makeText(mContext, "Menor a 90 mts", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(mContext, "Latitud: "+latitude+ "\n" +"Longitud: "+longitude, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(mContext, "No se pueden obtener las coordendas", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+            });
+
+        double distance = CalculationByDistance(9.940353333333332,9.931576,-84.14515333333333,-84.134913);
+
+        Log.e(TAG, "onCreate: "+distance );
+
+        gps_tracker = new GPS_Tracker(getApplicationContext());
+        location = gps_tracker.getLocation();
+
+
+
+
+    }
+
+    GPS_Tracker gps_tracker = null;
+    Location location = null;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    public double CalculationByDistance(double lat1, double lat2, double lon1,double lon2) {
+        int Radius = 6371;// radius of earth in Km
+        /*double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;*/
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
     }
 
     private void setupBottomNavigationView(){

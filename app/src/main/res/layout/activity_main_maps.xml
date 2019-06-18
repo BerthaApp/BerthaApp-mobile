@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/round_background"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/color_white"
         android:text="Conceder permiso"
         android:textAllCaps="false"/>
 

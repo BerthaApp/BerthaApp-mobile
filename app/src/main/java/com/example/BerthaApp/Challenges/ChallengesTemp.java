@@ -1,7 +1,13 @@
 package com.example.BerthaApp.Challenges;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.BerthaApp.Pattern.Singleton;
+import com.example.BerthaApp.Profile.ProfileActivity;
 import com.example.BerthaApp.R;
 import com.example.BerthaApp.StartDrive.Main4Activity;
 import com.example.BerthaApp.Utils.BottomNavigationViewHelper;
@@ -23,8 +31,18 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class ChallengesTemp extends AppCompatActivity {
 
+    private static final String TAG = "ChallengesTemp";
+
     private Context mContext = ChallengesTemp.this;
     private static final int ACTIVITY_NUM = 3;
+
+    //User and car from shared preferences
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
+
+    private String id_userLogged;
+    private String id_carDef;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -60,6 +78,46 @@ public class ChallengesTemp extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
+
+        Log.e(TAG, "onCreate: "+id_carDef );
+
+        if(id_carDef.equals("-1")){
+
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.alert_dialog);
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+
+            final Handler handler  = new Handler();
+            final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                        startActivity(new Intent(ChallengesTemp.this, ProfileActivity.class));
+                        finish();
+                    }
+                }
+            };
+
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    handler.removeCallbacks(runnable);
+                }
+            });
+
+            handler.postDelayed(runnable, 2000);
+
+            //Singleton.getInstance(this).diplay_dialog(this,1);
+
+        }
 
 
         setupBottomNavigationView();

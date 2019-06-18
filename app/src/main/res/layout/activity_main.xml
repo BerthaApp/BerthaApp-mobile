@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login.MainActivity"
-    android:background="@color/colorWhite">
+    android:background="@color/color_white">
 
 
     <ImageView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:text="Username"
-        android:textColor="@color/colorFont"
+        android:textColor="@color/color_font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -48,7 +48,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="64dp"
         android:text="Password"
-        android:textColor="@color/colorFont"
+        android:textColor="@color/color_font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -57,12 +57,12 @@
         android:layout_width="280dp"
         android:layout_height="49dp"
         android:layout_marginStart="56dp"
-        android:backgroundTint="@color/colorFont"
+        android:backgroundTint="@color/color_font"
         android:ems="10"
         android:hint="example@email.com"
         android:inputType="textPersonName"
-        android:shadowColor="@color/colorFont"
-        android:textColorHighlight="@color/colorFont"
+        android:shadowColor="@color/color_font"
+        android:textColorHighlight="@color/color_font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -71,12 +71,12 @@
         android:layout_width="280dp"
         android:layout_height="49dp"
         android:layout_marginStart="56dp"
-        android:backgroundTint="@color/colorFont"
+        android:backgroundTint="@color/color_font"
         android:ems="10"
         android:hint="**************"
         android:inputType="textPersonName"
-        android:shadowColor="@color/colorFont"
-        android:textColorHighlight="@color/colorFont"
+        android:shadowColor="@color/color_font"
+        android:textColorHighlight="@color/color_font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
         android:text="Forgot the password"
-        android:textColor="@color/colorFont"
+        android:textColor="@color/color_font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_edit" />
 
@@ -99,7 +99,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="Login"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/color_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
         android:background="@drawable/border_btn"
         android:text="No tienes cuenta? Registrate!"
         android:textAllCaps="false"
-        android:textColor="@color/colorGreen"
+        android:textColor="@color/color_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"

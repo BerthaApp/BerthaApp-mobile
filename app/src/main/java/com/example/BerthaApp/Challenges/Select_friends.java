@@ -3,16 +3,20 @@ package com.example.BerthaApp.Challenges;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +24,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.BerthaApp.Constants;
+import com.example.BerthaApp.EmailSender.GMailSender;
 import com.example.BerthaApp.Pattern.Singleton;
+import com.example.BerthaApp.Profile.My_Cars;
 import com.example.BerthaApp.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,17 +40,38 @@ import java.util.Map;
 
 public class Select_friends extends AppCompatActivity {
 
-    private FloatingActionButton float_createGroup;
     private EditText group_name;
 
     private Singleton singleton = Singleton.getInstance(this);
+
+    private ListView listView_fbFriends;
+
+    //User and car from shared preferences
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_user = "id_user";
+    public static final String id_car = "id_car";
+
+    private String id_userLogged;
+    private String id_carDef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_friends);
-        float_createGroup = findViewById(R.id.fab_button_createGroup);
+
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
+
+
+
+        FloatingActionButton float_createGroup = findViewById(R.id.fab_button_createGroup);
         group_name = findViewById(R.id.editGroup_name);
+
+        listView_fbFriends = findViewById(R.id.listView_friends);
 
 
         float_createGroup.setOnClickListener(new View.OnClickListener() {
@@ -50,16 +81,22 @@ public class Select_friends extends AppCompatActivity {
                     Toast.makeText(context, "Por favor digite un nombre", Toast.LENGTH_SHORT).show();
                 }else{
                     getData();
-
                 }
             }
         });
 
 
+        ArrayList<String> fb_friends = new ArrayList<>();
+        fb_friends.add("Facebook friend");fb_friends.add("Facebook friend");fb_friends.add("Facebook friend");fb_friends.add("Facebook friend");fb_friends.add("Facebook friend");
+
+
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fb_friends);
+        listView_fbFriends.setAdapter(itemsAdapter);
+
     }
 
     private String m_Text = "";
-    List<String> list_emails = new ArrayList<String>();
+    ArrayList<String> list_emails = new ArrayList<>();
     public void agregarCorreo(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -99,30 +136,19 @@ public class Select_friends extends AppCompatActivity {
         String group_nameStr =  group_name.getText().toString();
         String description_default = "Descripcion grupo...";
 
-        Log.i("Send email", "");
-        String[] TO = list_emails.toArray(new String[0]);
-        String[] CC = {""};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invitacion");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Acceda al siguiente link para ingresar al grupo: ");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            String[] params = new String[]{"122","2",group_nameStr,description_default};
-
-            postGroup(params);
-            finish();
-            Log.i("Finished ", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Select_friends.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        if(!list_emails.isEmpty()) {
+            GMailSender sender = new GMailSender(this, list_emails, Constants.SUBJECT_EMAIL, Constants.BODY_EMAIL);
+            sender.execute();
         }
 
+        String[] params = new String[4];
 
+        params[0] = id_userLogged;
+        params[1] = id_carDef;
+        params[2] = group_nameStr;
+        params[3] = description_default;
+
+        postGroup(params);
     }
 
 
@@ -137,13 +163,13 @@ public class Select_friends extends AppCompatActivity {
 
         for(int i = 0; i<list_emails.size(); i++){
             final TextView valueTV = new TextView(this);
-            valueTV.setTextColor(getResources().getColor(R.color.black_overlay));
+            valueTV.setTextColor(ContextCompat.getColor(this,R.color.black_overlay));
             //valueTV.setTextColor(Color.parseColor("#000000"));
             valueTV.setTextSize(18);
             valueTV.setId(((LinearLayout) linearLayout).getChildCount());
             params.setMargins(0,25,0,0);
             valueTV.setText("  " + list_emails.get(i));
-            valueTV.setBackgroundResource(R.color.colorGreen);
+            valueTV.setBackgroundResource(R.color.color_green);
             //valueTV.setAlpha((float)0.2);
             valueTV.getBackground().setAlpha(80);
             valueTV.isClickable();
@@ -193,12 +219,17 @@ public class Select_friends extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", "Yes i got here");
-                        singleton.addList_groups(new Groups(0,arg0[2],arg0[3]));
-                        Intent intent = new Intent(getApplicationContext(),ChallengesTemp.class);
-                        startActivity(intent);
-                        finish();
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            int id = jsonObject.getInt("@id_out_group;");
+
+                            Singleton.getInstance(getApplicationContext()).addList_groups(new Groups(id,arg0[2],arg0[3]));
+                            Intent intent = new Intent(getApplicationContext(),ChallengesTemp.class);
+                            startActivity(intent);
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -213,7 +244,7 @@ public class Select_friends extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams()
             {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("id_user", arg0[0]);
                 params.put("id_car", arg0[1]);
                 params.put("name_group", arg0[2]);
@@ -236,3 +267,43 @@ public class Select_friends extends AppCompatActivity {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*String[] TO = list_emails.toArray(new String[0]);
+        String[] CC = {""};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invitacion");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Acceda al siguiente link para ingresar al grupo: ");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            String[] params = new String[]{"122","2",group_nameStr,description_default};
+
+            postGroup(params);
+            finish();
+            Log.i("Finished ", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Select_friends.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+*/

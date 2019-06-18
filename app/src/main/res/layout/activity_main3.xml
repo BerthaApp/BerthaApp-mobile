@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterCar.Main3Activity"
-    android:background="@color/colorWhite">
+    android:background="@color/color_white">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -65,7 +65,7 @@
                 android:layout_marginTop="30dp"
                 android:paddingTop="20dp"
                 android:text="Car Brand"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_make"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Car Model"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_model"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Car Year"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_year"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Engine"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_engine"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Fuel Type"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_fuel"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Transmission (Optional)"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_transmission"
@@ -149,13 +149,13 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Tire Size (Optional)"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <EditText
                 android:id="@+id/editText_tireSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorFont"
+                android:backgroundTint="@color/color_font"
                 android:ems="10"
                 android:hint="Tire size"
                 android:inputType="textPersonName"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:text="Normal Driving Condition"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <Spinner
                 android:id="@+id/spinner_driveCond"
@@ -182,13 +182,13 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:text="License plate (Optional)"
-                android:textColor="@color/colorFont" />
+                android:textColor="@color/color_font" />
 
             <EditText
                 android:id="@+id/editText_plate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorFont"
+                android:backgroundTint="@color/color_font"
                 android:hint="License plate"
                 android:paddingBottom="15dp"
                 android:textColor="@color/black_overlay" />
@@ -207,6 +207,6 @@
         android:layout_marginBottom="25dp"
         android:background="@drawable/round_background"
         android:text="Save"
-        android:textColor="@color/colorWhite"/>
+        android:textColor="@color/color_white"/>
 
 </RelativeLayout>

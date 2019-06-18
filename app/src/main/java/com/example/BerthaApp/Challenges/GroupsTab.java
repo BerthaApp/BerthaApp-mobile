@@ -22,7 +22,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class GroupsTab extends Fragment{
 
-    private FloatingActionButton float_plus,float_add_group,float_linkChallenge, float_all_challenges;
+    private FloatingActionButton float_plus,float_add_group,float_linkChallenge;
 
     private Animation fab_open, fab_close, fab_clockwise, fab_anticlockwise;
 
@@ -32,7 +32,7 @@ public class GroupsTab extends Fragment{
 
     private ListView listView_groups;
 
-    private TextView create_gruopTv, link_challengeTv, all_challengesTv;
+    private TextView create_gruopTv, link_challengeTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,13 +109,8 @@ public class GroupsTab extends Fragment{
 
         Log.e("LENGTH LIST GROUPS",String.valueOf(singleton.getList_groups().size()));
 
-
-
-
-
         Groups_adapter adapter = new Groups_adapter(getActivity(), R.layout.group_item,singleton.getList_groups());
         listView_groups.setAdapter(adapter);
-
 
         listView_groups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,6 +119,7 @@ public class GroupsTab extends Fragment{
                 Groups group = (Groups) listView_groups.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),Group_chat.class);
                 intent.putExtra("name_group",group.getName());
+                intent.putExtra("id_group",group.getId());
                 startActivity(intent);
             }
         });

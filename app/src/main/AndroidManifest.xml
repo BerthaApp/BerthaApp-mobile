@@ -12,8 +12,6 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_action_iconbertha"
@@ -22,9 +20,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.BerthaApp.FuelControl.Fuel_log"></activity>
+        <activity android:name=".TripLog.List_logs"></activity>
+        <activity android:name=".FuelControl.Fuel_log" />
         <activity
-            android:name="com.example.BerthaApp.Maps.MapActivity"
+            android:name=".Maps.MapActivity"
             android:label="@string/title_activity_map"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -35,48 +34,47 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.example.BerthaApp.Maps.Main_maps" />
-        <activity android:name="com.example.BerthaApp.Challenges.ChallengeDescription" />
+        <activity android:name=".Maps.Main_maps" />
+        <activity android:name=".Challenges.ChallengeDescription" />
         <activity
-            android:name="com.example.BerthaApp.Challenges.ChallengesTemp"
+            android:name=".Challenges.ChallengesTemp"
             android:label="@string/title_activity_challenges_temp"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.BerthaApp.Challenges.link_challenges" />
-        <activity android:name="com.example.BerthaApp.Challenges.Group_chat" />
-        <activity android:name="com.example.BerthaApp.Challenges.Select_friends" />
-        <activity android:name="com.example.BerthaApp.StartDrive.Main4Activity" />
-        <activity android:name="com.example.BerthaApp.SplashScreen">
+        <activity android:name=".Challenges.link_challenges" />
+        <activity android:name=".Challenges.Group_chat" />
+        <activity android:name=".Challenges.Select_friends" />
+        <activity android:name=".StartDrive.Main4Activity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.BerthaApp.RegisterCar.Main3Activity" />
-        <activity android:name="com.example.BerthaApp.RegisterUser.Main2Activity" />
-        <activity android:name="com.example.BerthaApp.Login.MainActivity" />
-        <activity android:name="com.example.BerthaApp.Profile.ProfileActivity" />
-        <activity android:name="com.example.BerthaApp.TripLog.TripLogActivity" />
-        <activity android:name="com.example.BerthaApp.FuelControl.FuelControlActivity" />
+        <activity android:name=".RegisterCar.Main3Activity" />
+        <activity android:name=".RegisterUser.Main2Activity" />
+        <activity android:name=".Login.MainActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".TripLog.TripLogActivity" />
+        <activity android:name=".FuelControl.FuelControlActivity" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" />
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>

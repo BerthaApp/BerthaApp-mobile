@@ -1,6 +1,12 @@
 package com.example.BerthaApp.Pattern;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,6 +16,7 @@ import com.example.BerthaApp.Challenges.Groups;
 import com.example.BerthaApp.FuelControl.Log_object;
 import com.example.BerthaApp.Maps.Road_mark;
 import com.example.BerthaApp.Profile.My_Cars;
+import com.example.BerthaApp.R;
 import com.example.BerthaApp.TripLog.Trip;
 
 import java.util.ArrayList;
@@ -210,4 +217,7 @@ public class Singleton {
         list_myTrips.add(new Trip("Sep 21", "6:00am","7:00am", "San Rafael Escazu", "Av. 10 San Jose", "11.2", "12", "$3.9", "60"));
 
     }
+
+
+
 }

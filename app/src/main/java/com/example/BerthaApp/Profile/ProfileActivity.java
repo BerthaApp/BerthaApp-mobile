@@ -159,7 +159,6 @@ public class ProfileActivity extends AppCompatActivity {
                 });
 
                 popupMenu.show();
-
             }
         });
 
@@ -213,6 +212,27 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        listView_carList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(ProfileActivity.this, "Implementando caracteristica", Toast.LENGTH_SHORT).show();
+                
+                /*
+                My_Cars carSelected = Singleton.getInstance(getApplicationContext()).getList_myCars().get(position);
+                String id_carbd = String.valueOf(carSelected.getId());
+
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(id_car,"");
+                editor.apply();
+
+                delete_car(id_carbd,id_actualUser);*/
+
+                return false;
+            }
+        });
+
 
         drive_mode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,12 +249,12 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_eco.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(def_driveMode,"eco");
+                        editor.putString(def_driveMode, "eco");
                         editor.apply();
                         drive_mode.setImageResource(R.drawable.group1902x);
-                        set_newDriveMode("eco",id_actualUser);
+                        set_newDriveMode("eco", id_actualUser);
                         alert.dismiss();
                     }
                 });
@@ -242,12 +262,12 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_normal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(def_driveMode,"normal");
+                        editor.putString(def_driveMode, "normal");
                         editor.apply();
                         drive_mode.setImageResource(R.drawable.group1912x);
-                        set_newDriveMode("normal",id_actualUser);
+                        set_newDriveMode("normal", id_actualUser);
                         alert.dismiss();
                     }
                 });
@@ -255,12 +275,12 @@ public class ProfileActivity extends AppCompatActivity {
                 boton_aggresive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(def_driveMode,"aggresive");
+                        editor.putString(def_driveMode, "aggresive");
                         editor.apply();
                         drive_mode.setImageResource(R.drawable.group1922x);
-                        set_newDriveMode("aggresive",id_actualUser);
+                        set_newDriveMode("aggresive", id_actualUser);
                         alert.dismiss();
                     }
                 });
@@ -360,6 +380,39 @@ public class ProfileActivity extends AppCompatActivity {
         };
         Singleton.getInstance(ProfileActivity.this).addToRequestQueue(postRequest);
     }
+    private static final String url_deleteCar = "https://evening-oasis-22037.herokuapp.com/users/set_newCar/";
+    public void delete_car(final String car_id,final String user_id){
 
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url_setNewCar,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response new car def", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_user", user_id);
+                params.put("id_car", car_id);
+
+                return params;
+            }
+        };
+        Singleton.getInstance(ProfileActivity.this).addToRequestQueue(postRequest);
+    }
 
 }

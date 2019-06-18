@@ -3,22 +3,22 @@
     <color name="colorPrimary">#51791A</color>
     <color name="colorPrimaryDark">#51791A</color>
     <color name="colorAccent">#51791A</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="black_overlay">#000000</color>
-    <color name="colorGreen">#51791A</color>
-    <color name="colorFont">#878683</color>
-    <color name="color_blue">#5179CD</color>
+    <color name="color_green">#51791A</color>
+    <color name="color_green_score">#35A200</color>
     <color name="color_green_light">#9DC468</color>
+    <color name="color_green_cardview">#abffc0</color>
+    <color name="color_green_wintokens">#3eb959</color>
+    <color name="color_green_very_light">#C2D9CC</color>
+    <color name="color_white">#ffffff</color>
+    <color name="black_overlay">#000000</color>
+    <color name="color_blue">#5179CD</color>
     <color name="color_gray_cool">#607D8B</color>
     <color name="color_orange">#F7CD03</color>
-    <color name="color_green_very_light">#C2D9CC</color>
     <color name="color_red">#D11A2A</color>
+    <color name="color_red_cardview">#ff3943</color>
+    <color name="color_font">#878683</color>
     <color name="color_gray">#6C6C6C</color>
     <color name="color_test">#635D66</color>
-    <color name="color_green_score">#35A200</color>
-
-
-
 
 
 </resources>

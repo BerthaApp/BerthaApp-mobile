@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TripLog.TripLogActivity"
-    android:background="@color/colorWhite">
+    android:background="@color/color_white">
 
 
     <ImageView
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:text="30 Total Trips"
-                android:textColor="@color/colorGreen"
+                android:textColor="@color/color_green"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="Time / Date"
-                android:textColor="@color/colorGreen"
+                android:textColor="@color/color_green"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginStart="95dp"/>

@@ -53,7 +53,7 @@ public class Main3Activity extends AppCompatActivity {
     private final static String url_trim_specs = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModel&model=";
 
     private final static String[] year = new String[] {"Choose year", "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"
-            ,"2011","2012","2013","2014","2015","2016","2017","2018"};
+            ,"2011","2012","2013","2014","2015","2016","2017","2018","2019"};
 
     private final static String[] fuel_type = new String[] {"Gasoline", "Diesel"};
 
@@ -109,7 +109,7 @@ public class Main3Activity extends AppCompatActivity {
         spinner_fuelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_fuel.setAdapter(spinner_fuelAdapter);
 
-        ArrayAdapter<String> spinner_engine = new ArrayAdapter<>(this,R.layout.spinner_item,list_engineMod);
+        final ArrayAdapter<String> spinner_engine = new ArrayAdapter<>(this,R.layout.spinner_item,list_engineMod);
         spinner_engine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_car_engine.setAdapter(spinner_engine);
 
@@ -138,6 +138,8 @@ public class Main3Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(parent.getItemAtPosition(position).equals("Choose make")){}else{
                     getModelByMake(spinner_car_make.getSelectedItem().toString());
+                    list_engineMod = new ArrayList<>(Arrays.asList("Choose engine"));
+                    spinner_car_engine.setAdapter(spinner_engine);
                 }
             }
 
@@ -193,7 +195,7 @@ public class Main3Activity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorGreen));
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.color_green));
     }
 
     ArrayList<String> list_engineMod = new ArrayList<>(Arrays.asList("Choose engine"));
@@ -249,6 +251,10 @@ public class Main3Activity extends AppCompatActivity {
                         }
                         if(list_engineMod.isEmpty()){
                             Toast.makeText(Main3Activity.this, "No se encontraron modelos de motor", Toast.LENGTH_SHORT).show();
+                            list_engineMod = new ArrayList<>(Arrays.asList("Choose engine"));
+                            ArrayAdapter<String> spinner_engineAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.spinner_item,list_engineMod);
+                            spinner_engineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinner_car_engine.setAdapter(spinner_engineAdapter);
                         }else{
                             ArrayAdapter<String> spinner_engineAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.spinner_item,list_engineMod);
                             spinner_engineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

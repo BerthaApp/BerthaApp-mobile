@@ -307,7 +307,7 @@
                 android:text="Guardar"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_background"
-                android:textColor="@color/white"
+                android:textColor="@color/color_white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"/>
 

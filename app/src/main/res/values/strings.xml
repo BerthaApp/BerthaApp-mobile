@@ -28,8 +28,12 @@
 
     <string name="No_cars_registered">No hay vehiculos registrados!</string>
     <string name="title_activity_map">MapActivity</string>
-
-
+    <string name="wintokens_deftext">+10 Tokens</string>
+    <string name="not_wintokens_deftext">+0 Tokens</string>
+    <string name="won_tokens">Has ganado tokens!!!</string>
+    <string name="access_restringed">Aun no puedes usar esta funcionalidad!</string>
+    <string name="not_won_tokens">No ganaste tokens, mejora tu score!</string>
+    <string name="register_car">Registra un vehiculo!</string>
 
 
 </resources>

@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
     //URL API
 
 
+
+    //User and car from shared preferences
+
+    private String id_userLogged;
+    private String id_carDef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +81,16 @@ public class MainActivity extends AppCompatActivity {
         passwordEdit = findViewById(R.id.password_edit);
         usernameEdit.setText("maria@gmail.com");
         passwordEdit.setText("12345");
-        //spinner link
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        id_userLogged = sharedPreferences.getString(id_user,"");
+        id_carDef = sharedPreferences.getString(id_car,"");
+
+        Log.e(TAG, "onCreate: "+id_carDef );
+
+
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,10 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     passwordEdit.setText("");
 
                 }
-                //Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
-                //startActivity(intent);
-                //boolean passwordMatch = PasswordUtils.verifyUserPassword(password, pass, salt);
-                //finish();
+
             }
         });
 
@@ -117,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorGreen));
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.color_green));
 
 
 
@@ -137,32 +150,7 @@ public class MainActivity extends AppCompatActivity {
         login_btn_fb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-/*
-                GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(loginResult.getAccessToken(), "/me/friends", null, HttpMethod.GET,
-                        new GraphRequest.Callback() {
-                            @Override
-                            public void onCompleted(GraphResponse response) {
-                                try{
-                                    JSONArray rawName = response.getJSONObject().getJSONArray("data");
-                                    Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                                }catch (JSONException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).executeAsync();
-                /*Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                AccessToken accessToken =loginResult.getAccessToken();
 
-                GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        toast_caca(object);
-                    }
-                });
-                Bundle bundle = new Bundle();
-                bundle.putString("fields","email, id");
-                graphRequest.setParameters(bundle);
-                graphRequest.executeAsync();*/
             }
 
             @Override

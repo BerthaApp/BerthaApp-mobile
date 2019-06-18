@@ -46,7 +46,9 @@
             android:layout_above="@+id/agregarCorreo_button"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="0dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/agregarCorreo_button"

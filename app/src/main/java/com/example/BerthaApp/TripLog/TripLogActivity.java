@@ -51,7 +51,7 @@ public class TripLogActivity  extends AppCompatActivity {
         listView_trips = findViewById(R.id.listView_trips);
 
 
-        circleProgressView.setTextColor(getResources().getColor(R.color.colorGreen));
+        circleProgressView.setTextColor(getResources().getColor(R.color.color_green));
         circleProgressView.setTextSize(50);
 
         circleProgressView.setValueAnimated(0,88,2000);
