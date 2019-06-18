@@ -113,9 +113,7 @@ public class ChallengesTemp extends AppCompatActivity {
                 }
             });
 
-            handler.postDelayed(runnable, 2000);
-
-            //Singleton.getInstance(this).diplay_dialog(this,1);
+            handler.postDelayed(runnable, 2500);
 
         }
 

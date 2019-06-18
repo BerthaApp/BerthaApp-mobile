@@ -164,7 +164,7 @@ public class Main4Activity extends AppCompatActivity {
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         Log.e(TAG, "run: Latitude: " + latitude + "\n Longitude: " + longitude);
-                        Toast.makeText(mContext, " Latitude: " + latitude + "\n Longitude: "+longitude, Toast.LENGTH_SHORT).show();
+                        ///Toast.makeText(mContext, " Latitude: " + latitude + "\n Longitude: "+longitude, Toast.LENGTH_SHORT).show();
                         if(gps_tracker.CalculationByDistance(latitude,9.940159,longitude,-84.144730) < 0.09){
                             Toast.makeText(mContext, "Menor a 90 mts", Toast.LENGTH_SHORT).show();
                         }else{
@@ -184,7 +184,7 @@ public class Main4Activity extends AppCompatActivity {
 
         Log.e(TAG, "onCreate: "+distance );
 
-        gps_tracker = new GPS_Tracker(getApplicationContext());
+        gps_tracker = new GPS_Tracker(Main4Activity.this);
         location = gps_tracker.getLocation();
 
 

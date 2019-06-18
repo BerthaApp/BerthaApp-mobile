@@ -1,17 +1,26 @@
 package com.example.BerthaApp.StartDrive;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.BerthaApp.Challenges.ChallengesTemp;
+import com.example.BerthaApp.Profile.ProfileActivity;
+import com.example.BerthaApp.R;
 import com.google.android.gms.clearcut.ClearcutLogger;
 
 import java.text.DecimalFormat;
@@ -51,8 +60,33 @@ public class GPS_Tracker implements LocationListener {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             Log.e(TAG, "run: Latitude: " + latitude + "\n Longitude: " + longitude);
-            if(CalculationByDistance(latitude,9.940159,longitude,-84.144730) < 0.05){
+            if(CalculationByDistance(latitude,9.940159,longitude,-84.144730) < 0.09){
                 Toast.makeText(context, "Menor a 90 mts", Toast.LENGTH_SHORT).show();
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.alert_dialog_wintokens);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                final Handler handler  = new Handler();
+                final Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                };
+
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        handler.removeCallbacks(runnable);
+                    }
+                });
+
+                handler.postDelayed(runnable, 2000);
             }else{
                 Toast.makeText(context, "Latitud: "+latitude+ "\n" +"Longitud: "+longitude, Toast.LENGTH_SHORT).show();
             }
