@@ -22,18 +22,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.BerthaApp.Pattern.Singleton;
 import com.example.BerthaApp.Profile.ProfileActivity;
 import com.example.BerthaApp.R;
 import com.example.BerthaApp.StartDrive.Main4Activity;
 import com.example.BerthaApp.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class ChallengesTemp extends AppCompatActivity {
+public class ChallengesFragment extends AppCompatActivity {
 
-    private static final String TAG = "ChallengesTemp";
+    private static final String TAG = "ChallengesFragment";
 
-    private Context mContext = ChallengesTemp.this;
+    private Context mContext = ChallengesFragment.this;
     private static final int ACTIVITY_NUM = 3;
 
     //User and car from shared preferences
@@ -100,7 +99,7 @@ public class ChallengesTemp extends AppCompatActivity {
                 public void run() {
                     if (dialog.isShowing()) {
                         dialog.dismiss();
-                        startActivity(new Intent(ChallengesTemp.this, ProfileActivity.class));
+                        startActivity(new Intent(ChallengesFragment.this, ProfileActivity.class));
                         finish();
                     }
                 }

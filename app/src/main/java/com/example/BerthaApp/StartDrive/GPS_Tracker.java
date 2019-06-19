@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,10 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.BerthaApp.Challenges.ChallengesTemp;
-import com.example.BerthaApp.Profile.ProfileActivity;
 import com.example.BerthaApp.R;
-import com.google.android.gms.clearcut.ClearcutLogger;
 
 import java.text.DecimalFormat;
 

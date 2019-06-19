@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -27,7 +26,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.BerthaApp.Constants;
 import com.example.BerthaApp.EmailSender.GMailSender;
 import com.example.BerthaApp.Pattern.Singleton;
-import com.example.BerthaApp.Profile.My_Cars;
 import com.example.BerthaApp.R;
 
 import org.json.JSONException;
@@ -35,7 +33,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Select_friends extends AppCompatActivity {
@@ -224,7 +221,7 @@ public class Select_friends extends AppCompatActivity {
                             int id = jsonObject.getInt("@id_out_group;");
 
                             Singleton.getInstance(getApplicationContext()).addList_groups(new Groups(id,arg0[2],arg0[3]));
-                            Intent intent = new Intent(getApplicationContext(),ChallengesTemp.class);
+                            Intent intent = new Intent(getApplicationContext(), ChallengesFragment.class);
                             startActivity(intent);
                             finish();
                         } catch (JSONException e) {
@@ -260,7 +257,7 @@ public class Select_friends extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(Select_friends.this,ChallengesTemp.class);
+        Intent intent = new Intent(Select_friends.this, ChallengesFragment.class);
         startActivity(intent);
         finish();
     }

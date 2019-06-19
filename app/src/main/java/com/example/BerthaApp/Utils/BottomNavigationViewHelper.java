@@ -8,7 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.BerthaApp.Challenges.ChallengesTemp;
+import com.example.BerthaApp.Challenges.ChallengesFragment;
 import com.example.BerthaApp.FuelControl.FuelControlActivity;
 import com.example.BerthaApp.Profile.ProfileActivity;
 import com.example.BerthaApp.TripLog.TripLogActivity;
@@ -51,7 +51,7 @@ public class BottomNavigationViewHelper {
 
                         break;
                     case R.id.ic_challenges:
-                        Intent intent4 = new Intent(context, ChallengesTemp.class);
+                        Intent intent4 = new Intent(context, ChallengesFragment.class);
                         context.startActivity(intent4);
                         break;
                     case R.id.ic_profile:

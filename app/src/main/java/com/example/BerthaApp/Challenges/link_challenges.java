@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class link_challenges extends AppCompatActivity {
 
@@ -96,7 +95,7 @@ public class link_challenges extends AppCompatActivity {
 
         post_link(jsonObject);
 
-        /*Intent intent = new Intent(link_challenges.this,ChallengesTemp.class);
+        /*Intent intent = new Intent(link_challenges.this,ChallengesFragment.class);
         startActivity(intent);
         finish();*/
 
@@ -148,7 +147,7 @@ public class link_challenges extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(link_challenges.this,ChallengesTemp.class);
+        Intent intent = new Intent(link_challenges.this, ChallengesFragment.class);
         startActivity(intent);
         finish();
     }

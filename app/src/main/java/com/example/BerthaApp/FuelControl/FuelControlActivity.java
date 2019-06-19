@@ -25,7 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.BerthaApp.Challenges.ChallengesTemp;
 import com.example.BerthaApp.Pattern.Singleton;
 import com.example.BerthaApp.Profile.ProfileActivity;
 import com.example.BerthaApp.R;
@@ -534,7 +533,7 @@ public class FuelControlActivity extends AppCompatActivity {
         barEntries.add(new BarEntry(3,valuesGraph[2]));
         barEntries.add(new BarEntry(4,valuesGraph[3]));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries,"L/100km Recientes");
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Recent L/100km");
         barDataSet.setColor(ContextCompat.getColor(this,R.color.color_green));
 
         BarData data = new BarData(barDataSet);

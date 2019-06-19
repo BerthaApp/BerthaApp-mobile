@@ -37,7 +37,7 @@
         <activity android:name=".Maps.Main_maps" />
         <activity android:name=".Challenges.ChallengeDescription" />
         <activity
-            android:name=".Challenges.ChallengesTemp"
+            android:name=".Challenges.ChallengesFragment"
             android:label="@string/title_activity_challenges_temp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Challenges.link_challenges" />
