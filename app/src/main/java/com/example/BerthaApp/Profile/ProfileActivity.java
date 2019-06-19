@@ -135,10 +135,10 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         String optionSelected = item.getTitle().toString();
-                        if(optionSelected.equals("Preferencias")){
-                            Toast.makeText(mContext, "Esta funcionalidad aun no esta desarrollada", Toast.LENGTH_SHORT).show();
+                        if(optionSelected.equals("Preferences")){
+                            Toast.makeText(mContext, "Developing functinality", Toast.LENGTH_SHORT).show();
                         }
-                        else if(optionSelected.equals("Cerrar sesion")){
+                        else if(optionSelected.equals("Log out")){
                             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(id_user,"");
@@ -216,7 +216,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(ProfileActivity.this, "Implementando caracteristica", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Developing functionality", Toast.LENGTH_SHORT).show();
                 
                 /*
                 My_Cars carSelected = Singleton.getInstance(getApplicationContext()).getList_myCars().get(position);

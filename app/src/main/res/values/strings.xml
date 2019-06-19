@@ -5,19 +5,19 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <string name="add_email">&#160; &#xf067; Agregar correo &#160;</string>
+    <string name="add_email">&#160; &#xf067; Add email &#160;</string>
 
     <string name="facebook_app_id">465407184208661</string>
     <string name="fb_login_protocol_scheme">fb465407184208661</string>
 
-    <string name="create_group">Crear grupo</string>
-    <string name="link_challenges">Enlazar retos</string>
-    <string name="all_challenges">Todos los retos</string>
+    <string name="create_group">Create group</string>
+    <string name="link_challenges">Link challenges</string>
+    <string name="all_challenges">All challenges</string>
 
     <string name="title_activity_challenges_temp">ChallengesTemp</string>
-    <string name="tab_text_1">Grupos</string>
-    <string name="tab_text_2">Mis retos</string>
-    <string name="tab_text_3">Retos globales</string>
+    <string name="tab_text_1">Groups</string>
+    <string name="tab_text_2">My challenges</string>
+    <string name="tab_text_3">Global challenges</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -26,14 +26,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="No_cars_registered">No hay vehiculos registrados!</string>
+    <string name="No_cars_registered">No vehicles registered!</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="wintokens_deftext">+10 Tokens</string>
     <string name="not_wintokens_deftext">+0 Tokens</string>
-    <string name="won_tokens">Has ganado tokens!!!</string>
-    <string name="access_restringed">Aun no puedes usar esta funcionalidad!</string>
-    <string name="not_won_tokens">No ganaste tokens, mejora tu score!</string>
-    <string name="register_car">Registra un vehiculo!</string>
+    <string name="won_tokens">You won tokens!!!</string>
+    <string name="access_restringed">Functionality not implemented yet!</string>
+    <string name="not_won_tokens">No tokens won, improve your score!</string>
+    <string name="register_car">Register a vehicle!</string>
+    <string name="fuel_statistics">Fuel statistics</string>
+    <string name="fuel_up_total_cost">Fuel Up Total Cost</string>
+    <string name="select_challenge">Select challenge</string>
+    <string name="link_challenges">Link challenges</string>
+    <string name="password_textview">Password</string>
+    <string name="no_account_register">Don\'t have an account? Sign up!</string>
 
 
 </resources>
