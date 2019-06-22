@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TripLog.List_logs">
+    tools:context=".FuelControl.list_logs">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/mask_group62x" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logs_history"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            />
+
+
+    <ListView
+        android:id="@+id/listview_allLogs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_green_very_light"
+        android:dividerHeight="2.0sp"
+        android:layout_margin="20dp">
+
+
+
+    </ListView>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

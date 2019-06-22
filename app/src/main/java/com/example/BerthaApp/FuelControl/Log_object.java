@@ -10,8 +10,9 @@ public class Log_object {
     private float price_perLiter;
     private String fuel_type;
     private float km_traveled;
+    private String place_fuelUp;
 
-    public Log_object(int id, String date, String time, float odometer_current, float liters_qtty, float total_price, float price_perLiter, String fuel_type, float km_traveled) {
+    public Log_object(int id, String date, String time, float odometer_current, float liters_qtty, float total_price, float price_perLiter, String fuel_type, float km_traveled, String place_fuelUp) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -21,8 +22,16 @@ public class Log_object {
         this.price_perLiter = price_perLiter;
         this.fuel_type = fuel_type;
         this.km_traveled = km_traveled;
+        this.place_fuelUp = place_fuelUp;
     }
 
+    public String getPlace_fuelUp() {
+        return place_fuelUp;
+    }
+
+    public void setPlace_fuelUp(String place_fuelUp) {
+        this.place_fuelUp = place_fuelUp;
+    }
 
     public int getId() {
         return id;

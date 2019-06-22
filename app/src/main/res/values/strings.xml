@@ -42,6 +42,7 @@
     <string name="description">Description</string>
     <string name="expiration">Expiration</string>
     <string name="route">Route</string>
+    <string name="logs_history">Logs history</string>
 
 
 </resources>

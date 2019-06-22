@@ -133,5 +133,16 @@
         android:src="@drawable/ic_action_plus"
         app:pressedTranslationZ="12dp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button_all_logs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="170dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_all_logs"
+        app:pressedTranslationZ="12dp" />
+
 
 </android.support.design.widget.CoordinatorLayout>

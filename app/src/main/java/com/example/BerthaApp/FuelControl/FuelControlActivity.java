@@ -69,8 +69,6 @@ public class FuelControlActivity extends AppCompatActivity {
 
     private GridView gridView_stats,gridView_prices;
 
-    private FloatingActionButton floatingActionButton_addLog;
-
     private TextView txtView_total_spend;
 
     private BarChart barChart;
@@ -102,8 +100,8 @@ public class FuelControlActivity extends AppCompatActivity {
 
 
         txtView_total_spend = findViewById(R.id.total_fuel_cost);
-        floatingActionButton_addLog = findViewById(R.id.fab_button_addFuelLog);
-
+        FloatingActionButton floatingActionButton_addLog = findViewById(R.id.fab_button_addFuelLog);
+        FloatingActionButton floatingActionButton_allLogs = findViewById(R.id.fab_button_all_logs);
         //Get user id and car id
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -115,6 +113,14 @@ public class FuelControlActivity extends AppCompatActivity {
         else{
             set_defaultData();
         }
+
+        floatingActionButton_allLogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),list_logs.class));
+                finish();
+            }
+        });
 
 
         //BarChart
@@ -397,8 +403,9 @@ public class FuelControlActivity extends AppCompatActivity {
                                 float price_perLiter = jsonObject.getInt("price_per_liter");
                                 String fuel_type = jsonObject.getString("fuel_type");
                                 float km_traveled = jsonObject.getInt("km_traveled");
+                                String place_fuelUp = jsonObject.getString("place_fuelUp");
 
-                                Singleton.getInstance(getApplicationContext()).addList_fuelLogs(new Log_object(id,date,time,odometer_current,liters_qtty,total_price,price_perLiter,fuel_type,km_traveled));
+                                Singleton.getInstance(getApplicationContext()).addList_fuelLogs(new Log_object(id,date,time,odometer_current,liters_qtty,total_price,price_perLiter,fuel_type,km_traveled,place_fuelUp));
 
                             }
                             statistics();

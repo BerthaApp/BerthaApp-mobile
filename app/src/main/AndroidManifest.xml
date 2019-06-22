@@ -20,7 +20,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripLog.List_logs"></activity>
+        <activity android:name=".FuelControl.list_logs"></activity>
         <activity android:name=".FuelControl.Fuel_log" />
         <activity
             android:name=".Maps.MapActivity"
