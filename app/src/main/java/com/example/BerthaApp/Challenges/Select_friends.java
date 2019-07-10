@@ -35,6 +35,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+/// Create a group
 public class Select_friends extends AppCompatActivity {
 
     private EditText group_name;

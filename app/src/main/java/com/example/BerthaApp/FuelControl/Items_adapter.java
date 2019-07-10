@@ -11,6 +11,8 @@ import com.example.BerthaApp.R;
 
 import java.text.DecimalFormat;
 
+
+///Adapter to display some data of the gridview
 public class Items_adapter extends BaseAdapter {
 
     private Context context;

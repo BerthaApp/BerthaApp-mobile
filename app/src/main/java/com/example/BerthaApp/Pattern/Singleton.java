@@ -202,6 +202,11 @@ public class Singleton {
         return -1;
     }
 
+    public static void delete_log(Log_object log_object){
+        list_fuelLogs.remove(log_object);
+    }
+
+
 
     public void default_data(){
         list_roadMarkers.add(new Road_mark(0,"First Mark",9.944366, -84.149213,10));

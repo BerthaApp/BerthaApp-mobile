@@ -28,6 +28,9 @@ import com.example.BerthaApp.StartDrive.Main4Activity;
 import com.example.BerthaApp.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+
+
+//Fragment father of groups, my challenges and global challenges
 public class ChallengesFragment extends AppCompatActivity {
 
     private static final String TAG = "ChallengesFragment";

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,8 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.json.JSONArray;
@@ -51,6 +54,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+/// In this class all the data of fuel log is displays, also the statistics and charts..
+/// First the call to get the data from the database
+/// Second the call to the function that does the statistics
+/// Third the statistics are displayed
 public class FuelControlActivity extends AppCompatActivity {
 
     private static final String TAG = "FuelControlActivity";
@@ -167,114 +175,64 @@ public class FuelControlActivity extends AppCompatActivity {
 
 
         /// BAR CHART
-
-
-
-        /// COMBINED CHART
-
-        combinedChart.getDescription().setEnabled(false);
-        combinedChart.setDrawGridBackground(true);
-
-        combinedChart.setDrawBarShadow(true);
-        combinedChart.setHighlightFullBarEnabled(true);
-
-        // draw bars behind lines
-        combinedChart.setDrawOrder(new CombinedChart.DrawOrder[]{
-                CombinedChart.DrawOrder.BAR,  CombinedChart.DrawOrder.LINE
-        });
-
-        LegendEntry[] legendEntry = new LegendEntry[2];
-
-        LegendEntry entry = new LegendEntry();
-        entry.label="Costo del tanque";
-        entry.formColor = ContextCompat.getColor(this,R.color.color_green);
-        legendEntry[0] = entry;
-
-        LegendEntry entry2 = new LegendEntry();
-        entry2.label="Km Recorridos";
-        entry2.formColor = Color.rgb(240, 238, 70);
-        legendEntry[1] = entry2;
-
-
-        Legend l = combinedChart.getLegend();
-        l.setEnabled(true);
-        l.setWordWrapEnabled(true);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setCustom(legendEntry);
-
-        YAxis rightAxis = combinedChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMaximum(50000f);
-        rightAxis.setAxisMinimum(5000f); // this replaces setStartAtZero(true)
-
-        YAxis leftAxis = combinedChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMaximum(50000f);
-        leftAxis.setAxisMinimum(5000f); // this replaces setStartAtZero(true)
-
-        XAxis xAxis = combinedChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-        xAxis.setAxisMinimum(0.5f);
-        //xAxis.setGranularity(1f);
-
-        /*xAxis.setValueFormatter(new IndexAxisValueFormatter(){
+        try{
+        combinedChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
-            public String getFormattedValue(float value) {
-                return mMonths[(int) value % mMonths.length];
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.e(TAG, "onValueSelected: TEST 1" );
             }
-        });*/
 
-        CombinedData dataCombined = new CombinedData();
+            @Override
+            public void onNothingSelected() {
+                Log.e(TAG, "onValueSelected: TEST 2" );
+            }
+        });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        dataCombined.setData( generateLineData());
-        dataCombined.setData(generateBarData());
 
-        xAxis.setAxisMaximum(dataCombined.getXMax() + 0.50f);
 
-        combinedChart.setData(dataCombined);
-        combinedChart.invalidate();
     }
 
-    private float[] getValuesBarChart(float[] values){
+    private float[] getValuesLineChart(float[] valuesLineChart){
         ArrayList<Log_object> list_logs = Singleton.getInstance(this).getList_fuelLogs();
         switch (list_logs.size()){
             case 0: case 1:
                 Log.e(TAG, "getValuesBarChart: 0-1" );
-                values[0] = 0;
-                values[1] = 0;
-                values[2] = 0;
-                values[3] = 0;
+                valuesLineChart[0] = 0;
+                valuesLineChart[1] = 0;
+                valuesLineChart[2] = 0;
+                valuesLineChart[3] = 0;
                 break;
             case 2:
                 Log.e(TAG, "getValuesBarChart: 2" );
-                values[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
-                values[1] = 0;
-                values[2] = 0;
-                values[3] = 0;
+                valuesLineChart[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
+                valuesLineChart[1] = 0;
+                valuesLineChart[2] = 0;
+                valuesLineChart[3] = 0;
                 break;
             case 3:
                 Log.e(TAG, "getValuesBarChart: 3" );
-                values[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
-                values[1] = list_logs.get(1).getLiters_qtty() / (list_logs.get(2).getKm_traveled() / 100);
-                values[2] = 0;
-                values[3] = 0;
+                valuesLineChart[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
+                valuesLineChart[1] = list_logs.get(1).getLiters_qtty() / (list_logs.get(2).getKm_traveled() / 100);
+                valuesLineChart[2] = 0;
+                valuesLineChart[3] = 0;
                 break;
             case 4:
                 Log.e(TAG, "getValuesBarChart: 4" );
-                values[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
-                values[1] = list_logs.get(1).getLiters_qtty() / (list_logs.get(2).getKm_traveled() / 100);
-                values[2] = list_logs.get(2).getLiters_qtty() / (list_logs.get(3).getKm_traveled() / 100);
-                values[3] = 0;
+                valuesLineChart[0] = list_logs.get(0).getLiters_qtty() / (list_logs.get(1).getKm_traveled() / 100);
+                valuesLineChart[1] = list_logs.get(1).getLiters_qtty() / (list_logs.get(2).getKm_traveled() / 100);
+                valuesLineChart[2] = list_logs.get(2).getLiters_qtty() / (list_logs.get(3).getKm_traveled() / 100);
+                valuesLineChart[3] = 0;
                 break;
             default:
                 Log.e(TAG, "getValuesBarChart: Def" );
                 int len = list_logs.size()-5;
-                values[0] = list_logs.get(len).getLiters_qtty() / (list_logs.get(len+1).getKm_traveled() / 100);
-                values[1] = list_logs.get(len+1).getLiters_qtty() / (list_logs.get(len+2).getKm_traveled() / 100);
-                values[2] = list_logs.get(len+2).getLiters_qtty() / (list_logs.get(len+3).getKm_traveled() / 100);
-                values[3] = list_logs.get(len+3).getLiters_qtty() / (list_logs.get(len+4).getKm_traveled() / 100);
+                valuesLineChart[0] = list_logs.get(len).getLiters_qtty() / (list_logs.get(len+1).getKm_traveled() / 100);
+                valuesLineChart[1] = list_logs.get(len+1).getLiters_qtty() / (list_logs.get(len+2).getKm_traveled() / 100);
+                valuesLineChart[2] = list_logs.get(len+2).getLiters_qtty() / (list_logs.get(len+3).getKm_traveled() / 100);
+                valuesLineChart[3] = list_logs.get(len+3).getLiters_qtty() / (list_logs.get(len+4).getKm_traveled() / 100);
         }
 
        /*
@@ -286,7 +244,60 @@ public class FuelControlActivity extends AppCompatActivity {
                 best_l_per_100km = best_l_per100km_temp;
         }*/
 
-        return values;
+        return valuesLineChart;
+    }
+
+    private float[] getValuesBarChart(){
+        float[] valuesBarChart = new float[4];
+        ArrayList<Log_object> list_logs = Singleton.getInstance(this).getList_fuelLogs();
+        switch (list_logs.size()){
+            case 0: case 1:
+                Log.e(TAG, "getValuesBarChart: 0-1" );
+                valuesBarChart[0] = 0;
+                valuesBarChart[1] = 0;
+                valuesBarChart[2] = 0;
+                valuesBarChart[3] = 0;
+                break;
+            case 2:
+                Log.e(TAG, "getValuesBarChart: 2" );
+                valuesBarChart[0] = list_logs.get(0).getTotal_price();
+                valuesBarChart[1] = 0;
+                valuesBarChart[2] = 0;
+                valuesBarChart[3] = 0;
+                break;
+            case 3:
+                Log.e(TAG, "getValuesBarChart: 3" );
+                valuesBarChart[0] = list_logs.get(0).getTotal_price();
+                valuesBarChart[1] = list_logs.get(1).getTotal_price();
+                valuesBarChart[2] = 0;
+                valuesBarChart[3] = 0;
+                break;
+            case 4:
+                Log.e(TAG, "getValuesBarChart: 4" );
+                valuesBarChart[0] = list_logs.get(0).getTotal_price();
+                valuesBarChart[1] = list_logs.get(1).getTotal_price();
+                valuesBarChart[2] = list_logs.get(2).getTotal_price();
+                valuesBarChart[3] = 0;
+                break;
+            default:
+                Log.e(TAG, "getValuesBarChart: Def" );
+                int len = list_logs.size()-5;
+                valuesBarChart[0] = list_logs.get(len).getTotal_price();
+                valuesBarChart[1] = list_logs.get(len +1).getTotal_price();
+                valuesBarChart[2] = list_logs.get(len +2).getTotal_price();
+                valuesBarChart[3] = list_logs.get(len +3).getTotal_price();
+        }
+
+       /*
+        float best_l_per_100km = 10000000;
+
+        for(Log_object i : list_logs){
+            float best_l_per100km_temp = i.getLiters_qtty() / (i.getKm_traveled() / 100);
+            if(best_l_per100km_temp < best_l_per_100km)
+                best_l_per_100km = best_l_per100km_temp;
+        }*/
+
+        return valuesBarChart;
     }
 
     private void setupBottomNavigationView(){
@@ -309,32 +320,32 @@ public class FuelControlActivity extends AppCompatActivity {
         finish();
     }
 
-    private ArrayList<Entry> getLineEntriesData(ArrayList<Entry> entries){
+    private ArrayList<Entry> getLineEntriesData(ArrayList<Entry> entries,float[] data){
         //entries.add(new Entry(0, 20));
-        entries.add(new Entry(1, 15000));
-        entries.add(new Entry(2, 16000));
-        entries.add(new Entry(3, 17000));
-        entries.add(new Entry(4, 18000));
+        entries.add(new Entry(1, data[0]));
+        entries.add(new Entry(2, data[1]));
+        entries.add(new Entry(3, data[2]));
+        entries.add(new Entry(4, data[3]));
 
         return entries;
     }
 
-    private ArrayList<BarEntry> getBarEnteries(ArrayList<BarEntry> entries){
+    private ArrayList<BarEntry> getBarEnteries(ArrayList<BarEntry> entries,float[] data){
         //entries.add(new BarEntry(0, 25));
-        entries.add(new BarEntry(1, 19000));
-        entries.add(new BarEntry(2, 20000));
-        entries.add(new BarEntry(3, 18000));
-        entries.add(new BarEntry(4, 19000));
+        entries.add(new BarEntry(1, data[0]));
+        entries.add(new BarEntry(2, data[1]));
+        entries.add(new BarEntry(3, data[2]));
+        entries.add(new BarEntry(4, data[3]));
         return  entries;
     }
 
-    private LineData generateLineData() {
+    private LineData generateLineData(float[] data) {
 
         LineData d = new LineData();
 
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
-        entries = getLineEntriesData(entries);
+        entries = getLineEntriesData(entries,data);
 
         LineDataSet set = new LineDataSet(entries, "Line");
         //set.setColor(Color.rgb(240, 238, 70));
@@ -346,22 +357,22 @@ public class FuelControlActivity extends AppCompatActivity {
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setDrawValues(true);
         set.setValueTextSize(10f);
-        set.setValueTextColor(Color.rgb(240, 238, 70));
+        set.setValueTextColor(ContextCompat.getColor(this,R.color.color_blue));
 
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setAxisDependency(YAxis.AxisDependency.RIGHT);
         d.addDataSet(set);
 
         return d;
     }
 
-    private BarData generateBarData() {
+    private BarData generateBarData(float[]  data) {
 
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-        entries = getBarEnteries(entries);
+        entries = getBarEnteries(entries,data);
 
         BarDataSet set1 = new BarDataSet(entries, "Bar");
         //set1.setColor(Color.rgb(60, 220, 78));
-        set1.setColors(ContextCompat.getColor(this,R.color.color_green));
+        set1.setColors(ContextCompat.getColor(this,R.color.color_green_wintokens));
         set1.setValueTextColor(ContextCompat.getColor(this,R.color.black_overlay));
         set1.setBarShadowColor(ContextCompat.getColor(this,R.color.color_green_very_light));
         set1.setValueTextSize(10f);
@@ -520,6 +531,16 @@ public class FuelControlActivity extends AppCompatActivity {
 
         txtView_total_spend.setText("Total fuel cost: ₡ "+total_spend);
 
+
+        setBarChart();
+
+
+
+
+        //COMBINED CHART
+    }
+
+    public void setBarChart(){
         //BAR CHART
 
         barChart.setDrawBarShadow(false);
@@ -533,7 +554,7 @@ public class FuelControlActivity extends AppCompatActivity {
 
         float[] valuesGraph = new float[4];
 
-        valuesGraph = getValuesBarChart(valuesGraph);
+        valuesGraph = getValuesLineChart(valuesGraph);
 
         barEntries.add(new BarEntry(1,valuesGraph[0]));
         barEntries.add(new BarEntry(2,valuesGraph[1]));
@@ -548,6 +569,71 @@ public class FuelControlActivity extends AppCompatActivity {
 
         barChart.setData(data);
         barChart.invalidate();
+
+        setCombinedChart(valuesGraph);
+    }
+
+
+    public void setCombinedChart(float[] dataLineEntries) {
+        /// COMBINED CHART
+
+        combinedChart.getDescription().setEnabled(false);
+        combinedChart.setDrawGridBackground(true);
+
+        combinedChart.setDrawBarShadow(true);
+        combinedChart.setHighlightFullBarEnabled(true);
+
+        // draw bars behind lines
+        combinedChart.setDrawOrder(new CombinedChart.DrawOrder[]{
+                CombinedChart.DrawOrder.BAR,  CombinedChart.DrawOrder.LINE
+        });
+
+        LegendEntry[] legendEntry = new LegendEntry[2];
+
+        LegendEntry entry = new LegendEntry();
+        entry.label="Cost of tank";
+        entry.formColor = ContextCompat.getColor(this,R.color.color_green);
+        legendEntry[0] = entry;
+
+        LegendEntry entry2 = new LegendEntry();
+        entry2.label="Km traveled";
+        entry2.formColor = Color.rgb(240, 238, 70);
+        legendEntry[1] = entry2;
+
+
+        Legend l = combinedChart.getLegend();
+        l.setEnabled(true);
+        l.setWordWrapEnabled(true);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setCustom(legendEntry);
+
+        YAxis rightAxis = combinedChart.getAxisRight();
+        rightAxis.setDrawGridLines(true);
+        rightAxis.setAxisMaximum(5f);
+        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        rightAxis.setGranularity(0.2f);
+
+        YAxis leftAxis = combinedChart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setAxisMaximum(30000f);
+        leftAxis.setAxisMinimum(5000f); // this replaces setStartAtZero(true)
+
+
+        XAxis xAxis = combinedChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xAxis.setAxisMinimum(0.5f);
+
+        CombinedData dataCombined = new CombinedData();
+
+        dataCombined.setData(generateLineData(dataLineEntries));
+        dataCombined.setData(generateBarData(getValuesBarChart()));
+
+        xAxis.setAxisMaximum(dataCombined.getXMax() + 0.50f);
+        combinedChart.setTouchEnabled(false);
+        combinedChart.setData(dataCombined);
+        combinedChart.invalidate();
     }
 
     @Override

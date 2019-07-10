@@ -11,6 +11,8 @@ import com.example.BerthaApp.R;
 
 import java.util.ArrayList;
 
+
+//Adapter to show challenges in a listview
 public class Challenges_adapter extends ArrayAdapter {
 
     private ArrayList<Challenges> list_challenges;
@@ -36,11 +38,11 @@ public class Challenges_adapter extends ArrayAdapter {
 
         TextView challenge_name = convertView.findViewById(R.id.itemChallenge_nameChallenge);
         TextView challenge_date = convertView.findViewById(R.id.itemChallenge_dateChallenge);
-        TextView challenge_mode = convertView.findViewById(R.id.itemChallenge_scoreChallenge);
+        TextView challenge_score = convertView.findViewById(R.id.itemChallenge_scoreChallenge);
 
         challenge_name.setText(challenges.getName());
         challenge_date.setText(challenges.getEnd_date());
-        challenge_mode.setText(challenges.getScore_min());
+        challenge_score.setText(challenges.getScore_min());
 
         return convertView;
 

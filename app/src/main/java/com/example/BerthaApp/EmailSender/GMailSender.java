@@ -22,6 +22,8 @@ import javax.mail.internet.MimeMessage;
 
 import java.util.Properties;
 
+
+// this class is in charge to send the email..
 public class GMailSender extends AsyncTask<Void,Void,Void> {
 
     //Declaring Variables

@@ -38,7 +38,7 @@
         android:paddingTop="10dp"
 
         android:paddingEnd="0dp"
-        android:text="Agregar nuevo carro"
+        android:text="@string/add_new_car"
         android:textColor="@color/black_overlay"
         android:textSize="18sp"
         android:textStyle="bold"

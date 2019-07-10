@@ -1,5 +1,7 @@
 package com.example.BerthaApp.FuelControl;
 
+
+///Log object
 public class Log_object {
     private int id;
     private String date;

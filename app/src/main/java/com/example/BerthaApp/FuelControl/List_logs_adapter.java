@@ -11,6 +11,8 @@ import com.example.BerthaApp.R;
 
 import java.util.ArrayList;
 
+///adapter to display all logs in the listview of list_logs
+
 public class List_logs_adapter extends ArrayAdapter {
 
     private ArrayList<Log_object> list_logs;

@@ -16,6 +16,8 @@ import com.example.BerthaApp.R;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
+
+//Fragment of GLOBAL CHALLENGES TAB
 public class AllChallengesTab extends Fragment{
 
     private ListView allChallenge_listView;

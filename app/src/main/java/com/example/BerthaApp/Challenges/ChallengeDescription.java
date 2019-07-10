@@ -23,6 +23,9 @@ import com.example.BerthaApp.R;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+//Shows all the properties of a challenge
 public class ChallengeDescription extends AppCompatActivity {
 
     private TextView challenge_title, challenge_description,challenge_tokens,challenge_routeFrom,challenge_routeTo,challenge_expirationDate, challenge_scoreMin;
@@ -186,6 +189,7 @@ public class ChallengeDescription extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response Link", response);
+
                     }
                 },
                 new Response.ErrorListener()
@@ -208,8 +212,8 @@ public class ChallengeDescription extends AppCompatActivity {
             }
         };
         Singleton.getInstance(ChallengeDescription.this).addToRequestQueue(postRequest);
-
-
         finish();
+
+
     }
 }

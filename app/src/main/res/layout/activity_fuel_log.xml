@@ -55,7 +55,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fecha"
+                        android:text="@string/date"
                         android:layout_gravity="center_horizontal"
                         />
 
@@ -82,7 +82,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hora"
+                        android:text="@string/hour"
                         android:layout_gravity="center_horizontal"/>
 
 
@@ -114,7 +114,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Odometro (Valor actual km)"
+                        android:text="@string/current_odometer"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -139,7 +139,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Odometro (Ultimo registro)"
+                        android:text="@string/last_value_odometer"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -163,7 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total km recorridos \n"
+                        android:text="@string/total_km"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -197,7 +197,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Costo de Litro"
+                        android:text="@string/liter_cost"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -222,7 +222,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Litros"
+                        android:text="@string/liters"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -246,7 +246,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Costo total"
+                        android:text="@string/total_cost"
                         android:layout_gravity="start"
                         android:layout_marginTop="10dp"/>
 
@@ -271,7 +271,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de combustible"
+                android:text="@string/fuel_type"
                 android:layout_gravity="start"
                 android:layout_marginTop="10dp"/>
 
@@ -286,7 +286,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lugar"
+                android:text="@string/place"
                 android:layout_gravity="start"/>
 
 

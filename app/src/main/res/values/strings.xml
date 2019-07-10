@@ -43,6 +43,17 @@
     <string name="expiration">Expiration</string>
     <string name="route">Route</string>
     <string name="logs_history">Logs history</string>
+    <string name="add_new_car">Add New Car</string>
+    <string name="total_cost">Total cost</string>
+    <string name="liter_cost">Liter cost</string>
+    <string name="place">Place</string>
+    <string name="fuel_type">Fuel type</string>
+    <string name="liters">Liters</string>
+    <string name="current_odometer">Odometer (Current value in km)</string>
+    <string name="last_value_odometer">Odometer (Last value)</string>
+    <string name="total_km">Total km registered</string>
+    <string name="hour">Hour</string>
+    <string name="date">Date</string>
 
 
 </resources>

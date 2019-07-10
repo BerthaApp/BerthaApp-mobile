@@ -1,5 +1,7 @@
 package com.example.BerthaApp.Challenges;
 
+
+///Group object
 public class Groups {
 
     private int id;

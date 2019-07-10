@@ -37,6 +37,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/// This class is in charge to get the data and post the fuel log
 public class Fuel_log extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private final static String[] fuel_type = new String[] {"Gasoline", "Diesel"};

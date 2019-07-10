@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+//This class is in charge
 public class link_challenges extends AppCompatActivity {
 
     private static final String TAG = "link_challenges";

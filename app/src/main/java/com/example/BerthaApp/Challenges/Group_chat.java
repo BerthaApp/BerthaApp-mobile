@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import java.security.acl.Group;
 import java.util.ArrayList;
 
+
+//Chat of the group
 public class Group_chat extends AppCompatActivity {
 
     private final String TAG = "Group_Chat";

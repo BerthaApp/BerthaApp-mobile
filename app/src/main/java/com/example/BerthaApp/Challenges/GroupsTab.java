@@ -19,7 +19,7 @@ import com.example.BerthaApp.R;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-
+///Fragment of groups
 public class GroupsTab extends Fragment{
 
     private FloatingActionButton float_plus,float_add_group,float_linkChallenge;

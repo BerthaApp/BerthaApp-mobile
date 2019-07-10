@@ -11,6 +11,8 @@ import com.example.BerthaApp.R;
 
 import java.util.ArrayList;
 
+
+//Adapter to display all groups in the listview
 public class Groups_adapter extends ArrayAdapter {
 
     private ArrayList<Groups> list_groups;

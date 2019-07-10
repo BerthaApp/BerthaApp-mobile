@@ -102,9 +102,10 @@
                 android:layout_marginTop="15dp"/>
 
             <com.github.mikephil.charting.charts.CombinedChart
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="250dp"
-                android:id="@+id/combinedChart">
+                android:id="@+id/combinedChart"
+                android:layout_gravity="left">
 
 
             </com.github.mikephil.charting.charts.CombinedChart>

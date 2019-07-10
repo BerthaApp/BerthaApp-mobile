@@ -1,5 +1,8 @@
 package com.example.BerthaApp.Challenges;
 
+
+
+//CHALLENGE OBJECT
 public class Challenges {
 
     private int id;
