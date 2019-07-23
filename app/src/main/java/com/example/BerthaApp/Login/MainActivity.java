@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         usernameEdit = findViewById(R.id.email_edit);
         passwordEdit = findViewById(R.id.password_edit);
-        usernameEdit.setText("maria@gmail.com");
-        passwordEdit.setText("12345");
+        usernameEdit.setText("");
+        passwordEdit.setText("");
 
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
